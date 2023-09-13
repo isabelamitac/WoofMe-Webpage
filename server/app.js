@@ -4,7 +4,7 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
-let owner = require('./endpoints/ownerEndpoint');
+let owner = require('./controllers/ownerEndpoint');
 
 // Variables
 var mongoURI = 'mongodb://127.0.0.1/woofMeDB';
