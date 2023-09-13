@@ -4,12 +4,24 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+const DogModel = require("./models/dog")
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
-var port = process.env.PORT || 3000;
+//var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+//var mongoURI = 'mongodb+srv://woofMeUser:ya8XmNOw@woofmecluster.s2pgnsd.mongodb.net/?retryWrites=true&w=majority';
+let mongoURI = 'mongodb://127.0.0.1/woofMeDB';
+var port = 3000;
 
 // Connect to MongoDB
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+    console.log("Connected to MongoDB!");
+}
+
 mongoose.connect(mongoURI).catch(function(err) {
     if (err) {
         console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
@@ -39,6 +51,7 @@ app.get('/api', function(req, res) {
 app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
 });
+
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode

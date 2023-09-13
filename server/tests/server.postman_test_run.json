@@ -1,0 +1,44 @@
+{
+	"id": "51954333-3353-42bb-a7bb-7015f4036990",
+	"name": "server",
+	"timestamp": "2023-09-13T13:55:23.800Z",
+	"collection_id": "29368268-f9ace82d-ddad-499c-b651-e421c852f1de",
+	"folder_id": 0,
+	"environment_id": "29368268-84004e30-6a0a-4e30-a894-7186146e773b",
+	"totalPass": 0,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-09-13T13:55:22.952Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "1c73b70d-d48d-4404-88dd-54aaaf969dd9",
+			"name": "GET /api",
+			"url": "http://localhost:3000/api",
+			"time": 23,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				23
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 23,
+	"collection": {
+		"requests": [
+			{
+				"id": "1c73b70d-d48d-4404-88dd-54aaaf969dd9",
+				"method": "GET"
+			}
+		]
+	}
+}
