@@ -4,21 +4,23 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+let owner = require('./endpoints/ownerEndpoint');
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
-var port = process.env.PORT || 3000;
+var mongoURI = 'mongodb://127.0.0.1/woofMeDB';
+//'mongodb+srv://woofMeUser:ya8XmNOw@woofmecluster.s2pgnsd.mongodb.net/?retryWrites=true&w=majority';
+//process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+var port = 3000;
 
 // Connect to MongoDB
-mongoose.connect(mongoURI).catch(function(err) {
-    if (err) {
-        console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
-        console.error(err.stack);
-        process.exit(1);
-    }
-    console.log(`Connected to MongoDB with URI: ${mongoURI}`);
-});
-
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+    console.log("Connected to MongoDB!");
+}
 // Create Express app
 var app = express();
 // Parse requests of content-type 'application/json'
@@ -29,6 +31,9 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+
+// Endpoints 
+app.use('/owners',owner);
 
 // Import routes
 app.get('/api', function(req, res) {

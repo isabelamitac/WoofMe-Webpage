@@ -80,4 +80,5 @@ Woof me is a website for dog owners and dog lovers. The main purpose of the webs
 
 ## Teaser (MS3)
 
+(to be updated)
 ![Teaser](./images/teaser.png)
