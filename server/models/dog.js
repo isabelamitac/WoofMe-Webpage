@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 
 let dogSchema = new mongoose.Schema({
+    ownerId: { type: String },
     age: { type: Number },
     name: { type: String },
     breed: { type: String },
