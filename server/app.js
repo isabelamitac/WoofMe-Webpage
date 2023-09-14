@@ -4,15 +4,15 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
-let owner = require('./controllers/ownerEndpoint');
+const owner = require('./controllers/ownerController');
+const dogsitter = require('./controllers/dogsitterController');
+const dog = require('./controllers/dogEndpoint');
 
 // Variables
 var mongoURI = "mongodb://127.0.0.1/woofMeDB";
 //'mongodb+srv://woofMeUser:ya8XmNOw@woofmecluster.s2pgnsd.mongodb.net/?retryWrites=true&w=majority';
 //process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
 var port = 3000;
-
-//georg rules
 
 // Connect to MongoDB
 main().catch((err) => console.log(err));
@@ -35,7 +35,7 @@ app.options("*", cors());
 app.use(cors());
 
 // Endpoints
-app.use("/owners", owner);
+app.use("/create", owner);
 
 // Import routes
 app.get("/api", function (req, res) {
