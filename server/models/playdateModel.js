@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const playdateSchema = new mongoose.Schema({
   location: { type: String },
   time: { type: Time },
