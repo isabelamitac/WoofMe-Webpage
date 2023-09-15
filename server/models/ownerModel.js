@@ -12,11 +12,7 @@ const ownerSchema = new mongoose.Schema({
     email: { 
       type: String, 
       required: true 
-    },
-    dog: {
-      type: mongoose.Schema.Types.Id,
-      ref: "Dog",
-    },
+    }
   });
   
   module.exports = mongoose.model ("OwnerModel", ownerSchema);

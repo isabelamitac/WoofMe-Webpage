@@ -10,7 +10,7 @@ const dogsitterSchema = new mongoose.Schema({
         required: true 
       },
     timeAvailable: { 
-        type: TimeRanges, 
+        type: String, 
         required: true 
       },
     rating: { 

@@ -35,7 +35,9 @@ app.options("*", cors());
 app.use(cors());
 
 // Endpoints
-app.use("/create", owner);
+app.use("/owners", owner);
+app.use("/dogsitters", dogsitter);
+app.use("/dogs", dog);
 
 // Import routes
 app.get("/api", function (req, res) {

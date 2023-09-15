@@ -1,6 +1,6 @@
 let mongoose = require ('mongoose') ;
 let express = require ('express');
-let Dog = require('./models/dog');
+let Dog = require("../models/dog");
 
 let router = express.Router();
 
@@ -113,7 +113,7 @@ router.patch('/ownerController/:id/updateDogsDiet', async function(req, res, nex
 });
 
 
-// Delete the camel with the given ID > DELETE
+// Delete the dog with the given ID > DELETE
 router.delete('ownerController/:id/deleteDog', async (req, res) => {
 
     if (req.body.name == null){
@@ -134,23 +134,5 @@ router.delete('ownerController/:id/deleteDog', async (req, res) => {
     
     res.send(foundDog)
 })
-
-// Error handler (must be registered last)
-app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    var err_res = {
-        "message": err.message,
-        "error": {}
-    };
-    if (app.get('env') === 'development') {
-        err_res["error"] = err;
-    }
-    res.status(err.status || 500);
-    res.json(err_res);
-});
-
-app.listen(3000, function() {
-    console.log('Example app listening on port 3000!');
-});
 
 module.exports = router;
