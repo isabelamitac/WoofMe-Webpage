@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
 })
 
 // Return the owner with the given ID -> GET /owners/:id (individual item)
-router.get('/owners/:id', async function(req, res, next) {
+router.get('/:id', async function(req, res, next) {
     try{
         const ownerToFind = await OwnerModel.findById(req.params.id);
         res.json(ownerToFind)
@@ -44,20 +44,27 @@ catch(error){
 })
 
 // Update owner account details by given ID -> PUT /owners/:id (individual item)
-router.put('/owners/:id', async function(req, res, next) {
+router.put('/:id', async function(req, res, next) {
     try{
-        const ownerId = req.params.id;
-       // const newDetails = req.body;
-        const newName = req.body.name;
-        const newLocation = req.body.location;
-        const newEmail = req.body.email;
-        const options = { new: true };
-
-        const updatedOwner = await OwnerModel.findByIdAndUpdate(
-            ownerId, newName, newLocation, newEmail, options
+       const ownerId = req.params.id;
+       //const newDetails = req.body;
+       const newLocation = req.body.location;
+       const newName = req.body.name;
+       const newEmail = req.body.email;
+     //  const options = { new: true };
+     console.log(req.params.id)
+      const user = await OwnerModel.findOne({_id : req.params.id});
+      for (let key of req.body) {
+        console.log(key)
+          user[key] = req.body.key;
+     }
+      await user.save()
+      console.log(user)
+     res.send(user)
+      /*  const updatedOwner = await OwnerModel.findByIdAndUpdate(
+            ownerId, { $set: {location: newLocation, name: newName, email: newEmail} } //, options 
         )
-
-        res.send(updatedOwner)
+        res.send(updatedOwner)*/
     }
     catch (error) {
         res.status(400).json({"message": "Could not update owner"})

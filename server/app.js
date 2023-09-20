@@ -6,7 +6,7 @@ var cors = require('cors');
 var history = require('connect-history-api-fallback');
 const owner = require('./controllers/ownerController');
 const dogsitter = require('./controllers/dogsitterController');
-const dog = require('./controllers/dogEndpoint');
+const dog = require('./controllers/dogController');
 
 // Variables
 var mongoURI = "mongodb://127.0.0.1/woofMeDB";
@@ -36,6 +36,7 @@ app.use(cors());
 
 // Endpoints
 app.use("/owners", owner);
+app.use("/owners/:id", owner);
 app.use("/dogsitters", dogsitter);
 app.use("/dogs", dog);
 
