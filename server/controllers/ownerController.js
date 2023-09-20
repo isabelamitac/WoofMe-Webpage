@@ -5,6 +5,7 @@ const OwnerModel = require("../models/ownerModel");
 
 // Create a new owner -> POST /owners (collection)
 router.post('/', async (req, res) => {
+    console.log(req)
     const newOwner = new OwnerModel({ // or just: const newOwner = new Owner(req.body)
         location: req.body.location,
         name: req.body.name,

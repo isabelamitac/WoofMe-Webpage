@@ -40,6 +40,12 @@ app.use("/owners/:id", owner);
 app.use("/dogsitters", dogsitter);
 app.use("/dogs", dog);
 
+// Logging for non-existing routes
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.path}`);
+  next();
+});
+
 // Import routes
 app.get("/api", function (req, res) {
   res.json({ message: "Welcome to your DIT342 backend ExpressJS project!" });
