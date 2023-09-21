@@ -4,9 +4,8 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
-const owner = require('./controllers/ownerController');
-const dogsitter = require('./controllers/dogsitterController');
-const dog = require('./controllers/dogController');
+
+const owner_routes = require('./routes/owner.js')
 
 // Variables
 var mongoURI = "mongodb://127.0.0.1/woofMeDB";
@@ -34,11 +33,9 @@ app.use(morgan("dev"));
 app.options("*", cors());
 app.use(cors());
 
-// Endpoints
-app.use("/owners", owner);
-app.use("/owners/:id", owner);
-app.use("/dogsitters", dogsitter);
-app.use("/dogs", dog);
+//Using the routes
+app.use('/api/owners', owner_routes);
+
 
 // Logging for non-existing routes
 app.use((req, res, next) => {

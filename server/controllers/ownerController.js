@@ -1,14 +1,11 @@
-const mongoose = require("mongoose");
-const express = require("express");
-const router = express.Router();
-const OwnerModel = require("../models/ownerModel");
-
+const Owner = require("../models/ownerModel");
 
 //OWNERS
+
 // Create a new owner -> POST /owners (collection)
-router.post("/", async (req, res) => {
+const createOwner = async (req, res) => {
   console.log(req);
-  const newOwner = new OwnerModel({
+  const newOwner = new Owner({
     // or just: const newOwner = new Owner(req.body)
     location: req.body.location,
     name: req.body.name,
@@ -21,58 +18,48 @@ router.post("/", async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: "Invalid request" });
   }
-});
+};
 
 // Return all owners -> GET /owners (collection)
-router.get("/", async (req, res) => {
+const getOwners = async (req, res) => {
   try {
-    const owners = await OwnerModel.find();
+    const owners = await Owner.find();
     res.json(owners);
   } catch (error) {
     res.status(500).json({ message: "Could not find any owners" });
   }
-});
+};
 
 // Return the owner with the given ID -> GET /owners/:id (individual item)
-router.get("/:id", async function (req, res, next) {
+const getOwnerById = async (req, res) => {
   try {
-    const ownerToFind = await OwnerModel.findById(req.params.id);
+    const ownerID = req.params.id;
+    const ownerToFind = await Owner.findById(ownerID);
     res.json(ownerToFind);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Could not find any owner with the given ID" });
+    res.status(500).json({ message: "Could not find any owner with the given ID" });
   }
-});
+};
 
 // Update owner account details by given ID -> PUT /owners/:id (individual item)
-router.put("/:id", async function (req, res, next) {
+const updateOwner = async (req, res) => {
   try {
     const ownerId = req.params.id;
-    //const newDetails = req.body;
-    const newLocation = req.body.location;
-    const newName = req.body.name;
-    const newEmail = req.body.email;
-    //  const options = { new: true };
-    console.log(req.params.id);
-    const user = await OwnerModel.findOne({ _id: req.params.id });
-    for (let key of req.body) {
-      console.log(key);
-      user[key] = req.body.key;
-    }
-    await user.save();
-    console.log(user);
-    res.send(user);
-    /*  const updatedOwner = await OwnerModel.findByIdAndUpdate(
-            ownerId, { $set: {location: newLocation, name: newName, email: newEmail} } //, options 
+    const updates = req.body;
+    const options = { new: true };
+  
+     const updatedOwner = await Owner.findByIdAndUpdate(
+            ownerId, 
+            updates, 
+            options
         )
-        res.send(updatedOwner)*/
+        res.send(updatedOwner)
   } catch (error) {
     res.status(400).json({ message: "Could not update owner" });
   }
-});
+};
 
-
+/*
 //DOGS
 // Create a new dog > POST
 router.post('api/owners/:id/createDog', async (req, res) => {
@@ -208,6 +195,7 @@ router.delete('/api/owners/:id/deleteDog', async (req, res) => {
 
 
 //PLAYDATES
+
 // Get a playdate through the owner's ID.
 router.get("ownerController/:id/getPlaydate", async (req, res) => {
   if (req.body.name == null) {
@@ -230,6 +218,7 @@ router.get("ownerController/:id/getPlaydate", async (req, res) => {
   }); //search list for the id of the playdate
   res.send(foundPlaydate);
 });
+
 
 // Delete the playdate with the given ID
 router.delete("ownerController/:id/deletePlaydate", async (req, res) => {
@@ -255,6 +244,11 @@ router.delete("ownerController/:id/deletePlaydate", async (req, res) => {
   });
 
   res.send(foundPlaydate);
-});
+});*/
 
-module.exports = router;
+module.exports = {
+    createOwner,
+    getOwners,
+    getOwnerById,
+    updateOwner
+};
