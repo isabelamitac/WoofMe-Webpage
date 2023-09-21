@@ -6,6 +6,10 @@ const dogsitterSchema = new mongoose.Schema({
       type: String, 
       required: [true, "Name is required field!" ]
     },
+    location: { 
+      type: String, 
+      required: [true, "Location is required field!" ]
+    },
     dateAvailable: { 
         type: Date, 
         required: [true, "Date available is required field!" ] 

@@ -5,7 +5,8 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-const owner_routes = require('./routes/owner.js')
+const owner_routes = require('./routes/owner.js');
+const dogsitter_routes = require('./routes/dogsitter.js');
 
 // Variables
 var mongoURI = "mongodb://127.0.0.1/woofMeDB";
@@ -35,7 +36,7 @@ app.use(cors());
 
 //Using the routes
 app.use('/api/owners', owner_routes);
-
+app.use('/api/dogsitters', dogsitter_routes);
 
 // Logging for non-existing routes
 app.use((req, res, next) => {

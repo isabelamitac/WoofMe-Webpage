@@ -1,7 +1,4 @@
-const mongoose = require("mongoose");
-const express = require("express");
-const router = express.Router();
-const OwnerModel = require("../models/ownerModel");
+const Owner = require("../models/ownerModel");
 let DogModel = require("../models/dogModel");
 
 
