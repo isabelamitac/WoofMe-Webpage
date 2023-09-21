@@ -1,75 +1,122 @@
-const mongoose = require ('mongoose') ;
-const express = require ('express');
+const mongoose = require("mongoose");
+const express = require("express");
 const router = express.Router();
 const OwnerModel = require("../models/ownerModel");
 
 // Create a new owner -> POST /owners (collection)
-router.post('/', async (req, res) => {
-    console.log(req)
-    const newOwner = new OwnerModel({ // or just: const newOwner = new Owner(req.body)
-        location: req.body.location,
-        name: req.body.name,
-        email: req.body.email
-    })
+router.post("/", async (req, res) => {
+  console.log(req);
+  const newOwner = new OwnerModel({
+    // or just: const newOwner = new Owner(req.body)
+    location: req.body.location,
+    name: req.body.name,
+    email: req.body.email,
+  });
 
-    try {
-        const ownerToSave = await newOwner.save();
-        res.status(200).json(ownerToSave)
-    }
-    catch (error) {
-        res.status(400).json({"message": "Invalid request"})
-    }
-})
+  try {
+    const ownerToSave = await newOwner.save();
+    res.status(200).json(ownerToSave);
+  } catch (error) {
+    res.status(400).json({ message: "Invalid request" });
+  }
+});
 
 // Return all owners -> GET /owners (collection)
-router.get('/', async (req, res) => {
-    try{
-        const owners = await OwnerModel.find();
-        res.json(owners)
-    }
-    catch(error){
-        res.status(500).json({"message": "Could not find any owners"})
-    }
-})
+router.get("/", async (req, res) => {
+  try {
+    const owners = await OwnerModel.find();
+    res.json(owners);
+  } catch (error) {
+    res.status(500).json({ message: "Could not find any owners" });
+  }
+});
 
 // Return the owner with the given ID -> GET /owners/:id (individual item)
-router.get('/:id', async function(req, res, next) {
-    try{
-        const ownerToFind = await OwnerModel.findById(req.params.id);
-        res.json(ownerToFind)
-
-    }
-catch(error){
-    res.status(500).json({"message": "Could not find any owner with the given ID"})
-}
-})
+router.get("/:id", async function (req, res, next) {
+  try {
+    const ownerToFind = await OwnerModel.findById(req.params.id);
+    res.json(ownerToFind);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Could not find any owner with the given ID" });
+  }
+});
 
 // Update owner account details by given ID -> PUT /owners/:id (individual item)
-router.put('/:id', async function(req, res, next) {
-    try{
-       const ownerId = req.params.id;
-       //const newDetails = req.body;
-       const newLocation = req.body.location;
-       const newName = req.body.name;
-       const newEmail = req.body.email;
-     //  const options = { new: true };
-     console.log(req.params.id)
-      const user = await OwnerModel.findOne({_id : req.params.id});
-      for (let key of req.body) {
-        console.log(key)
-          user[key] = req.body.key;
-     }
-      await user.save()
-      console.log(user)
-     res.send(user)
-      /*  const updatedOwner = await OwnerModel.findByIdAndUpdate(
+router.put("/:id", async function (req, res, next) {
+  try {
+    const ownerId = req.params.id;
+    //const newDetails = req.body;
+    const newLocation = req.body.location;
+    const newName = req.body.name;
+    const newEmail = req.body.email;
+    //  const options = { new: true };
+    console.log(req.params.id);
+    const user = await OwnerModel.findOne({ _id: req.params.id });
+    for (let key of req.body) {
+      console.log(key);
+      user[key] = req.body.key;
+    }
+    await user.save();
+    console.log(user);
+    res.send(user);
+    /*  const updatedOwner = await OwnerModel.findByIdAndUpdate(
             ownerId, { $set: {location: newLocation, name: newName, email: newEmail} } //, options 
         )
         res.send(updatedOwner)*/
+  } catch (error) {
+    res.status(400).json({ message: "Could not update owner" });
+  }
+});
+
+// Get a playdate through the owner's ID.
+router.get("ownerController/:id/getPlaydate", async (req, res) => {
+  if (req.body.name == null) {
+    return res.status(400).json({ message: "Invalid name passed" });
+  }
+  // this gets us a list of dogs with the owner's id
+  let listPLaydate = await Playdate.find(req.params.id, (err, playdate) => {
+    if (err) {
+      return next(err);
     }
-    catch (error) {
-        res.status(400).json({"message": "Could not update owner"})
+    if (playdate == null) {
+      return res
+        .status(404)
+        .json({ message: "No playdates found for given ID" });
     }
-})
+  });
+
+  let foundPlaydate = listPlaydate.find((playdate) => {
+    return playdate.id === req.body.id;
+  }); //search list for the id of the playdate
+  res.send(foundPlaydate);
+});
+
+// Delete the playdate with the given ID
+router.delete("ownerController/:id/deletePlaydate", async (req, res) => {
+  if (req.body.name == null) {
+    return res.status(400).json({ message: "Invalid name passed" });
+  }
+  // this gets us a list of playdates (just one playdate) with the owner's id
+  let listPlaydates = await Playdate.find(req.params.id, (err, playdate) => {
+    if (err) {
+      return next(err);
+    }
+    if (playdate == null) {
+      return res
+        .status(404)
+        .json({ message: "No playdates found for given ID" });
+    }
+
+    //search list for id of the playdate
+    playdate.delete((playdateToDelete) => {
+      return playdateToDelete.id == req.body.id;
+    });
+    playdate.save();
+  });
+
+  res.send(foundPlaydate);
+});
 
 module.exports = router;
