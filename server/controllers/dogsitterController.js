@@ -41,8 +41,20 @@ const deleteDogsitters = async (req, res) => {
     }
 }
 
+// Sort dogsitters DESC by rating
+const sortByRating = async (req, res) => {
+    try{
+       const sorted = await Dogsitter.find().sort({rating:-1});
+        res.json(sorted);
+    }
+    catch(error){
+        res.status(500).json({message: "Cound not sort dogsitters"})
+    }
+}
+
 module.exports = {
     createDogsitter,
     getDogsitters,
-    deleteDogsitters
+    deleteDogsitters,
+    sortByRating
 };

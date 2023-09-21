@@ -37,6 +37,7 @@ app.use(cors());
 //Using the routes
 app.use('/api/owners', owner_routes);
 app.use('/api/dogsitters', dogsitter_routes);
+app.use('/api/dogsitters/sort', dogsitter_routes);
 
 // Logging for non-existing routes
 app.use((req, res, next) => {
