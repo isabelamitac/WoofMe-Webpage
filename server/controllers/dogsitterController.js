@@ -1,8 +1,8 @@
-const Dogsitter = require("../models/dogsitterModel");
+const Dogsitters = require("../models/dogsitterModel");
 
 // Create a new dogsitter -> POST /dogsitters (collection)
 const createDogsitter = async (req, res) => {
-    const newDogsitter = new Dogsitter({
+    const dogsitters = new Dogsitters({
         name: req.body.name,
         location: req.body.location,
         dateAvailable: req.body.dateAvailable,
@@ -11,7 +11,7 @@ const createDogsitter = async (req, res) => {
     })
 
     try {
-        const dogsitterToSave = await newDogsitter.save();
+        const dogsitterToSave = await dogsitters.save();
         res.status(200).json(dogsitterToSave)
     }
     catch (error) {
@@ -22,7 +22,7 @@ const createDogsitter = async (req, res) => {
 // Return all dogsitters -> GET /dogsitters (collection)
 const getDogsitters = async (req, res) => {
     try{
-        const dogsitters = await Dogsitter.find();
+        const dogsitters = await Dogsitters.find();
         res.json(dogsitters)
     }
     catch(error){
@@ -33,7 +33,7 @@ const getDogsitters = async (req, res) => {
 // Delete all dogsitters (by admin) -> DELETE /dogsitters (collection)
 const deleteDogsitters = async (req, res) => {
     try {
-        const dogsitters = await Dogsitter.deleteMany({})
+        const dogsitters = await Dogsitters.deleteMany({})
         res.send('All dogsitters have been deleted')
     }
     catch (error) {
@@ -44,7 +44,7 @@ const deleteDogsitters = async (req, res) => {
 // Sort dogsitters DESC by rating
 const sortByRating = async (req, res) => {
     try{
-       const sorted = await Dogsitter.find().sort({rating:-1});
+       const sorted = await Dogsitters.find().sort({rating:-1});
         res.json(sorted);
     }
     catch(error){

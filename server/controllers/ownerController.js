@@ -1,5 +1,5 @@
-const Owner = require("../models/ownerModel");
-let DogModel = require("../models/dogModel");
+const Owners = require("../models/ownerModel");
+const Dogs = require("../models/dogModel");
 
 
 //OWNERS
@@ -7,7 +7,7 @@ let DogModel = require("../models/dogModel");
 // Create a new owner -> POST /owners (collection)
 const createOwner = async (req, res) => {
   console.log(req);
-  const newOwner = new Owner({
+  const owners = new Owners({
     // or just: const newOwner = new Owner(req.body)
     location: req.body.location,
     name: req.body.name,
@@ -15,7 +15,7 @@ const createOwner = async (req, res) => {
   });
 
   try {
-    const ownerToSave = await newOwner.save();
+    const ownerToSave = await owners.save();
     res.status(200).json(ownerToSave);
   } catch (error) {
     res.status(400).json({ message: "Invalid request" });
@@ -25,7 +25,7 @@ const createOwner = async (req, res) => {
 // Return all owners -> GET /owners (collection)
 const getOwners = async (req, res) => {
   try {
-    const owners = await Owner.find();
+    const owners = await Owners.find();
     res.json(owners);
   } catch (error) {
     res.status(500).json({ message: "Could not find any owners" });
@@ -36,7 +36,7 @@ const getOwners = async (req, res) => {
 const getOwnerById = async (req, res) => {
   try {
     const ownerID = req.params.id;
-    const ownerToFind = await Owner.findById(ownerID);
+    const ownerToFind = await Owners.findById(ownerID);
     res.json(ownerToFind);
   } catch (error) {
     res.status(500).json({ message: "Could not find any owner with the given ID" });
@@ -50,7 +50,7 @@ const updateOwner = async (req, res) => {
     const updates = req.body;
     const options = { new: true };
   
-     const updatedOwner = await Owner.findByIdAndUpdate(
+     const updatedOwner = await Owners.findByIdAndUpdate(
             ownerId, 
             updates, 
             options
