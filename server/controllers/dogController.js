@@ -11,14 +11,21 @@ Delete -> DELETE
 Get -> GET by OwnerID*/
 
 // Create a new dog > POST
-router.post('ownerController/:id/createDog', async (req, res) => {
+router.post('api/owners/:id/createDog', async (req, res) => {
     newDogParams = req.body
     let createdDog = await Dog.create(req.body, (err, newDog) => {
         // newDog.ownerId = req.params.id
         newDog = newDogParams
         newDog.save();
     })
-})
+  
+    try {
+      const dogsToSave = await newDog.save();
+      res.status(200).json(dogsToSave);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid request" });
+    }
+  });
 
 // Get a dog by owner ID > GET
 router.get('ownerController/:id/findDog', async (req, res) => {
