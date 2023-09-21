@@ -76,7 +76,7 @@ router.put("/:id", async function (req, res, next) {
 
 //DOGS
 // Create a new dog > POST
-router.post('api/owners/:id/createDog', async (req, res) => {
+router.post('/:id/createDog', async (req, res) => {
   newDogParams = req.body
   let createdDog = await Dog.create(req.body, (err, newDog) => {
       // newDog.ownerId = req.params.id
@@ -93,7 +93,7 @@ router.post('api/owners/:id/createDog', async (req, res) => {
 });
 
 // Get a dog by owner ID > GET
-router.get('/api/owners/:id/findDog', async (req, res) => {
+router.get('/:id/findDog', async (req, res) => {
 
   if (req.body.name == null){
       return res.status(400).json({"message" : "Invalid name passed"})
@@ -111,7 +111,7 @@ router.get('/api/owners/:id/findDog', async (req, res) => {
 })
 
 // Return a list of all dogs by owner ID > GET
-router.get('/api/owners/:id/findDogList', async (req, res) => {
+router.get('/:id/findDogList', async (req, res) => {
   // this gets us a list of dogs with the owner"s id
   let listDog = await Dog.find(
       req.params.id, (err, dog) => {
@@ -124,7 +124,7 @@ router.get('/api/owners/:id/findDogList', async (req, res) => {
 })
 
 // Update the dog with the given owner ID > PUT
-router.put('/api/owners/:id/updateDog', async function(req, res, next) {
+router.put('/:id/updateDog', async function(req, res, next) {
   if (req.body.name == null){
       return res.status(400).json({"message" : "Invalid name passed"})
   }
@@ -146,7 +146,7 @@ router.put('/api/owners/:id/updateDog', async function(req, res, next) {
 });
 
 // Update the dog's age with the given owner ID > PATCH
-router.patch('/ownerController/:id/updateAge', async function(req, res, next) {
+router.patch('/:id/updateAge', async function(req, res, next) {
   if (req.body.name == null){
       return res.status(400).json({"message" : "Invalid name passed"})
   }
@@ -165,7 +165,7 @@ router.patch('/ownerController/:id/updateAge', async function(req, res, next) {
 });
 
 // Update the dog's diet with the given owner ID > PATCH << fix others (test this pls)
-router.patch('/api/owners/:id/updateDogsDiet', async function(req, res, next) {
+router.patch('/:id/updateDogsDiet', async function(req, res, next) {
   if (req.body.name == null){
       return res.status(400).json({"message" : "Invalid name passed"})
   }
@@ -186,7 +186,7 @@ router.patch('/api/owners/:id/updateDogsDiet', async function(req, res, next) {
 
 
 // Delete the dog with the given ID > DELETE
-router.delete('/api/owners/:id/deleteDog', async (req, res) => {
+router.delete('/:id/deleteDog', async (req, res) => {
 
   if (req.body.name == null){
       return res.status(400).json({"message" : "Invalid name passed"})
