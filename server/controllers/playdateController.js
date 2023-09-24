@@ -1,29 +1,26 @@
-const mongoose = require("mongoose");
-const express = require("express");
-const router = express.Router();
-const Playdate = require("../models/playdateModel");
+const Playdates = require("../models/playdateModel");
 
 // Create a playdate
-router.post("playdateController/:id/createPlaydate", async (req, res) => {
+const createPlaydate = async (req, res) => {
   newPlaydateParams = req.body;
   let createPlaydate = await Playdate.create(req.body, (err, newPlaydate) => {
     newPlaydate = newPlaydateParams;
     newPlaydate.save();
   });
-});
+};
 
 // Get all playdates
-router.get("/playdates", async (req, res) => {
+const getAllPlaydates = async (req, res) => {
   try {
     const playdates = await Playdate.find();
     res.json(playdates);
   } catch (error) {
     res.status(500).json({ message: "Could not find any playdates" });
   }
-});
+};
 
 //Get a certain playdate
-router.get("/playdates/:playdateId", async (req, res) => {
+const getPlaydateById = async (req, res) => {
   try {
     const playdateId = req.params.playdateId;
     const playdates = await Playdate.findbyId(playdateId);
@@ -31,20 +28,20 @@ router.get("/playdates/:playdateId", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Could not find any playdates" });
   }
-});
+};
 
 // Delete all playdates
-router.delete("/delete", async (req, res) => {
+const deletePlaydates = async (req, res) => {
   try {
     const playdates = await Playdate.deleteMany({}, callback);
     res.send("All playdates have been deleted");
   } catch (error) {
     res.status(400).json({ message: "Could not delete the collection." });
   }
-});
+};
 
 // Delete a certain playdate
-router.delete("/playdates/delete/:id", async (req, res) => {
+const deletePlaydateById = async (req, res) => {
   let playdatesList = await Playdate.find(req.params.id, (err, playdate) => {
     if (err) {
       return next(err);
@@ -62,6 +59,6 @@ router.delete("/playdates/delete/:id", async (req, res) => {
   });
 
   res.send(foundPlaydate);
-});
+};
 
-module.exports = router;
+module.exports = {createPlaydate, getAllPlaydates, getPlaydateById, deletePlaydates, deletePlaydateById};

@@ -1,15 +1,16 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var morgan = require('morgan');
-var path = require('path');
-var cors = require('cors');
-var history = require('connect-history-api-fallback');
+var express = require("express");
+var mongoose = require("mongoose");
+var morgan = require("morgan");
+var path = require("path");
+var cors = require("cors");
+var history = require("connect-history-api-fallback");
 
-const owner_routes = require('./routes/owner.js');
-const dogsitter_routes = require('./routes/dogsitter.js');
+const owner_routes = require("./routes/owner.js");
+const dogsitter_routes = require("./routes/dogsitter.js");
+const playdate_routes = require("./routes/playdate.js");
 
 // Variables
-var mongoURI = "mongodb://127.0.0.1/woofMeDB";
+var mongoURI = "mongodb://0.0.0.0:27017/woofMeDB";
 //'mongodb+srv://woofMeUser:ya8XmNOw@woofmecluster.s2pgnsd.mongodb.net/?retryWrites=true&w=majority';
 //process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
 var port = 3000;
@@ -35,9 +36,10 @@ app.options("*", cors());
 app.use(cors());
 
 //Using the routes
-app.use('/api/owners', owner_routes);
-app.use('/api/dogsitters', dogsitter_routes);
-app.use('/api/dogsitters/sort', dogsitter_routes);
+app.use("/api/owners", owner_routes);
+app.use("/api/dogsitters", dogsitter_routes);
+app.use("/api/dogsitters/sort", dogsitter_routes);
+app.use("/api/playdates", playdate_routes);
 
 // Logging for non-existing routes
 app.use((req, res, next) => {
