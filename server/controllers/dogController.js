@@ -4,142 +4,131 @@ let DogModel = require("../models/dogModel");
 
 let router = express.Router();
 
-/*Dog
-Create a dog -> POST
-Change details -> PATCH
-Delete -> DELETE
-Get -> GET by OwnerID*/
+// Create a new dog > POST /cars/:car_id/drivers (relationship)
+const createDog = async (req,res) => {
+    try{
+        const dog = await Dogs.create(req.body);
+        res.status(201).json(dog);
+    }catch(error){
+        res.status(500).json({message: "Could not create dog"});
+    }
+};
 
-// Create a new dog > POST
-router.post('api/owners/:id/createDog', async (req, res) => {
-    newDogParams = req.body
-    let createdDog = await Dog.create(req.body, (err, newDog) => {
-        // newDog.ownerId = req.params.id
-        newDog = newDogParams
-        newDog.save();
-    })
-  
+// Get all dogs
+const getAllDogs = async (req, res) => {
     try {
-      const dogsToSave = await newDog.save();
-      res.status(200).json(dogsToSave);
+      const dogs = await Dogs.find();
+      res.json(dogs);
     } catch (error) {
-      res.status(400).json({ message: "Invalid request" });
+      res.status(500).json({ message: "Could not find any dogs" });
     }
-  });
+  };
 
-// Get a dog by owner ID > GET
-router.get('ownerController/:id/findDog', async (req, res) => {
-
-    if (req.body.name == null){
-        return res.status(400).json({"message" : "Invalid name passed"})
+// Get a specific dog
+const getDogById = async (req, res) => {
+    try {
+      const ownerId = req.params.ownerId;
+      const dogs = await Dogs.findbyId(ownerId);
+      res.json(dogs);
+    } catch (error) {
+      res.status(500).json({ message: "Could not find any dogs" });
     }
-    // this gets us a list of dogs with the owner's id
-    let listDog = await Dog.find(
-        req.params.id, (err, dog) => {
-            if (err) { return next(err); }
-            if (dog == null) {
-                return res.status(404).json({"message": "No dogs found for given ID"})
-            }
-        })
-    foundDog = listDog.find((dog) => {return dog.name == req.body.name}) //search list for name of dog
-    res.send(foundDog)
-})
+  };
 
-// Return a list of all dogs by owner ID > GET
-router.get('ownerController/:id/findDogList', async (req, res) => {
-    // this gets us a list of dogs with the owner"s id
-    let listDog = await Dog.find(
-        req.params.id, (err, dog) => {
-            if (err) { return next(err); }
-            if (dog == null) {
-                return res.status(404).json({"message": "No dogs found for given ID"})
-            }
-        })
-    res.send(listDog)
-})
-
-// Update the dog with the given owner ID > PUT
-router.put('/ownerController/:id/updateDog', async function(req, res, next) {
-    if (req.body.name == null){
-        return res.status(400).json({"message" : "Invalid name passed"})
-    }
-    // this gets us a list of dogs with the owner's id
-    let updatedDog = await Dog.find(
-            {"ownerId" : req.params.id, "name": req.body.name}, (err, dog) => {
-                if (err) { return next(err); }
-                if (dog == null) {
-                    return res.status(404).json({"message": "No dogs found for given ID"})
-                }
-                //dog = listDog.find((dogToFind) => {return dogToFind.name == req.body.name}) //search list for name of dog
-                dog.name = req.body.name
-                dog.age = req.body.age
-                dog.breed = req.body.breed
-                dog.diet = req.body.diet
-                dog.save();
-            })
-        res.json(updatedDog);
-});
-
-// Update the dog's age with the given owner ID > PATCH
-router.patch('/ownerController/:id/updateAge', async function(req, res, next) {
-    if (req.body.name == null){
-        return res.status(400).json({"message" : "Invalid name passed"})
-    }
-    // this gets us a list of dogs with the owner's id
-    let updatedDog = await Dog.find(
-        {"ownerId" : req.params.id, "name": req.body.name}, (err, dog) => {
-            if (err) { return next(err); }
-            if (dog == null) {
-                return res.status(404).json({"message": "No dogs found for given ID"})
-            }
-            //dog = listDog.find((dogToFind) => {return dogToFind.name == req.body.name}) //search list for name of dog
-            dog.age = req.body.age
-            dog.save();
-        })
-    res.json(updatedDog);
-});
-
-// Update the dog's diet with the given owner ID > PATCH << fix others (test this pls)
-router.patch('/ownerController/:id/updateDogsDiet', async function(req, res, next) {
-    if (req.body.name == null){
-        return res.status(400).json({"message" : "Invalid name passed"})
-    }
-    // this gets us a list of dogs with the owner's id
-    let updatedDog = await Dog.find(
-        {"ownerId" : req.params.id, "name": req.body.name}, (err, dog) => {
-            if (err) { return next(err); }
-            if (dog == null) {
-                return res.status(404).json({"message": "No dogs found for given ID"})
-            }
-            //dog = listDog.find((dogToFind) => {return dogToFind.name == req.body.name}) //search list for name of dog
-            dog.diet = req.body.diet
-            dog.save();
-        })
-    res.json(updatedDog);
-
-});
-
-
-// Delete the dog with the given ID > DELETE
-router.delete('ownerController/:id/deleteDog', async (req, res) => {
-
-    if (req.body.name == null){
-        return res.status(400).json({"message" : "Invalid name passed"})
-    }
-    // this gets us a list of dogs with the owner's id
-    let listDog = await Dog.find(
-        req.params.id, (err, dog) => {
-            if (err) { return next(err); }
-            if (dog == null) {
-                return res.status(404).json({"message": "No dogs found for given ID"})
-            }
-
-            dog.delete((dogToDelete) => {return dogToDelete.name == req.body.name}) //search list for name of dog
-            dog.save();
-
-        })
+// Update the entire dog info
+const updateDog = async (req, res) => {
+    try {
+      const ownerId = req.params.id;
+      const updates = req.body;
+      const options = { new: true };
     
-    res.send(foundDog)
-})
+       const updatedDog = await Dogs.findByIdAndUpdate(
+              ownerId, 
+              updates, 
+              options
+          )
+          res.send(updatedDog)
+    } catch (error) {
+      res.status(400).json({ message: "Could not update the dog" });
+    }
+  };
+
+  // Update the dog's age
+  const updateDogAge = async (req, res) => {
+    try {
+        const ownerId = req.params.id;
+        const updateAge = req.body.age;
+        const options = { new: true };
+
+        const updatedDogAge = await Dogs.findbyId (
+            ownerId,
+            updateAge,
+            options
+        )
+        res.send(updateAge)
+    } catch (error) {
+        res.status(400).json({ message: "Could not update the dog's age"});
+    }
+};
+
+  // Update the dog's diet
+  const updateDogDiet = async (req, res) => {
+    try {
+        const ownerId = req.params.id;
+        const updateDiet = req.body.diet;
+        const options = { new: true };
+
+        const updatedDogDiet = await Dogs.findbyId (
+            ownerId,
+            updateDiet,
+            options
+        )
+        res.send(updateDiet)
+    } catch (error) {
+        res.status(400).json({ message: "Could not update the dog's diet"});
+    }
+};
+
+  // Delete dog by ID
+  const deleteDogById = async (req, res) => {
+    let dogList = await Dogs.find(req.params.id, (err, dog) => {
+      if (err) {
+        return next(err);
+      }
+      if (dog == null) {
+        return res
+          .status(404)
+          .json({ message: "No dogs found for given ID" });
+      }
+  
+      dog.delete((dogToDelete) => {
+        return dogToDelete.id == req.body.id;
+      });
+      dog.save();
+    });
+  
+    res.send(foundDog);
+  };
+
+  // Delete all dogs by ID
+  const deleteAllDogs = async (req, res) => {
+    try {
+      const dogs = await Dogs.deleteMany({}, callback);
+      res.send("All dogs have been deleted");
+    } catch (error) {
+      res.status(400).json({ message: "Could not delete the collection." });
+    }
+  };
 
 module.exports = router;
+
+module.exports = {
+    createDog,
+    getAllDogs,
+    getDogById,
+    updateDog,
+    updateDogAge,
+    updateDogDiet,
+    deleteDogById,
+    deleteAllDogs
+};
