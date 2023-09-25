@@ -56,7 +56,7 @@ const updateDog = async (req, res) => {
             updateAge,
             options
         )
-        res.send(updateAge)
+        res.send(updatedDogAge)
     } catch (error) {
         res.status(400).json({ message: "Could not update the dog's age"});
     }
