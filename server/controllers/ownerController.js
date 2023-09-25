@@ -20,12 +20,12 @@ const createOwner = async (req, res) => {
 };
 
 // Create a new dog > POST /cars/:car_id/drivers (relationship)
-const createDog = async (req,res) => {
-  try{
-      const dog = await Dogs.create(req.body);
-      res.status(200).json(dog);
-  }catch(error){
-      res.status(500).json({message: "Could not create dog"});
+const createDog = async (req, res) => {
+  try {
+    const dog = await Dogs.create(req.body);
+    res.status(200).json(dog);
+  } catch (error) {
+    res.status(500).json({ message: "Could not create dog" });
   }
 };
 
@@ -46,7 +46,9 @@ const getOwnerById = async (req, res) => {
     const ownerToFind = await Owners.findById(ownerID);
     res.json(ownerToFind);
   } catch (error) {
-    res.status(500).json({ message: "Could not find any owner with the given ID" });
+    res
+      .status(500)
+      .json({ message: "Could not find any owner with the given ID" });
   }
 };
 
@@ -56,13 +58,13 @@ const updateOwner = async (req, res) => {
     const ownerId = req.params.id;
     const updates = req.body;
     const options = { new: true };
-  
-     const updatedOwner = await Owners.findByIdAndUpdate(
-            ownerId, 
-            updates, 
-            options
-        )
-        res.send(updatedOwner)
+
+    const updatedOwner = await Owners.findByIdAndUpdate(
+      ownerId,
+      updates,
+      options
+    );
+    res.send(updatedOwner);
   } catch (error) {
     res.status(400).json({ message: "Could not update owner" });
   }
@@ -74,19 +76,18 @@ const getAllDogsFromOwner = async (req, res) => {
     const owner = await Owners.findById(req.params.id);
 
     if (!owner) {
-    return res.status(404).json({ message: "Owner not found" });
-  }
-  
+      return res.status(404).json({ message: "Owner not found" });
+    }
+
     const dogs = await Dogs.find({ ownerId: owner.id }).exec();
     res.json(dogs);
-
   } catch (error) {
     res.status(500).json({ message: "Could not find any dogs" });
   }
 };
 
 // Delete owner by given ID -> DELETE /owners/:id (individual item)
-const deleteOwnerById = async (req,res) => {
+const deleteOwnerById = async (req, res) => {
   try {
     await Owners.deleteOne({ id: req.params.id });
     res.send("Owner has been deleted");
@@ -95,12 +96,22 @@ const deleteOwnerById = async (req,res) => {
   }
 };
 
+// Create a playdate
+const createPlaydate = async (req, res) => {
+  try {
+    const playdate = await Playdates.create(req.body);
+    res.status(201).json(playdate);
+  } catch (error) {
+    res.status(500).json({ message: "Could not create playdate" });
+  }
+};
+
 module.exports = {
-    createOwner,
-    createDog,
-    getOwners,
-    getOwnerById,
-    getAllDogsFromOwner,
-    updateOwner,
-    deleteOwnerById
+  createOwner,
+  getOwners,
+  getOwnerById,
+  getAllDogsFromOwner,
+  updateOwner,
+  deleteOwnerById,
+  createPlaydate,
 };

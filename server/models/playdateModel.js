@@ -13,17 +13,12 @@ const playdateSchema = new mongoose.Schema({
     type: String,
     required: [true, "Time needs to be specified!"],
   },
-  numberOfAttendees: { type: Number },
-  dog: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "dog",
-    required: [true, "Please choose a dog!"],
-  },
-  dogsitter: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "dogsitter",
-    required: [true, "Please choose a dogsitter!"],
-  },
+  otherOwners: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "otherOwner",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Playdate", playdateSchema);

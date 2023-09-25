@@ -9,6 +9,7 @@ const {
   getAllDogsFromOwner,
   updateOwner,
   deleteOwnerById,
+  createPlaydate,
 } = require("../controllers/ownerController.js");
 
 const {
@@ -18,10 +19,7 @@ const {
 } = require("../controllers/dogController.js");
 
 const {
-  createPlaydate,
-  getAllPlaydates,
   getPlaydateById,
-  deleteAllPlaydates,
   deletePlaydateById,
 } = require("../controllers/playdateController.js");
 
@@ -35,10 +33,8 @@ router.post("/:id/dogs", createDog);
 router.get("/:id/dogs", getAllDogs);
 router.get("/:id/dogs/:name", getDogById);
 router.delete("/:id/dogs", deleteAllDogs);
-router.post("/playdates/:id", createPlaydate);
-router.get("/playdates", getAllPlaydates);
-router.get("/playdates/:id", getPlaydateById);
-router.delete("/playdates", deleteAllPlaydates);
-router.delete("/playdates/:id", deletePlaydateById);
+router.post("/:id/playdates", createPlaydate);
+router.get("/:id/playdates/:id", getPlaydateById);
+router.delete("/:id/playdates/:id", deletePlaydateById);
 
 module.exports = router;
