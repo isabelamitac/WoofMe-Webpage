@@ -13,6 +13,10 @@ const playdateSchema = new mongoose.Schema({
     type: String,
     required: [true, "Time needs to be specified!"],
   },
+  creatorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "creatorId",
+  },
   otherOwners: [
     {
       type: mongoose.Schema.Types.ObjectId,

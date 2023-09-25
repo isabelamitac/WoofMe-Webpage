@@ -6,7 +6,7 @@ const {
   deleteAllPlaydates,
 } = require("../controllers/playdateController.js");
 
-router.get("/playdates", getAllPlaydates);
-router.delete("/playdates", deleteAllPlaydates);
+router.get("/", getAllPlaydates);
+router.delete("/", deleteAllPlaydates);
 
 module.exports = router;
