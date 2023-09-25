@@ -19,6 +19,16 @@ const createOwner = async (req, res) => {
   }
 };
 
+// Create a new dog > POST /cars/:car_id/drivers (relationship)
+const createDog = async (req,res) => {
+  try{
+      const dog = await Dogs.create(req.body);
+      res.status(201).json(dog);
+  }catch(error){
+      res.status(500).json({message: "Could not create dog"});
+  }
+};
+
 // Return all owners -> GET /owners (collection)
 const getOwners = async (req, res) => {
   try {
@@ -87,6 +97,7 @@ const deleteOwnerById = async (req,res) => {
 
 module.exports = {
     createOwner,
+    createDog,
     getOwners,
     getOwnerById,
     getAllDogsFromOwner,

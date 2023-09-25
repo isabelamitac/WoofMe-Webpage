@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {
   createOwner,
+  createDog,
   getOwners,
   getOwnerById,
   getAllDogsFromOwner,
@@ -11,7 +12,6 @@ const {
 } = require("../controllers/ownerController.js");
 
 const {
-  createDog,
   getAllDogs,
   getDogById,
   deleteAllDogs,
@@ -31,7 +31,7 @@ router.get("/:id", getOwnerById);
 router.get("/:id/dogs", getAllDogsFromOwner);
 router.put("/:id", updateOwner);
 router.delete("/:id", deleteOwnerById);
-router.post(":id/dogs", createDog);
+router.post("/:id/dogs", createDog);
 router.get("/:id/dogs", getAllDogs);
 router.get("/:id/dogs/:name", getDogById);
 router.delete("/:id/dogs", deleteAllDogs);

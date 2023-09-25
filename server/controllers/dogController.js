@@ -1,19 +1,8 @@
 let mongoose = require ('mongoose') ;
 let express = require ('express');
 let Dogs = require("../models/dogModel");
-let Owners = require("../models/ownerModel");
 
 let router = express.Router();
-
-// Create a new dog > POST /cars/:car_id/drivers (relationship)
-const createDog = async (req,res) => {
-    try{
-        const dog = await Dogs.create(req.body);
-        res.status(201).json(dog);
-    }catch(error){
-        res.status(500).json({message: "Could not create dog"});
-    }
-};
 
   // Get all dogs
 const getAllDogs = async (req, res) => {
