@@ -13,8 +13,8 @@ const { route } = require("../app.js");
 
 router.get('/', getAllDogs);
 router.put('/:id', updateDog);
-router.patch('/:id', updateDogAge);
-router.patch('/:id', updateDogDiet);
+router.patch('/:id/:age', updateDogAge);
+router.patch('/:id/:diet', updateDogDiet);
 router.delete('/:id', deleteDogById);
 
 module.exports = router;

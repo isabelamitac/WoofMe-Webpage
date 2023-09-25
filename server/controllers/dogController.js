@@ -46,17 +46,22 @@ const updateDog = async (req, res) => {
 
   // Update the dog's age
   const updateDogAge = async (req, res) => {
-    try {
-        const ownerId = req.params.id;
-        const updateAge = req.body.age;
-        const options = { new: true };
+    const { id } = req.params;
+    const { age } = req.body;
 
-        const updatedDogAge = await Dogs.findbyId (
-            ownerId,
-            updateAge,
-            options
-        )
-        res.send(updatedDogAge)
+    try {
+      const dogToUpdate = await Dogs.findById(id);
+
+      if (!dogToUpdate) {
+        return res.status(404).json({ message: "Dog not found" });
+      }
+
+      dogToUpdate.age = age;
+
+      const updatedAge = await dogToUpdate.save();
+
+      res.json(updatedAge);
+
     } catch (error) {
         res.status(400).json({ message: "Could not update the dog's age"});
     }
@@ -64,17 +69,22 @@ const updateDog = async (req, res) => {
 
   // Update the dog's diet
   const updateDogDiet = async (req, res) => {
-    try {
-        const ownerId = req.params.id;
-        const updateDiet = req.body.diet;
-        const options = { new: true };
+    const { id } = req.params;
+    const { diet } = req.body;
 
-        const updatedDogDiet = await Dogs.findbyId (
-            ownerId,
-            updateDiet,
-            options
-        )
-        res.send(updateDiet)
+    try {
+      const dogToUpdate = await Dogs.findById(id);
+
+      if (!dogToUpdate) {
+        return res.status(404).json({ message: "Dog not found" });
+      }
+
+      dogToUpdate.diet = diet;
+
+      const updatedDiet = await dogToUpdate.save();
+
+      res.json(updatedDiet);
+
     } catch (error) {
         res.status(400).json({ message: "Could not update the dog's diet"});
     }
