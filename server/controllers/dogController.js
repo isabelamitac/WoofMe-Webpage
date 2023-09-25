@@ -114,7 +114,6 @@ const updateDog = async (req, res) => {
 module.exports = router;
 
 module.exports = {
-    createDog,
     getAllDogs,
     getDogById,
     updateDog,
