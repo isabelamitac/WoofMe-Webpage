@@ -78,7 +78,7 @@ const updateDog = async (req, res) => {
         const updateDiet = req.body.diet;
         const options = { new: true };
 
-        const updatedDogDiet = await Dog.findbyId (
+        const updatedDogDiet = await Dogs.findbyId (
             ownerId,
             updateDiet,
             options
