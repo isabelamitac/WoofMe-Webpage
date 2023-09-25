@@ -11,7 +11,9 @@ const playdate_routes = require("./routes/playdate.js");
 const dog_routes = require("./routes/dog.js");
 
 // Variables
-var mongoURI = "mongodb://0.0.0.0:27017/woofMeDB";
+//var mongoURI = "mongodb://0.0.0.0:27017/woofMeDB";
+var mongoURI = "mongodb://127.0.0.1/woofMeDB";
+
 //'mongodb+srv://woofMeUser:ya8XmNOw@woofmecluster.s2pgnsd.mongodb.net/?retryWrites=true&w=majority';
 var port = 3000;
 
