@@ -13,10 +13,12 @@ const ownerSchema = new mongoose.Schema({
     type: String,
     required: [true, "Email address is required field!"],
   },
-  dog: {
+  dog: [
+    {
     type: mongoose.Schema.Types.ObjectId,
     ref: "dog",
-  },
+    },
+  ],
   playdate: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "playdate",

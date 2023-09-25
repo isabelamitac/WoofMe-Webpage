@@ -1,4 +1,5 @@
 const Owners = require("../models/ownerModel");
+let Dogs = require("../models/dogModel");
 
 // Create a new owner -> POST /owners (collection)
 const createOwner = async (req, res) => {
@@ -57,6 +58,23 @@ const updateOwner = async (req, res) => {
   }
 };
 
+// Get all dogs from owner
+const getAllDogsFromOwner = async (req, res) => {
+  try {
+    const owner = await Owners.findById(req.params.id);
+
+    if (!owner) {
+    return res.status(404).json({ message: "Owner not found" });
+  }
+  
+    const dogs = await Dogs.find({ ownerId: owner.id }).exec();
+    res.json(dogs);
+
+  } catch (error) {
+    res.status(500).json({ message: "Could not find any dogs" });
+  }
+};
+
 // Delete owner by given ID -> DELETE /owners/:id (individual item)
 const deleteOwnerById = async (req,res) => {
   try {
@@ -71,6 +89,7 @@ module.exports = {
     createOwner,
     getOwners,
     getOwnerById,
+    getAllDogsFromOwner,
     updateOwner,
     deleteOwnerById
 };

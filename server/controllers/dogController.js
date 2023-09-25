@@ -1,6 +1,7 @@
 let mongoose = require ('mongoose') ;
 let express = require ('express');
 let Dogs = require("../models/dogModel");
+let Owners = require("../models/ownerModel");
 
 let router = express.Router();
 
@@ -14,15 +15,16 @@ const createDog = async (req,res) => {
     }
 };
 
-// Get all dogs
+  // Get all dogs
 const getAllDogs = async (req, res) => {
-    try {
-      const dogs = await Dogs.find();
-      res.json(dogs);
-    } catch (error) {
-      res.status(500).json({ message: "Could not find any dogs" });
-    }
-  };
+  try {
+    const dogs = await Dogs.find();
+    res.json(dogs);
+  } catch (error) {
+    res.status(500).json({ message: "Could not find any dogs" });
+  }
+};
+
 
 // Get a specific dog
 const getDogById = async (req, res) => {
