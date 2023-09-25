@@ -23,7 +23,7 @@ const createOwner = async (req, res) => {
 const createDog = async (req,res) => {
   try{
       const dog = await Dogs.create(req.body);
-      res.status(201).json(dog);
+      res.status(200).json(dog);
   }catch(error){
       res.status(500).json({message: "Could not create dog"});
   }
