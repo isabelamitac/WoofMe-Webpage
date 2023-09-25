@@ -5,7 +5,8 @@ const  {
    createOwner,
    getOwners,
    getOwnerById,
-   updateOwner
+   updateOwner,
+   deleteOwnerById
 } = require('../controllers/ownerController.js');
 
 const  { 
@@ -19,6 +20,7 @@ router.post('/', createOwner);
 router.get('/', getOwners);
 router.get('/:id', getOwnerById);
 router.put('/:id', updateOwner);
+router.delete('/:id', deleteOwnerById);
 router.post('owners/:id/dogs', createDog);
 router.get('/owners/:id/dogs', getAllDogs);
 router.get('/owners/:id/dogs/:name', getDogById);
