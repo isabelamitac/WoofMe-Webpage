@@ -1,18 +1,262 @@
 {
 	"info": {
-		"_postman_id": "f7ee95b5-9cb9-442f-a6a9-42de46138872",
+		"_postman_id": "8c99594d-0e8a-480a-ba5f-d6a55a2f3326",
 		"name": "server",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29531697",
+		"_collection_link": "https://winter-resonance-683859.postman.co/workspace/Group-7~b88589b5-4dc3-4261-88e9-c58ec2c80c7c/collection/29890550-8c99594d-0e8a-480a-ba5f-d6a55a2f3326?action=share&source=collection_link&creator=29531697"
 	},
 	"item": [
 		{
-			"name": "GET /api",
+			"name": "Create an Owner",
 			"event": [
 				{
-					"listen": "prerequest",
+					"listen": "test",
 					"script": {
-						"id": "b58d92ec-5214-450c-adb0-28e068aa71b9",
 						"exec": [
+							"pm.test(\"Response time is within acceptable range\", function() {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"// Test to check if the response has the correct Content-Type header",
+							"pm.test(\"Response has the correct Content-Type header\", function() {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+							"});",
+							"",
+							"pm.test(\"Response schema is valid\", function() {",
+							"    var schema = {",
+							"        type: \"object\",",
+							"        properties: {",
+							"            location: { type: \"string\" },",
+							"            name: { type: \"string\" },",
+							"            email: { type: \"string\", format: \"email\" },",
+							"            dogs: { type: \"array\" },",
+							"            playdates: { type: \"array\" },",
+							"            _id: { type: \"string\" },",
+							"            __v: { type: \"number\" }",
+							"        },",
+							"        required: [\"location\", \"name\", \"email\", \"dogs\", \"playdates\", \"_id\", \"__v\"]",
+							"    };",
+							"",
+							"    var response = pm.response.json();",
+							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"location\": \"Gothenburg\",\n    \"name\": \"John Axel\",\n    \"email\": \"john@axel.com\",\n    \"dog\": \"65100e72df9329ee2c58d193\",\n    \"playdate\": [\"651055e358b200d3343cde86\"]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/owners",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a dog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"pm.test(\"ownerId is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData.ownerId).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Age is a positive integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.age).to.exist.and.to.be.a('number');",
+							"    pm.expect(responseData.age).to.be.above(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Name is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Breed is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.breed).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ownerId\": \"651188261cb644ad98f5138a\",\n    \"age\": 2,\n    \"name\": \"Puffy\",\n    \"breed\": \"Pomeranian\",\n    \"diet\": \"canned food\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/owners/651188261cb644ad98f5138a/dogs/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners",
+						"651188261cb644ad98f5138a",
+						"dogs",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Owners",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is an array with at least one element\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Each element in the response array has the required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+							"",
+							"  responseData.forEach(function (element) {",
+							"    pm.expect(element._id).to.exist.and.to.be.a('string');",
+							"    pm.expect(element.location).to.exist.and.to.be.a('string');",
+							"    pm.expect(element.name).to.exist.and.to.be.a('string');",
+							"    pm.expect(element.email).to.exist.and.to.be.a('string');",
+							"  });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/owners",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Owner by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData._id).to.exist;",
+							"    pm.expect(responseData.location).to.exist;",
+							"    pm.expect(responseData.name).to.exist;",
+							"    pm.expect(responseData.email).to.exist;",
+							"    pm.expect(responseData.__v).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email is not in a valid format\");",
+							"});",
 							""
 						],
 						"type": "text/javascript"
@@ -21,20 +265,1151 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
-					"raw": "{{host}}/api",
+					"raw": "http://localhost:3000/api/owners/6509d5b6ca73378f0db3ccb6",
+					"protocol": "http",
 					"host": [
-						"{{host}}"
+						"localhost"
 					],
+					"port": "3000",
 					"path": [
-						"api"
+						"api",
+						"owners",
+						"6509d5b6ca73378f0db3ccb6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all dogs by owner ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the _id field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('array');",
+							"",
+							"    responseData.forEach(function (dog) {",
+							"        pm.expect(dog._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"The ownerId field should be a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('array');",
+							"  ",
+							"  responseData.forEach(function(dog) {",
+							"    pm.expect(dog.ownerId).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"  });",
+							"});",
+							"",
+							"",
+							"pm.test(\"The age field is a positive integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    responseData.forEach(function(dog) {",
+							"        pm.expect(dog.age).to.be.a('number').and.to.be.greaterThan(0, \"Age should be a positive integer\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the 'name' field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    ",
+							"    responseData.forEach(function(dog) {",
+							"        pm.expect(dog.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/owners/650c4865fd6119f36b068b6f/dogs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners",
+						"650c4865fd6119f36b068b6f",
+						"dogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Owner by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData._id).to.exist;",
+							"  pm.expect(responseData.location).to.exist;",
+							"  pm.expect(responseData.name).to.exist;",
+							"  pm.expect(responseData.email).to.exist;",
+							"  pm.expect(responseData.__v).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email is not in a valid format\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"location\": \"Malmö\",\r\n    \"name\": \"Maria N Oskarsson\",\r\n    \"email\": \"mariaoskarsson@yahoo.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/owners/650c3999b0021e6026f689b5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners",
+						"650c3999b0021e6026f689b5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Owner by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is within acceptable range\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/owners/650cba2b5c10c10b462760d6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners",
+						"650cba2b5c10c10b462760d6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all dogs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"  pm.test(\"Response message is 'All dogs have been deleted'\", function () {",
+							"    const responseData = pm.response.text();",
+							"    ",
+							"    pm.expect(responseData).to.equal('All dogs have been deleted');",
+							"  });",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/owners/651003201f7a3b7c5eb70ae8/dogs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners",
+						"651003201f7a3b7c5eb70ae8",
+						"dogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get dog by dog's ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData._id).to.exist;",
+							"    pm.expect(responseData.ownerId).to.exist;",
+							"    pm.expect(responseData.age).to.exist;",
+							"    pm.expect(responseData.name).to.exist;",
+							"    pm.expect(responseData.breed).to.exist;",
+							"    pm.expect(responseData.diet).to.exist;",
+							"    pm.expect(responseData.__v).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"The _id should be a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"ownerId is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.ownerId).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Age is a non-negative integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.age).to.be.a('number');",
+							"    pm.expect(responseData.age).to.be.above(-1, \"Age should be a non-negative integer\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogs",
+						"650ca221c8d7bc29a89ac6b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all dogs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array');",
+							"});",
+							"",
+							"",
+							"pm.test(\"ownerId is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('array');",
+							"  ",
+							"  responseData.forEach(function(dog) {",
+							"    pm.expect(dog.ownerId).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"  });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Age is a positive integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    ",
+							"    responseData.forEach(function(dog) {",
+							"        pm.expect(dog.age).to.be.a('number');",
+							"        pm.expect(dog.age).to.be.above(0);",
+							"    });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/dogs/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogs",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a dog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData._id).to.exist;",
+							"    pm.expect(responseData.ownerId).to.exist;",
+							"    pm.expect(responseData.age).to.exist;",
+							"    pm.expect(responseData.name).to.exist;",
+							"    pm.expect(responseData.breed).to.exist;",
+							"    pm.expect(responseData.diet).to.exist;",
+							"    pm.expect(responseData.__v).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that _id is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"ownerId is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.ownerId).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Age is a non-negative integer\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.age).to.be.a('number');",
+							"  pm.expect(responseData.age).to.be.at.least(0, \"Age should be a non-negative integer\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Name is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ownerId\": \"651188261cb644ad98f5138a\",\n    \"age\": 3,\n    \"name\": \"Poofy\",\n    \"breed\": \"Pomeranian\",\n    \"diet\": \"plant based food\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogs",
+						"650ca221c8d7bc29a89ac6b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update dog age",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the response body has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData._id).to.exist;",
+							"    pm.expect(responseData.ownerId).to.exist;",
+							"    pm.expect(responseData.age).to.exist;",
+							"    pm.expect(responseData.name).to.exist;",
+							"    pm.expect(responseData.breed).to.exist;",
+							"    pm.expect(responseData.diet).to.exist;",
+							"    pm.expect(responseData.__v).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Age is a non-negative integer\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData.age).to.be.a('number');",
+							"  pm.expect(responseData.age).to.be.at.least(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Name is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Breed should be a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.breed).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"age\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3/age",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogs",
+						"650ca221c8d7bc29a89ac6b3",
+						"age"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update dog diet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"diet\": \"no wheats\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3/diet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogs",
+						"650ca221c8d7bc29a89ac6b3",
+						"diet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete dog by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is a string\", function () {",
+							"    pm.expect(pm.response.text()).to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response contains the message 'Dog has been deleted'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Dog has been deleted\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogs",
+						"650ca221c8d7bc29a89ac6b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Dogsitter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Name is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Location is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData.location).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Maria Mikke\",\r\n    \"location\": \"Gothenburg\",\r\n    \"dateAvailable\": \"20 october 2023\",\r\n    \"timeAvailable\": \"13:00-15:00\",\r\n    \"rating\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/dogsitters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogsitters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Dogsitters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is an array with at least one element\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"});",
+							"",
+							"pm.test(\"Response time is within acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/dogsitters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogsitters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all Dogsitters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Dogsitters have been successfully deleted from the database\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.have.body(\"All dogsitters have been deleted\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/dogsitters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogsitters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sort Dogsitters by rating",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"  pm.expect(pm.response.json()).to.be.an('array');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response does not contain any errors\", function () {",
+							"    pm.response.to.not.have.jsonBody('error');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/dogsitters/sort",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dogsitters",
+						"sort"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Playdate (Owner)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response in JSON format.\", function() {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Correct body values.\", function() {",
+							"    let bodyJson = pm.response.json();",
+							"    pm.expect(bodyJson.location).to.eql(\"Gothenburg\");",
+							"    pm.expect(bodyJson.date).to.eql(\"2023-10-05\");",
+							"});",
+							"",
+							"pm.test(\"Successful posting.\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response time.\", function() {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"location\": \"Gothenburg\",\n    \"date\": \"2023-10-05\",\n    \"time\": \"16:00-17:30\",\n    \"creatorId\": \"6511e69d4a8b9a3f4fd5314c\",\n    \"otherOwners\": [\"651188261cb644ad98f5138a\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/owners/6511e69d4a8b9a3f4fd5314c/playdates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners",
+						"6511e69d4a8b9a3f4fd5314c",
+						"playdates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Playdate (Owner)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData._id).to.exist;",
+							"    pm.expect(responseData.location).to.exist;",
+							"    pm.expect(responseData.date).to.exist;",
+							"    pm.expect(responseData.time).to.exist;",
+							"    pm.expect(responseData.creatorId).to.exist;",
+							"    pm.expect(responseData.otherOwners).to.exist;",
+							"    pm.expect(responseData.__v).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check if _id is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData._id).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Location is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData.location).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Location should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Date is in a valid date format\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.date).to.exist.and.to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/owners/6511e69d4a8b9a3f4fd5314c/playdates/6511ecf9c50bc74c2c4b7379",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners",
+						"6511e69d4a8b9a3f4fd5314c",
+						"playdates",
+						"6511ecf9c50bc74c2c4b7379"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all playdates",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/playdates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"playdates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all Playdates",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time.\", function() {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"})",
+							"",
+							"pm.test(\"Proper message displayed\", function() {",
+							"    pm.expect(pm.response.text(\"All playdates have been deleted\"));",
+							"    ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/playdates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"playdates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Playdate (Owner)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the expected message field\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Playdate is successfully deleted from owner's list of playdates\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.equal(\"Playdate deleted successfully\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/owners/6511e69d4a8b9a3f4fd5314c/playdates/6511e6bc4a8b9a3f4fd53150",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"owners",
+						"6511e69d4a8b9a3f4fd5314c",
+						"playdates",
+						"6511e6bc4a8b9a3f4fd53150"
 					]
 				}
 			},
@@ -45,7 +1420,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "05864cff-5cba-4070-bac3-a59328954ebf",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -55,7 +1429,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "e9c319be-3306-4fc5-ba34-fcf64391213a",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -65,11 +1438,25 @@
 	],
 	"variable": [
 		{
-			"id": "cd185905-a834-4211-8030-583d17702534",
 			"key": "host",
 			"value": "http://localhost:3000",
 			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "location",
+			"value": ""
+		},
+		{
+			"key": "date",
+			"value": ""
+		},
+		{
+			"key": "time",
+			"value": ""
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
