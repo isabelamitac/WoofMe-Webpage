@@ -2,13 +2,20 @@ const Playdates = require("../models/playdateModel");
 
 // Create a playdate
 const createPlaydate = async (req, res) => {
-  newPlaydateParams = req.body;
+  /*  newPlaydateParams = req.body;
   let createPlaydate = await Playdate.create(req.body, (err, newPlaydate) => {
     newPlaydate = newPlaydateParams;
     newPlaydate.save();
   });
 };
-
+*/
+  try {
+    const playdate = await Playdates.create(req.body);
+    res.status(201).json(playdate);
+  } catch (error) {
+    res.status(500).json({ message: "Could not create playdate" });
+  }
+};
 // Get all playdates
 const getAllPlaydates = async (req, res) => {
   try {
@@ -31,7 +38,7 @@ const getPlaydateById = async (req, res) => {
 };
 
 // Delete all playdates
-const deletePlaydates = async (req, res) => {
+const deleteAllPlaydates = async (req, res) => {
   try {
     const playdates = await Playdate.deleteMany({}, callback);
     res.send("All playdates have been deleted");
@@ -61,4 +68,10 @@ const deletePlaydateById = async (req, res) => {
   res.send(foundPlaydate);
 };
 
-module.exports = {createPlaydate, getAllPlaydates, getPlaydateById, deletePlaydates, deletePlaydateById};
+module.exports = {
+  createPlaydate,
+  getAllPlaydates,
+  getPlaydateById,
+  deleteAllPlaydates,
+  deletePlaydateById,
+};

@@ -6,7 +6,7 @@ const playdateSchema = new mongoose.Schema({
     required: [true, "Location is required!"],
   },
   date: {
-    type: Date,
+    type: String,
     required: [true, "Date needs to be specified!"],
   },
   time: {
@@ -15,13 +15,13 @@ const playdateSchema = new mongoose.Schema({
   },
   numberOfAttendees: { type: Number },
   dog: {
-    type: mongoose.Types.ObjectId,
-    ref: "Dog",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "dog",
     required: [true, "Please choose a dog!"],
   },
   dogsitter: {
-    type: mongoose.Types.ObjectId,
-    ref: "Dogsitter",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "dogsitter",
     required: [true, "Please choose a dogsitter!"],
   },
 });
