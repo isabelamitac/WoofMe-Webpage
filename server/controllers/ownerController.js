@@ -1,6 +1,8 @@
 const Owners = require("../models/ownerModel");
-let Dogs = require("../models/dogModel");
-let Playdates = require("../models/playdateModel");
+const Dogs = require("../models/dogModel");
+const Playdates = require("../models/playdateModel");
+
+//OWNERS
 
 // Create a new owner -> POST /owners (collection)
 const createOwner = async (req, res) => {
@@ -17,16 +19,6 @@ const createOwner = async (req, res) => {
     res.status(200).json(ownerToSave);
   } catch (error) {
     res.status(400).json({ message: "Invalid request" });
-  }
-};
-
-// Create a new dog > POST /cars/:car_id/drivers (relationship)
-const createDog = async (req, res) => {
-  try {
-    const dog = await Dogs.create(req.body);
-    res.status(201).json(dog);
-  } catch (error) {
-    res.status(500).json({ message: "Could not create dog" });
   }
 };
 
@@ -71,7 +63,29 @@ const updateOwner = async (req, res) => {
   }
 };
 
-// Get all dogs from owner
+// Delete owner by given ID -> DELETE /owners/:id (individual item)
+const deleteOwnerById = async (req, res) => {
+  try {
+    await Owners.deleteOne({ id: req.params.id });
+    res.send("Owner has been deleted");
+  } catch (error) {
+    res.status(400).json({ message: "Could not delete owner" });
+  }
+};
+
+//DOGS
+
+// Create a new dog > POST /cars/:car_id/drivers (Relationship)
+const createDog = async (req, res) => {
+  try {
+    const dog = await Dogs.create(req.body);
+    res.status(201).json(dog);
+  } catch (error) {
+    res.status(500).json({ message: "Could not create dog" });
+  }
+};
+
+// Get all dogs from owner -> GET /owners/:id/dogs (Relationship)
 const getAllDogsFromOwner = async (req, res) => {
   try {
     const owner = await Owners.findById(req.params.id);
@@ -87,17 +101,9 @@ const getAllDogsFromOwner = async (req, res) => {
   }
 };
 
-// Delete owner by given ID -> DELETE /owners/:id (individual item)
-const deleteOwnerById = async (req, res) => {
-  try {
-    await Owners.deleteOne({ id: req.params.id });
-    res.send("Owner has been deleted");
-  } catch (error) {
-    res.status(400).json({ message: "Could not delete owner" });
-  }
-};
+//PLAYDATES
 
-// Create a playdate
+// Create a playdate -> POST /owners/:id/playdates (Relationship)
 const createPlaydateOwner = async (req, res) => {
   try {
     const playdate = await Playdates.create(req.body);
@@ -107,22 +113,7 @@ const createPlaydateOwner = async (req, res) => {
   }
 };
 
-//Get a certain playdate
-// const getPlaydateById = async (req, res) => {
-//   try {
-//     const owner = await Owners.findById(req.params.id);
-
-//     if (!owner) {
-//       return res.status(404).json({ message: "Owner not found" });
-//     }
-//     const allPlaydates = Playdates.find({ creatorId: owner.id });
-//     const playdateId = req.params.playdateId;
-//     const playdates = await Playdates.findbyId(playdateId);
-//     res.json(playdates);
-//   } catch (error) {
-//     res.status(500).json({ message: "Could not find any playdates" });
-//   }
-// };
+//Get a certain playdate -> GET /owners/:id/playdates/:pid (Relationship)
 const getPlaydateById = async (req, res) => {
   try {
     const ownerId = req.params.id; // Extract the owner ID from the URL
@@ -134,7 +125,7 @@ const getPlaydateById = async (req, res) => {
       return res.status(404).json({ message: "Owner not found" });
     }
 
-    // Find the playdate with the given ID that belongs to the owner
+    // Find the playdate with the given ID that belongs to the owner 
     const playdate = await Playdates.findOne({
       _id: playdateId,
       creatorId: owner._id,
@@ -152,23 +143,8 @@ const getPlaydateById = async (req, res) => {
   }
 };
 
-// Delete a certain playdate
+// Delete a certain playdate -> DELETE /owners/:id/playdates/:pid (Relationship)
 const deletePlaydateById = async (req, res) => {
-  // let playdatesList = await Playdates.find(req.params.id, (err, playdate) => {
-  //   if (err) {
-  //     return next(err);
-  //   }
-  //   if (playdate == null) {
-  //     return res
-  //       .status(404)
-  //       .json({ message: "No playdates found for given ID" });
-  //   }
-
-  //   playdate.delete((playdateToDelete) => {
-  //     return playdateToDelete.id == req.body.id;
-  //   });
-  //   playdate.save();
-  // });
   try {
     const ownerId = req.params.id; // Extract the owner ID from the URL
     const playdateId = req.params.pid; // Extract the dog ID from the URL
@@ -205,11 +181,11 @@ module.exports = {
   createOwner,
   getOwners,
   getOwnerById,
-  getAllDogsFromOwner,
   updateOwner,
   deleteOwnerById,
-  createPlaydateOwner,
   createDog,
+  getAllDogsFromOwner,
+  createPlaydateOwner,
   getPlaydateById,
   deletePlaydateById,
 };

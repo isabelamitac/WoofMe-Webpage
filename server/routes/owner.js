@@ -20,8 +20,6 @@ const {
   deleteAllDogs,
 } = require("../controllers/dogController.js");
 
-//const { deletePlaydateById } = require("../controllers/playdateController.js");
-
 router.post("/", createOwner);
 router.get("/", getOwners);
 router.get("/:id", getOwnerById);

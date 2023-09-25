@@ -1,10 +1,6 @@
-let mongoose = require("mongoose");
-let express = require("express");
 let Dogs = require("../models/dogModel");
 
-let router = express.Router();
-
-// Get all dogs
+// Get all dogs -> GET /dogs (collection)
 const getAllDogs = async (req, res) => {
   try {
     const dogs = await Dogs.find();
@@ -14,7 +10,7 @@ const getAllDogs = async (req, res) => {
   }
 };
 
-// Get a specific dog
+// Get a specific dog -> GET /dogs/:id (individual item)
 const getDogById = async (req, res) => {
   try {
     const dogID = req.params.id;
@@ -23,11 +19,11 @@ const getDogById = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Could not find any owner with the given ID" });
+      .json({ message: "Could not find any dog with the given ID" });
   }
 };
 
-// Update the entire dog info
+// Update the entire dog info -> PUT /dogs/:id (individual item)
 const updateDog = async (req, res) => {
   try {
     const ownerId = req.params.id;
@@ -41,7 +37,7 @@ const updateDog = async (req, res) => {
   }
 };
 
-// Update the dog's age
+// Update the dog's age -> PATCH /dogs/:id/age (individual item)
 const updateDogAge = async (req, res) => {
   const { id } = req.params;
   const { age } = req.body;
@@ -63,7 +59,7 @@ const updateDogAge = async (req, res) => {
   }
 };
 
-// Update the dog's diet
+// Update the dog's diet -> PATCH /dogs/:id/diet (individual item)
 const updateDogDiet = async (req, res) => {
   const { id } = req.params;
   const { diet } = req.body;
@@ -85,7 +81,7 @@ const updateDogDiet = async (req, res) => {
   }
 };
 
-// Delete dog by ID
+// Delete dog by ID -> DELETE/ dog/:id (individual item)
 const deleteDogById = async (req, res) => {
   try {
     await Dogs.deleteOne({ id: req.params.id });
@@ -95,7 +91,7 @@ const deleteDogById = async (req, res) => {
   }
 };
 
-// Delete all dogs by ID
+// Delete all dogs -> DELETE /dogs (collection)
 const deleteAllDogs = async (req, res) => {
   try {
     const dogs = await Dogs.deleteMany({});
@@ -104,8 +100,6 @@ const deleteAllDogs = async (req, res) => {
     res.status(400).json({ message: "Could not delete the collection" });
   }
 };
-
-module.exports = router;
 
 module.exports = {
   getAllDogs,

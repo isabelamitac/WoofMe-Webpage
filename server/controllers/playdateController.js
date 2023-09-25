@@ -1,7 +1,6 @@
 const Playdates = require("../models/playdateModel");
-const Owners = require("../models/ownerModel");
 
-// Get all playdates
+// Get all playdates -> GET /playdates (collection)
 const getAllPlaydates = async (req, res) => {
   try {
     const playdates = await Playdates.find();
@@ -11,7 +10,7 @@ const getAllPlaydates = async (req, res) => {
   }
 };
 
-// Delete all playdates
+// Delete all playdates -> DELETE /playdates (collection)
 const deleteAllPlaydates = async (req, res) => {
   try {
     const playdates = await Playdates.deleteMany({});
@@ -20,19 +19,6 @@ const deleteAllPlaydates = async (req, res) => {
     res.status(400).json({ message: "Could not delete the collection" });
   }
 };
-
-// const updatePlaydateAttendees = async (req, res) => {
-//   try {
-//     const ownerName = req.params.name;
-//     const updateAge = req.body.age;
-//     const options = { new: true };
-
-//     const updatedDogAge = await Dogs.findbyId(ownerId, updateAge, options);
-//     res.send(updateAge);
-//   } catch (error) {
-//     res.status(400).json({ message: "Could not update the dog's age" });
-//   }
-// };
 
 module.exports = {
   getAllPlaydates,

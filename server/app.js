@@ -13,7 +13,6 @@ const dog_routes = require("./routes/dog.js");
 // Variables
 var mongoURI = "mongodb://0.0.0.0:27017/woofMeDB";
 //'mongodb+srv://woofMeUser:ya8XmNOw@woofmecluster.s2pgnsd.mongodb.net/?retryWrites=true&w=majority';
-//process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
 var port = 3000;
 
 // Connect to MongoDB
