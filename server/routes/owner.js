@@ -5,6 +5,7 @@ const {
   createOwner,
   getOwners,
   getOwnerById,
+  getAllDogsFromOwner,
   updateOwner,
   deleteOwnerById,
 } = require("../controllers/ownerController.js");
@@ -27,12 +28,13 @@ const {
 router.post("/", createOwner);
 router.get("/", getOwners);
 router.get("/:id", getOwnerById);
+router.get("/:id/dogs", getAllDogsFromOwner);
 router.put("/:id", updateOwner);
 router.delete("/:id", deleteOwnerById);
-router.post("owners/:id/dogs", createDog);
-router.get("/owners/:id/dogs", getAllDogs);
-router.get("/owners/:id/dogs/:name", getDogById);
-router.delete("/owners/:id/dogs", deleteAllDogs);
+router.post(":id/dogs", createDog);
+router.get("/:id/dogs", getAllDogs);
+router.get("/:id/dogs/:name", getDogById);
+router.delete("/:id/dogs", deleteAllDogs);
 router.post("/playdates/:id", createPlaydate);
 router.get("/playdates", getAllPlaydates);
 router.get("/playdates/:id", getPlaydateById);
