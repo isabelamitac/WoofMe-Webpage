@@ -13,16 +13,18 @@ const ownerSchema = new mongoose.Schema({
     type: String,
     required: [true, "Email address is required field!"],
   },
-  dog: [
+  dogs: [
     {
     type: mongoose.Schema.Types.ObjectId,
     ref: "dog",
     },
   ],
-  playdate: {
+  playdates: [
+  {
     type: mongoose.Schema.Types.ObjectId,
     ref: "playdate",
   },
+]
 });
 
 module.exports = mongoose.model("OwnerModel", ownerSchema);
