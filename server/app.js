@@ -7,7 +7,7 @@ var history = require("connect-history-api-fallback");
 
 const owner_routes = require("./routes/owner.js");
 const dogsitter_routes = require("./routes/dogsitter.js");
-const playdate_routes = require("./routes/playdate.js");
+//const playdate_routes = require("./routes/playdate.js");
 const dog_routes = require("./routes/dog.js");
 
 // Variables
@@ -40,7 +40,7 @@ app.use(cors());
 app.use("/api/owners", owner_routes);
 app.use("/api/dogsitters", dogsitter_routes);
 app.use("/api/dogsitters/sort", dogsitter_routes);
-app.use("/api/playdates", playdate_routes);
+//app.use("/api/playdates", playdate_routes);
 app.use("/api/dogs", dog_routes);
 
 // Logging for non-existing routes
