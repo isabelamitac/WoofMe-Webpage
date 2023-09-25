@@ -69,15 +69,15 @@ const updateDogDiet = async (req, res) => {
   const { diet } = req.body;
 
   try {
-    const dogToUpdate = await Dogs.findById(id);
+    const dogsDietToUpdate = await Dogs.findById(id);
 
-    if (!dogToUpdate) {
+    if (!dogsDietToUpdate) {
       return res.status(404).json({ message: "Dog not found" });
     }
 
-    dogToUpdate.diet = diet;
+    dogsDietToUpdate.diet = diet;
 
-    const updatedDiet = await dogToUpdate.save();
+    const updatedDiet = await dogsDietToUpdate.save();
 
     res.json(updatedDiet);
   } catch (error) {
@@ -89,7 +89,7 @@ const updateDogDiet = async (req, res) => {
 const deleteDogById = async (req, res) => {
   try {
     await Dogs.deleteOne({ id: req.params.id });
-    res.send("Dog has been deleted");
+    res.send('Dog has been deleted');
   } catch (error) {
     res.status(400).json({ message: "Could not delete dog" });
   }
@@ -99,7 +99,7 @@ const deleteDogById = async (req, res) => {
 const deleteAllDogs = async (req, res) => {
   try {
     const dogs = await Dogs.deleteMany({});
-    res.send("All dogs have been deleted");
+    res.send('All dogs have been deleted');
   } catch (error) {
     res.status(400).json({ message: "Could not delete the collection" });
   }

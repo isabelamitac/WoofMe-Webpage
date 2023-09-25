@@ -5,7 +5,6 @@ let dogSchema = new mongoose.Schema({
         type: String,
         required: [true, "Owner id is required field!"]
     },
-
     age: { 
         type: Number,
         required: [true, "Age is required field!"]
