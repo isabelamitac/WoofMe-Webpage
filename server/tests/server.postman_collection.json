@@ -58,12 +58,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/owners",
+					"raw": "http://127.0.0.1:3001/api/owners",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners"
@@ -141,12 +144,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/owners/651188261cb644ad98f5138a/dogs/",
+					"raw": "http://127.0.0.1:3001/api/owners/651188261cb644ad98f5138a/dogs/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
@@ -213,12 +219,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/owners",
+					"raw": "http://127.0.0.1:3001/api/owners",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners"
@@ -267,12 +276,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/owners/6509d5b6ca73378f0db3ccb6",
+					"raw": "http://127.0.0.1:3001/api/owners/6509d5b6ca73378f0db3ccb6",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
@@ -345,12 +357,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/owners/650c4865fd6119f36b068b6f/dogs",
+					"raw": "http://127.0.0.1:3001/api/owners/650c4865fd6119f36b068b6f/dogs",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
@@ -410,12 +425,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/owners/650c3999b0021e6026f689b5",
+					"raw": "http://127.0.0.1:3001/api/owners/650c3999b0021e6026f689b5",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
@@ -449,12 +467,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/owners/650cba2b5c10c10b462760d6",
+					"raw": "http://127.0.0.1:3001/api/owners/650cba2b5c10c10b462760d6",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
@@ -501,12 +522,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/owners/651003201f7a3b7c5eb70ae8/dogs",
+					"raw": "http://127.0.0.1:3001/api/owners/651003201f7a3b7c5eb70ae8/dogs",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
@@ -576,12 +600,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3",
+					"raw": "http://127.0.0.1:3001/api/dogs/650ca221c8d7bc29a89ac6b3",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogs",
@@ -643,12 +670,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/dogs/",
+					"raw": "http://127.0.0.1:3001/api/dogs/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogs",
@@ -731,12 +761,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3",
+					"raw": "http://127.0.0.1:3001/api/dogs/650ca221c8d7bc29a89ac6b3",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogs",
@@ -818,12 +851,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3/age",
+					"raw": "http://127.0.0.1:3001/api/dogs/650ca221c8d7bc29a89ac6b3/age",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogs",
@@ -862,12 +898,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3/diet",
+					"raw": "http://127.0.0.1:3001/api/dogs/650ca221c8d7bc29a89ac6b3/diet",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogs",
@@ -918,12 +957,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/dogs/650ca221c8d7bc29a89ac6b3",
+					"raw": "http://127.0.0.1:3001/api/dogs/650ca221c8d7bc29a89ac6b3",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogs",
@@ -969,7 +1011,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Maria Mikke\",\r\n    \"location\": \"Gothenburg\",\r\n    \"dateAvailable\": \"20 october 2023\",\r\n    \"timeAvailable\": \"13:00-15:00\",\r\n    \"rating\": 7\r\n}",
+					"raw": "{\r\n    \"name\": \"Anna Nilson\",\r\n    \"location\": \"Gothenburg\",\r\n    \"dateAvailable\": \"20 october 2023\",\r\n    \"timeAvailable\": \"13:00-15:00\",\r\n    \"rating\": 8\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -977,12 +1019,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/dogsitters",
+					"raw": "http://127.0.0.1:3001/api/dogsitters",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogsitters"
@@ -1022,12 +1067,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/dogsitters",
+					"raw": "http://127.0.0.1:3001/api/dogsitters",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogsitters"
@@ -1069,12 +1117,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/dogsitters",
+					"raw": "http://127.0.0.1:3001/api/dogsitters",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogsitters"
@@ -1120,12 +1171,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/dogsitters/sort",
+					"raw": "http://127.0.0.1:3001/api/dogsitters/sort",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"dogsitters",
@@ -1178,12 +1232,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/owners/6511e69d4a8b9a3f4fd5314c/playdates",
+					"raw": "http://127.0.0.1:3001/api/owners/6511e69d4a8b9a3f4fd5314c/playdates",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
@@ -1251,12 +1308,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/owners/6511e69d4a8b9a3f4fd5314c/playdates/6511ecf9c50bc74c2c4b7379",
+					"raw": "http://127.0.0.1:3001/api/owners/6511e69d4a8b9a3f4fd5314c/playdates/6511ecf9c50bc74c2c4b7379",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
@@ -1300,12 +1360,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/playdates",
+					"raw": "http://127.0.0.1:3001/api/playdates",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"playdates"
@@ -1338,12 +1401,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/playdates",
+					"raw": "http://127.0.0.1:3001/api/playdates",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"playdates"
@@ -1398,12 +1464,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/owners/6511e69d4a8b9a3f4fd5314c/playdates/6511e6bc4a8b9a3f4fd53150",
+					"raw": "http://127.0.0.1:3001/api/owners/6511e69d4a8b9a3f4fd5314c/playdates/6511e6bc4a8b9a3f4fd53150",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"owners",
