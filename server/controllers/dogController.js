@@ -14,17 +14,16 @@ const getAllDogs = async (req, res) => {
   }
 };
 
-
 // Get a specific dog
 const getDogById = async (req, res) => {
-    try {
-      const ownerId = req.params.ownerId;
-      const dogs = await Dogs.findbyId(ownerId);
-      res.json(dogs);
-    } catch (error) {
-      res.status(500).json({ message: "Could not find any dogs" });
-    }
-  };
+  try {
+    const dogID = req.params.id;
+    const dogToFind = await Dogs.findById(dogID);
+    res.json(dogToFind);
+  } catch (error) {
+    res.status(500).json({ message: "Could not find any owner with the given ID" });
+  }
+};
 
 // Update the entire dog info
 const updateDog = async (req, res) => {
@@ -92,32 +91,22 @@ const updateDog = async (req, res) => {
 
   // Delete dog by ID
   const deleteDogById = async (req, res) => {
-    let dogList = await Dogs.find(req.params.id, (err, dog) => {
-      if (err) {
-        return next(err);
-      }
-      if (dog == null) {
-        return res
-          .status(404)
-          .json({ message: "No dogs found for given ID" });
-      }
-  
-      dog.delete((dogToDelete) => {
-        return dogToDelete.id == req.body.id;
-      });
-      dog.save();
-    });
-  
-    res.send(foundDog);
+    try {
+      await Dogs.deleteOne({ id: req.params.id });
+      res.send("Dog has been deleted");
+    } catch (error) {
+      res.status(400).json({ message: "Could not delete dog" });
+    }
   };
 
   // Delete all dogs by ID
   const deleteAllDogs = async (req, res) => {
     try {
-      const dogs = await Dogs.deleteMany({}, callback);
-      res.send("All dogs have been deleted");
-    } catch (error) {
-      res.status(400).json({ message: "Could not delete the collection." });
+      const dogs = await Dogs.deleteMany({})
+      res.send('All dogs have been deleted')
+    }
+    catch (error) {
+        res.status(400).json({ "message": "Could not delete the collection" })
     }
   };
 
