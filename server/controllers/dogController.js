@@ -1,13 +1,13 @@
 let mongoose = require ('mongoose') ;
 let express = require ('express');
-let DogModel = require("../models/dogModel");
+let Dogs = require("../models/dogModel");
 
 let router = express.Router();
 
 // Create a new dog > POST /cars/:car_id/drivers (relationship)
 const createDog = async (req,res) => {
     try{
-        const dog = await Dog.create(req.body);
+        const dog = await Dogs.create(req.body);
         res.status(201).json(dog);
     }catch(error){
         res.status(500).json({message: "Could not create dog"});
@@ -17,7 +17,7 @@ const createDog = async (req,res) => {
 // Get all dogs
 const getAllDogs = async (req, res) => {
     try {
-      const dogs = await Dog.find();
+      const dogs = await Dogs.find();
       res.json(dogs);
     } catch (error) {
       res.status(500).json({ message: "Could not find any dogs" });
@@ -28,7 +28,7 @@ const getAllDogs = async (req, res) => {
 const getDogById = async (req, res) => {
     try {
       const ownerId = req.params.ownerId;
-      const dogs = await Dog.findbyId(ownerId);
+      const dogs = await Dogs.findbyId(ownerId);
       res.json(dogs);
     } catch (error) {
       res.status(500).json({ message: "Could not find any dogs" });
@@ -42,7 +42,7 @@ const updateDog = async (req, res) => {
       const updates = req.body;
       const options = { new: true };
     
-       const updatedDog = await Dog.findByIdAndUpdate(
+       const updatedDog = await Dogs.findByIdAndUpdate(
               ownerId, 
               updates, 
               options
@@ -60,7 +60,7 @@ const updateDog = async (req, res) => {
         const updateAge = req.body.age;
         const options = { new: true };
 
-        const updatedDogAge = await Dog.findbyId (
+        const updatedDogAge = await Dogs.findbyId (
             ownerId,
             updateAge,
             options
@@ -91,7 +91,7 @@ const updateDog = async (req, res) => {
 
   // Delete dog by ID
   const deleteDogById = async (req, res) => {
-    let dogList = await Dog.find(req.params.id, (err, dog) => {
+    let dogList = await Dogs.find(req.params.id, (err, dog) => {
       if (err) {
         return next(err);
       }
@@ -113,7 +113,7 @@ const updateDog = async (req, res) => {
   // Delete all dogs by ID
   const deleteAllDogs = async (req, res) => {
     try {
-      const dogs = await Dog.deleteMany({}, callback);
+      const dogs = await Dogs.deleteMany({}, callback);
       res.send("All dogs have been deleted");
     } catch (error) {
       res.status(400).json({ message: "Could not delete the collection." });
