@@ -37,6 +37,9 @@ const getOwnerById = async (req, res) => {
   try {
     const ownerID = req.params.id;
     const ownerToFind = await Owners.findById(ownerID);
+    if (!ownerToFind) {
+      return res.status(404).json({ message: "Owner not found" });
+    }
     res.json(ownerToFind);
   } catch (error) {
     res
