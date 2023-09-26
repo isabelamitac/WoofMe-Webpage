@@ -40,7 +40,7 @@ const getOwnerById = async (req, res) => {
     if (!ownerToFind) {
       return res.status(404).json({ message: "Owner not found" });
     }
-    res.json(ownerToFind);
+    res.status(200).json(ownerToFind);
   } catch (error) {
     res
       .status(500)
