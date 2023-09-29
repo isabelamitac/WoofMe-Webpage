@@ -9,18 +9,17 @@
           <button class="label" @click="getListOfDogsitters" >Dogsitter</button>
           <button class="label" @click="getListOfDogs" >Dog</button>
           <button class="label" @click="getListOfPlaydates" >Playdate</button>
+          <hr />
         </div>
 
         <div class="results">
-          <ul>
+          <ul v-for="result in results" :key="result.id" v-show="message!='No results.'">
             <li class="oneResult">
               <img :src = "profilePhotoURL" class="profile-photo" id="resultProfilePhoto">
-              <ul v-for="dogsitter in dogsitters" :key="dogsitter.id">
-                <li>{{ dogsitter.name }}</li>
-                <li>{{ dogsitter.location }}</li>
-                <li>{{ dogsitter.rating }}</li>
-              </ul>
-              <button id="resultBtn">Message</button>
+              {{ result.name }}<br />
+              {{ result.location }}<br />
+              {{ result.rating }}<br />
+              <router-link to="/dogs" id="resultBtn">View profile</router-link>
             </li>
           </ul>
         </div>
@@ -38,11 +37,10 @@ export default {
   name: 'searchResult',
   data() {
     return {
-      owners: [],
-      dogsitters: [],
-      dogs: [],
-      playdates: [],
-      profilePhotoURL: placeholder
+      message: 'No results.',
+      results: [],
+      profilePhotoURL: placeholder,
+      pressedBtn: false
     }
   },
 
@@ -50,7 +48,9 @@ export default {
     getListOfOwners() {
       Api.get('/owners')
         .then(res => {
-          this.owners = res.data
+          this.message = res.data
+          this.results = res.data
+          this.pressedBtn = true
           console.log(res.data)
         })
         .catch(err => {
@@ -60,7 +60,9 @@ export default {
     getListOfDogsitters() {
       Api.get('/dogsitters')
         .then(res => {
-          this.dogsitters = res.data
+          this.message = res.data
+          this.results = res.data
+          this.pressedBtn = true
           console.log(res.data)
         })
         .catch(err => {
@@ -70,7 +72,9 @@ export default {
     getListOfDogs() {
       Api.get('/dogs')
         .then(res => {
-          this.dogs = res.data
+          this.message = res.data
+          this.results = res.data
+          this.pressedBtn = true
           console.log(res.data)
         })
         .catch(err => {
@@ -80,17 +84,15 @@ export default {
     getListOfPlaydates() {
       Api.get('/playdates')
         .then(res => {
-          this.playdates = res.data
+          this.message = res.data
+          this.results = res.data
+          this.pressedBtn = true
           console.log(res.data)
         })
         .catch(err => {
           console.log(err)
         })
     }
-  },
-  mounted() {
-    this.getListOfOwners()
-    this.getListOfDogsitters()
   }
 }
 </script>

@@ -149,13 +149,19 @@ input {
     max-width: 250px;
   }
 
+  .results {
+    margin-top: 5em;
+  }
+
   .oneResult {
     display: flex;
     margin: 3em auto;
+    background-color: #ffffff;
   }
 
   #resultProfilePhoto {
     margin-right: 5em;
+    margin-bottom: 5em;
   }
 
   #resultBtn {
