@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-      <h1>Dog profile</h1>
+      <h1>Dog Profile</h1>
       <input v-model="userInput" type="text" placeholder="Write the dog's id" required/>
-      <button class="second-btn" @click="getDogInfo">Find dog</button>
+      <button class="second-btn" @click="getDogInfo">Find a dog</button>
       <div class="profile">
         <div class="dog-photo">
           <img :src = "profilePhotoURL" class="profile-photo">
@@ -49,7 +49,7 @@ import { Api } from '@/Api'
 const placeholder = require('../assets/default-dog-profile.png')
 
 export default {
-  name: 'profile',
+  name: 'DogProfile',
   data() {
     return {
       dog: '',
