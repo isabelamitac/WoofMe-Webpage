@@ -4,13 +4,12 @@
         <b-button class="btn_message" variant="primary" v-on:click="createOwner()" >Create profile</b-button>
       <div class="editFields">
     <p class="urPost">Enter profile details below:</p>
-    <input type="name" placeholder="name" v-model="adminName" required/> <br />
-    <input type="email" placeholder="email" v-model="password" required/> <br />
+    <input type="name" placeholder="name" v-model="name" required/> <br />
     <input type="location" placeholder="location" v-model="email" required/> <br />
+    <input type="email" placeholder="email" v-model="location" required/> <br />
     </div>
     <br>
-    <p>Profile created successfully!:<br/>
-        {{ message }}</p>
+    <br/>
       </b-jumbotron>
 </div>
   </template>
@@ -20,25 +19,33 @@
 import { Api } from '@/Api'
 
 export default {
-  name: 'owner',
+  name: 'owner-profile',
   data() {
     return {
-      adminName: '',
-      password: '',
-      email: '',
-      admin: {},
-      message: 'none'
+      name: '',
+      location: '',
+      email: ''
     }
   },
   methods: {
     createOwner() {
-      Api.post('/owners')
+      const newOwner = {
+        name: this.name,
+        location: this.location,
+        email: this.email
+      }
+      Api.post('/owners', newOwner)
         .then(response => {
-          this.message = response.data.message
+          this.newOwner = response.data
+          this.stores = []
+          this.stores.push(newOwner)
+          console.log(response.data)
+          this.$bvModal.msgBoxOk('Owner has been created!')
         })
         .catch(error => {
           this.message = error
         })
+      console.log(newOwner)
     },
 
     getOwner() {

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Owner from './views/Owner.vue'
+import OwnerProfile from './views/OwnerProfile.vue'
 import Profile from './views/Profile.vue'
 import Search from './views/Search.vue'
 import DogProfile from './components/DogProfile.vue'
@@ -22,8 +22,8 @@ export default new Router({
 
     {
       path: '/owners',
-      name: 'owner',
-      component: Owner
+      name: 'owner-profile',
+      component: OwnerProfile
     },
 
     {
