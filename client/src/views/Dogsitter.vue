@@ -91,10 +91,6 @@ export default {
 .btn_message {
   margin-top: 10px;
 }
-img {
-  width: 40%;
-  height: 150px;
-}
 .dogsitterContainer {
   display: grid;
   grid-template-columns: 50% 25% 25%;

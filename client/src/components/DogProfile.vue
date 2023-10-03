@@ -47,13 +47,15 @@ import { Api } from '@/Api'
 const placeholder = require('../assets/default-dog-profile.png')
 
 export default {
-  name: 'DogProfile',
+  name: 'dogprofile',
+  props: {
+    dogId: String
+  },
   data() {
     return {
       profilePhotoURL: placeholder,
-      loggedIn: false,
-      dogId: this.$route.params.dogId, // Access the dogId from route parameters
-      dog: null
+      loggedIn: false, // Access the dogId from route parameters
+      dog: ''
     }
   },
   created() {

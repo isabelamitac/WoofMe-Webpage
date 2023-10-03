@@ -33,9 +33,10 @@ export default new Router({
     },
 
     {
-      path: '/profile/dogs/:dogId',
+      path: '/profile/:dogId',
       name: 'dogprofile',
-      component: DogProfile
+      component: DogProfile,
+      props: true
     },
 
     {
@@ -43,6 +44,7 @@ export default new Router({
       name: 'search',
       component: Search
     },
+
     {
       path: '/dogsitters/:id',
       name: 'dogsitter',

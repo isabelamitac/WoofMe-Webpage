@@ -38,5 +38,13 @@ export default {
   .navlink {
     color: #000000;
     text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.1rem;
+  }
+
+  .navlink:hover {
+    text-decoration: none;
+    color: #4b6f6f;
+    transition: .3s ease;
   }
 </style>

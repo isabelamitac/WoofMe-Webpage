@@ -14,7 +14,6 @@ export default {
   name: 'profile',
   data() {
     return {
-      dog: '',
       profilePhotoURL: placeholder,
       loggedIn: false,
       userInput: ''
