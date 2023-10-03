@@ -1,8 +1,6 @@
 <template>
     <div class="container">
-      <h1>Dog Profile</h1>
-      <input v-model="userInput" type="text" placeholder="Write the dog's id" required/>
-      <button class="second-btn" @click="getDogInfo">Find a dog</button>
+      <h1>Profile of {{ dog.name }}</h1>
       <div class="profile">
         <div class="dog-photo">
           <img :src = "profilePhotoURL" class="profile-photo">
@@ -11,7 +9,7 @@
         <table>
             <tr>
               <th>Name: </th>
-              <td v-if="dog!=null">{{ dog.name }}</td>
+              <td v-if="dog != null">{{ dog.name }}</td>
             </tr>
             <tr>
               <th>Breed: </th>
@@ -52,27 +50,26 @@ export default {
   name: 'DogProfile',
   data() {
     return {
-      dog: '',
       profilePhotoURL: placeholder,
       loggedIn: false,
-      userInput: ''
+      dogId: this.$route.params.dogId, // Access the dogId from route parameters
+      dog: null
     }
+  },
+  created() {
+    this.getDogInfo()
   },
   methods: {
     getDogInfo() {
-      const dogID = this.userInput
-      Api.get(`/dogs/${dogID}`)
-        .then(res => {
+      // Fetch dog information based on this.dogId
+      Api.get(`/dogs/${this.dogId}`)
+        .then((res) => {
           this.dog = res.data
-          console.log(res.data)
         })
-        .catch(err => {
-          console.log(err)
+        .catch((err) => {
+          console.error(err)
         })
     }
-  },
-  mounted() {
-    this.getDogInfo()
   }
 }
 </script>

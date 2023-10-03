@@ -19,7 +19,7 @@
               {{ result.name }}<br />
               {{ result.location }}<br />
               {{ result.rating }}<br />
-              <router-link to="/dogs" id="resultBtn">View profile</router-link>
+              <router-link :to="{ name: 'dogprofile', params: { dogId: result.id } }" id="resultBtn">View profile</router-link>
             </li>
           </ul>
         </div>

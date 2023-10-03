@@ -1,13 +1,13 @@
 <template>
     <div class="container">
-      <DogProfile />
+      <h1>Profile</h1>
+      <input v-model="userInput" type="text" placeholder="Write the ID" required />
+      <button class="second-btn" @click="navigateToDogProfile()">Find a profile</button>
      </div>
   </template>
 
 <script>
 // @ is an alias to /src
-import { Api } from '@/Api'
-import DogProfile from '../components/DogProfile.vue'
 const placeholder = require('../assets/default-dog-profile.png')
 
 export default {
@@ -20,24 +20,11 @@ export default {
       userInput: ''
     }
   },
-  components: {
-    DogProfile
-  },
   methods: {
-    getDogInfo() {
-      const dogID = this.userInput
-      Api.get(`/dogs/${dogID}`)
-        .then(res => {
-          this.dog = res.data
-          console.log(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+    navigateToDogProfile() {
+      // Redirect to the dogprofile route with the provided dog ID
+      this.$router.push({ name: 'dogprofile', params: { dogId: this.userInput } })
     }
-  },
-  mounted() {
-    this.getDogInfo()
   }
 }
 </script>
