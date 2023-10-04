@@ -7,9 +7,44 @@
     <input type="location" placeholder="location" v-model="email" required/> <br />
     <input type="email" placeholder="email" v-model="location" required/> <br />
     </div>
-    <b-button class="second-btn" variant="primary" v-on:click="createOwner()" >Create new profile</b-button>
-    <br>
+    <button class="second-btn" @click="createOwner()" >Create new profile</button>
     <br/>
+     <!-- Display the owner's profile -->
+     <div v-if="newOwner" class="owner-profile">
+        <!-- Profile Picture -->
+        <img src="../assets/profile-photo.png" alt="Profile Picture" class="profile-picture" />
+     <!-- Display the fetched owner's profile -->
+      <p><strong>Name:</strong> {{ newOwner.name }}</p>
+      <p><strong>Location:</strong> {{ newOwner.location }}</p>
+      <p><strong>Email:</strong> {{ newOwner.email }}</p>
+  </div>
+  <br />
+    <button class="second-btn" @click="deleteOwner()">Delete profile</button> <br />
+    <br />
+    <button class="second-btn" @click="updateOwner()" >Update profile</button>
+    <br>
+    <div class="dogs-section">
+      <h2>Dogs</h2>
+      <div class="dog-profiles">
+        <!-- Placeholder Dog Profiles -->
+        <div class="dog-profile">
+          <img src="../assets/default-dog-profile.png" alt="Dog 1" class="dog-picture" />
+          <p>Dog 1</p>
+          <button class="second-btn" @click="createDog()">Add Dog</button>
+        </div>
+        <div class="dog-profile">
+          <img src="../assets/default-dog-profile.png" alt="Dog 2" class="dog-picture" />
+          <p>Dog 2</p>
+          <button class="second-btn" @click="createDog()">Add Dog</button>
+        </div>
+        <div class="dog-profile">
+          <img src="../assets/default-dog-profile.png" alt="Dog 3" class="dog-picture" />
+          <p>Dog 3</p>
+          <button class="second-btn" @click="createDog()">Add Dog</button>
+        </div>
+      </div>
+
+    </div>
       </b-jumbotron>
 </div>
   </template>
@@ -24,7 +59,16 @@ export default {
     return {
       name: '',
       location: '',
-      email: ''
+      email: '',
+      newOwner: null,
+      owner: {},
+      dogs: [],
+      newDog: {
+        age: '',
+        name: '',
+        breed: '',
+        diet: ''
+      }
     }
   },
   methods: {
@@ -41,60 +85,87 @@ export default {
           this.stores.push(newOwner)
           console.log(response.data)
           this.$bvModal.msgBoxOk('Owner has been created!')
-        })
-        .catch(error => {
-          this.message = error
-        })
-      console.log(newOwner)
-    },
-
-    getOwner() {
-      Api.get('/owners/:id')
-        .then(response => {
-          this.message = response.data.message
+          const createdOwnerId = response.data.id
+          // Fetch the owner's profile using the  ID
+          this.fetchOwnerProfile(createdOwnerId)
+          // use the new owner id to create a dog
+          this.createDog(this.newOwner.id)
         })
         .catch(error => {
           this.message = error
         })
     },
 
+    fetchOwnerProfile(id) {
+      Api.get(`/owners/${id}`)
+        .then((response) => {
+          this.newOwner = response.data
+        })
+        .catch((error) => {
+          this.message = error
+        })
+    },
     updateOwner() {
-      Api.put('/owners/:id')
-        .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
-        })
+      const newOwner = {
+        ownerName: this.name || this.owner.name,
+        location: this.location || this.owner.location,
+        email: this.email || this.owner.email
+      }
+      Api.put(`/owners/${this.owner._id}`, newOwner).then((res) => {
+        console.log(res)
+      })
     },
-
     deleteOwner() {
-      Api.delete('/owners/:id')
-        .then(response => {
-          this.message = response.data.message
+      if (!this.newOwner || !this.newOwner.id) {
+        return
+      }
+      const ownerId = this.newOwner.id
+      Api.delete(`/owners/${ownerId}`)
+        .then(() => {
+          this.newOwner = null
+          console.log('Profile deleted')
         })
-        .catch(error => {
-          this.message = error
-        })
-    },
-
-    createDog() {
-      Api.post('/owners/:id/dogs')
-        .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
+        .catch((error) => {
+          console.error('Error deleting profile', error)
         })
     },
 
-    getAllDogsForOwner() {
-      Api.get('/owners/:id/dogs')
-        .then(response => {
-          this.message = response.data.message
+    createDog(ownerId) {
+      const newDogData = {
+        ownerId: ownerId,
+        age: this.newDog.age,
+        name: this.newDog.name,
+        breed: this.newDog.breed,
+        diet: this.newDog.diet
+      }
+
+      Api.post(`/owners/${ownerId}/dogs`, newDogData)
+        .then((response) => {
+          this.dogs.push(response.data) // Add the new dog profile to the array
+          console.log('Dog added:', response.data)
+
+          // Clear the input fields for the next dog
+          this.newDog.age = ''
+          this.newDog.name = ''
+          this.newDog.breed = ''
+          this.newDog.diet = ''
+
+          this.$bvModal.msgBoxOk('Dog has been added!')
         })
-        .catch(error => {
-          this.message = error
+        .catch((error) => {
+          console.error('Error adding dog:', error)
+        })
+    },
+
+    fetchOwnerDogs(ownerId) {
+      // Send a GET request to retrieve all dogs for the owner
+      Api.get(`/owners/${ownerId}/dogs`)
+        .then((response) => {
+          // Assign the retrieved dog profiles to the dogs array
+          this.dogs = response.data
+        })
+        .catch((error) => {
+          console.error('Error fetching owner dogs:', error)
         })
     }
   }
@@ -104,4 +175,41 @@ export default {
 
   <style>
    @import url('../assets/styles/style.css');
+   .owner-profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-data {
+  flex-grow: 1;
+}
+
+.dogs-section {
+  margin-top: 20px;
+}
+
+.dog-profiles {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dog-profile {
+  text-align: center;
+  flex: 1;
+  max-width: 30%;
+}
+
+.dog-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
   </style>
