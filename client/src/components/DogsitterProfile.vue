@@ -2,10 +2,8 @@
     <div class="container">
       <h1>Profile of {{ dogsitter.name }}</h1>
       <div class="profile">
-        <div class="dog-photo">
-          <img :src = "profilePhotoURL" class="profile-photo">
-        </div>
         <div class="dog-info">
+          <img :src = "profilePhotoURL" class="profile-photo">
         <table>
             <tr>
               <th>Name: </th>
@@ -32,6 +30,7 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 const placeholder = require('../assets/default-dog-profile.png')
+const dogPlaceholder = require('../assets/default-profile.png')
 
 export default {
   name: 'dogsitterprofile',
@@ -40,7 +39,8 @@ export default {
   },
   data() {
     return {
-      profilePhotoURL: placeholder,
+      dogPhotoURL: placeholder,
+      profilePhotoURL: dogPlaceholder,
       loggedIn: false, // Access the dogId from route parameters
       dogsitter: ''
     }

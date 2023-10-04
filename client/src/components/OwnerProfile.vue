@@ -24,17 +24,17 @@
         </div>
         <div class="dogs" v-for="dog in dogs" :key="dog.id">
             <div class="oneDog">
-                <img :src = "profilePhotoURL" class="profile-photo"><br />
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
                 <router-link :to="profileLink(dog._id)" id="resultBtn">{{ dog.name }}</router-link>
             </div>
 
             <div class="oneDog">
-                <img :src = "profilePhotoURL" class="profile-photo"><br />
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
                 <button class="cta-btn">Add dog</button>
             </div>
 
             <div class="oneDog">
-                <img :src = "profilePhotoURL" class="profile-photo"><br />
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
                 <button class="cta-btn">Add dog</button>
             </div>
         </div>
@@ -46,6 +46,7 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 const placeholder = require('../assets/default-dog-profile.png')
+const dogPlaceholder = require('../assets/default-profile.png')
 
 export default {
   name: 'ownerprofile',
@@ -54,7 +55,8 @@ export default {
   },
   data() {
     return {
-      profilePhotoURL: placeholder,
+      dogPhotoURL: placeholder,
+      profilePhotoURL: dogPlaceholder,
       loggedIn: false, // Access the dogId from route parameters
       owner: '',
       dogs: []
