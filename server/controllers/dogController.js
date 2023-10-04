@@ -83,13 +83,20 @@ const updateDogDiet = async (req, res) => {
 
 // Delete dog by ID -> DELETE/ dog/:id (individual item)
 const deleteDogById = async (req, res) => {
-  try {
-    await Dogs.deleteOne({ id: req.params.id });
-    res.send('Dog has been deleted');
-  } catch (error) {
-    res.status(400).json({ message: "Could not delete dog" });
-  }
-};
+    try {
+      const dog = await Dogs.findById(req.params.id);
+      if(dog){
+        await dog.deleteOne()
+        res.send("Dog deleted succesfully")
+      }
+      else {
+        res.send("Something went wrong")
+      }
+    } catch (error) {
+      console.log(error.message)
+      res.status(400).json({ message: "Could not delete the dog" });
+    }
+  };
 
 // Delete all dogs -> DELETE /dogs (collection)
 const deleteAllDogs = async (req, res) => {
