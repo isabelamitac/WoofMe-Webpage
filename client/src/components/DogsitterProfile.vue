@@ -1,0 +1,68 @@
+<template>
+    <div class="container">
+      <h1>Profile of {{ dogsitter.name }}</h1>
+      <div class="profile">
+        <div class="dog-photo">
+          <img :src = "profilePhotoURL" class="profile-photo">
+        </div>
+        <div class="dog-info">
+        <table>
+            <tr>
+              <th>Name: </th>
+              <td v-if="dogsitter != null">{{ dogsitter.name }}</td>
+            </tr>
+            <tr>
+              <th>Location: </th>
+              <td v-if="dogsitter !=null">{{ dogsitter.location }}</td>
+            </tr>
+            <tr>
+              <th>Rating: </th>
+              <td v-if="dogsitter !=null">{{ dogsitter.rating }}</td>
+            </tr>
+            <tr>
+              <td v-show="loggedIn">Edit profile</td>
+            </tr>
+          </table>
+        </div>
+     </div>
+    </div>
+  </template>
+
+<script>
+// @ is an alias to /src
+import { Api } from '@/Api'
+const placeholder = require('../assets/default-dog-profile.png')
+
+export default {
+  name: 'dogsitterprofile',
+  props: {
+    dogsitterId: String
+  },
+  data() {
+    return {
+      profilePhotoURL: placeholder,
+      loggedIn: false, // Access the dogId from route parameters
+      dogsitter: ''
+    }
+  },
+  created() {
+    this.getDogSitterInfo()
+  },
+  methods: {
+    getDogSitterInfo() {
+      // Fetch dog information based on this.dogId
+      Api.get(`/dogsitters/${this.dogsitterId}`)
+        .then((res) => {
+          this.dogsitter = res.data
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    }
+  }
+}
+</script>
+
+<style>
+@import url('../assets/styles/style.css');
+</style>

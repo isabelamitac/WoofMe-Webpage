@@ -2,10 +2,8 @@
     <div class="container">
       <h1>Profile of {{ dog.name }}</h1>
       <div class="profile">
-        <div class="dog-photo">
-          <img :src = "profilePhotoURL" class="profile-photo">
-        </div>
         <div class="dog-info">
+          <img :src = "profilePhotoURL" class="profile-photo">
         <table>
             <tr>
               <th>Name: </th>
@@ -55,11 +53,13 @@ export default {
     return {
       profilePhotoURL: placeholder,
       loggedIn: false, // Access the dogId from route parameters
-      dog: ''
+      dog: '',
+      owner: ''
     }
   },
   created() {
     this.getDogInfo()
+    this.getOwnersName()
   },
   methods: {
     getDogInfo() {
@@ -70,6 +70,15 @@ export default {
         })
         .catch((err) => {
           console.error(err)
+        })
+    },
+    getOwnersName() {
+      Api.get(`/owners/${this.ownerId}`)
+        .then((res) => {
+          this.owner = res.data
+        })
+        .catch((err) => {
+          console.log(err)
         })
     }
   }

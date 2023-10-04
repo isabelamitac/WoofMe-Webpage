@@ -47,6 +47,9 @@ import { Api } from '@/Api'
 
 export default {
   name: 'dogsitter',
+  props: {
+    dogsitterId: String
+  },
   data() {
     return {
       dogsitter: '',

@@ -118,6 +118,7 @@ input {
   color: #000000;
   border: 1px solid #bccccc;
   border-radius: 50px;
+  transition: .3s ease;
 }
 
 .label:hover {
@@ -136,22 +137,27 @@ input {
 }
 
 .profile {
-  display: flex;
   margin: 5em auto;
 }
 
 .dog-info {
   display: flex;
   width: 40%;
+  margin-bottom: 10%;
 }
 
-.dog-photo {
+.dogs {
   display: flex;
-  width: 40%;
+}
+
+.oneDog {
+  display: block;
 }
 
 .profile-photo {
   max-width: 250px;
+  margin-right: 5em;
+  margin-bottom: 2em;
 }
 
 .results {

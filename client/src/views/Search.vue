@@ -20,21 +20,24 @@
 
             <template v-if="currentSearchCategory === 'dogs'">
               {{ result.age }} years<br />
-              {{ result.breed }}
+              {{ result.breed }}<br />
+              <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
             <template v-else-if="currentSearchCategory === 'owners'">
               {{ result.location }}<br />
+              <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
             <template v-else-if="currentSearchCategory === 'playdates'">
               {{ result.date }} {{ result.time }}<br />
               {{ result.location }}<br />
-              Playdate created by {{ result.creatorId }}
+              Playdate created by {{ result.creatorId }}<br />
+              <button id="resultBtn">Join</button>
             </template>
             <template v-else>
               {{ result.location }}<br />
-              Rating: {{ result.rating }}
+              Rating: {{ result.rating }}<br />
+              <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
-            <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
           </li>
         </ul>
       </div>

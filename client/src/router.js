@@ -5,6 +5,8 @@ import OwnerProfile from './views/OwnerProfile.vue'
 import Profile from './views/Profile.vue'
 import Search from './views/Search.vue'
 import DogProfile from './components/DogProfile.vue'
+import DogsitterProfile from './components/DogsitterProfile.vue'
+import DogOwnerProfile from './components/OwnerProfile.vue'
 import Dogsitter from './views/Dogsitter.vue'
 import Login from './views/Login.vue'
 
@@ -40,16 +42,31 @@ export default new Router({
     },
 
     {
+      path: '/profile/:dogsitterId',
+      name: 'dogsitterprofile',
+      component: DogsitterProfile,
+      props: true
+    },
+
+    {
+      path: '/profile/:ownerId',
+      name: 'ownerprofile',
+      component: DogOwnerProfile,
+      props: true
+    },
+
+    {
+      path: '/profile/:id',
+      name: 'dogsitter',
+      component: Dogsitter
+    },
+
+    {
       path: '/search',
       name: 'search',
       component: Search
     },
 
-    {
-      path: '/dogsitters/:id',
-      name: 'dogsitter',
-      component: Dogsitter
-    },
     {
       path: '/login',
       name: 'login',
