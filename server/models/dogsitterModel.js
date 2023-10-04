@@ -22,6 +22,10 @@ const dogsitterSchema = new mongoose.Schema({
     type: String,
     required: [true, "Time available is a required field!"],
   },
+  profilePhotoURL: {
+    type: String,
+    required: false,
+  },
   rating: {
     type: Number,
     required: false,
