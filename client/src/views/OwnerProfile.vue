@@ -1,13 +1,13 @@
 <template>
     <div>
-      <b-jumbotron header="Owner Profile" lead="Welcome to your profile section">
-        <b-button class="btn_message" variant="primary" v-on:click="createOwner()" >Create profile</b-button>
+      <b-jumbotron header="Dog Owner Profile" lead="Welcome to your profile section">
       <div class="editFields">
-    <p class="urPost">Enter profile details below:</p>
+    <p class="th">Enter profile details below:</p>
     <input type="name" placeholder="name" v-model="name" required/> <br />
     <input type="location" placeholder="location" v-model="email" required/> <br />
     <input type="email" placeholder="email" v-model="location" required/> <br />
     </div>
+    <b-button class="second-btn" variant="primary" v-on:click="createOwner()" >Create new profile</b-button>
     <br>
     <br/>
       </b-jumbotron>
@@ -103,7 +103,5 @@ export default {
 </script>
 
   <style>
-  .btn_message {
-    margin-bottom: 1em;
-  }
+   @import url('../assets/styles/style.css');
   </style>
