@@ -72,10 +72,10 @@ const deleteOwnerById = async (req, res) => {
     const owner = await Owners.findById(req.params.id);
     if(owner){
       await owner.deleteOne()
-      res.send("Deleted")
+      res.send("Owner deleted succesfully")
     }
     else {
-      res.send("Oh no")
+      res.send("Something went wrong")
     }
   } catch (error) {
     console.log(error.message)
