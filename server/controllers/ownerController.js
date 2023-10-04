@@ -69,9 +69,16 @@ const updateOwner = async (req, res) => {
 // Delete owner by given ID -> DELETE /owners/:id (individual item)
 const deleteOwnerById = async (req, res) => {
   try {
-    await Owners.deleteOne({ id: req.params.id });
-    res.send("Owner has been deleted");
+    const owner = await Owners.findById(req.params.id);
+    if(owner){
+      await owner.deleteOne()
+      res.send("Deleted")
+    }
+    else {
+      res.send("Oh no")
+    }
   } catch (error) {
+    console.log(error.message)
     res.status(400).json({ message: "Could not delete owner" });
   }
 };
