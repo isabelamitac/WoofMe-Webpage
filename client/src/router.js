@@ -7,7 +7,7 @@ import Search from './views/Search.vue'
 import DogProfile from './components/DogProfile.vue'
 import DogsitterProfile from './components/DogsitterProfile.vue'
 import DogOwnerProfile from './components/OwnerProfile.vue'
-import Dogsitter from './views/Dogsitter.vue'
+import Dogsitter from './views/DogsitterProfile.vue'
 import Login from './views/Login.vue'
 
 Vue.use(Router)

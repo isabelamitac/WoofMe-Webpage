@@ -16,7 +16,7 @@ import dogsComponent from '../src/components/Dogs.vue'
         <table>
           <tr>
             <th>Name:</th>
-            <td v-if="dogsitter != null">{{ dogsitter.name }}</td>
+            <td v-if="dogsitter != null">{{ response.name }}</td>
           </tr>
           <tr>
             <th>Location:</th>
@@ -52,10 +52,15 @@ export default {
   },
   data() {
     return {
-      dogsitter: '',
+      name: '',
+      password: '',
+      location: '',
+      dateAvailable: '',
+      timeAvailable: '',
+      rating: '',
+      dogs: [],
       loggedIn: false,
       userInput: '',
-      password: '',
       admin: {},
       message: 'none'
     }
@@ -91,20 +96,4 @@ export default {
 
 <style>
 @import url('../assets/styles/style.css');
-.btn_message {
-  margin-top: 10px;
-}
-.dogsitterContainer {
-  display: grid;
-  grid-template-columns: 50% 25% 25%;
-  height: 150px;
-}
-.dogsitterInfo {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-.recentDogs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
 </style>

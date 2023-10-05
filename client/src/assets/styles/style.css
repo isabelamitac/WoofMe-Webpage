@@ -39,14 +39,14 @@ a:hover {
 
 input {
   padding: 1rem;
-  width: 25em;
+  width: 90%;
   border: 1px solid #4b6f6f;
-  margin-bottom: 2rem !important;
-  margin-right: 2rem !important;
+  margin-bottom: 5% !important;
+  margin-right: 5% !important;
 }
 
 .container {
-  margin: 10em auto;
+  margin: 10% auto;
 }
 
 .section1 {
@@ -61,6 +61,7 @@ input {
 
 .siteImage {
   margin-right: 5em;
+  max-width: 100%;
 }
 
 .cta {
@@ -189,4 +190,51 @@ input {
   color: #000000;
   transition: 0.3s ease;
   text-decoration: none;
+}
+
+.login-container {
+  background-color: #BCCCCC;
+  padding: 5%;
+  display: flex;
+  flex-direction: row;
+}
+
+.loginForm {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.signupForm {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: left; 
+}
+
+.formPic {
+  width: 50%;
+}
+
+#loginPic {
+  max-width: 100%;
+  height: auto;
+}
+
+#loginFewDogs {
+  width: 100%;
+  margin-bottom: 10%;
+}
+
+#SUTitle {
+  margin-bottom: 2% !important;
+}
+
+.signup-container {
+  padding-left: 5%;
+  padding-bottom: 5%;
+  padding-right: 5%;
+  display: flex;
+  flex-direction: row;
 }

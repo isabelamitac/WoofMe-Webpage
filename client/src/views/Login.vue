@@ -2,6 +2,7 @@
   <div class="container">
     <h1>Log in</h1>
     <div class="login-container">
+      <div class="loginForm">
       <input type="email" placeholder="Email" v-model="email" required />
       <input
         type="password"
@@ -10,9 +11,15 @@
         required
       />
       <button class="cta-btn">Log in</button>
-      <img />
-      <div class="sign-up-container">
-        <b-jumbotron header="Sign up here!">
+      </div>
+      <div class="formPic">
+      <img id="loginPic" src="../assets/login-1.png" />
+      </div>
+    </div>
+    <img id="loginFewDogs" src="../assets/login-2.png" />
+      <h2 id="SUTitle">Sign up here!</h2>
+      <div class="signup-container">
+        <div class="signupForm">
           <p class="urPost">Enter profile details below:</p>
           <input
             type="name"
@@ -38,15 +45,21 @@
             v-model="password"
             required
           />
+          <br />
           <input
             type="password"
             placeholder="Re-write the password"
             v-model="passwordRep"
             required
           />
-        </b-jumbotron>
+          <button class="cta-btn">Sign up</button>
+        </div>
+        <div class="formPic">
+        <img id="loginPic" src="../assets/signup-1.png"/>
+        </div>
+        <div>
       </div>
-    </div>
+      </div>
   </div>
 </template>
 
