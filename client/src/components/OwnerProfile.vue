@@ -30,12 +30,12 @@
 
             <div class="oneDog">
                 <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <button class="cta-btn">Add dog</button>
+                <router-link :to="profileLink(dog._id)" id="resultBtn">Add dog</router-link>
             </div>
 
             <div class="oneDog">
                 <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <button class="cta-btn">Add dog</button>
+                <router-link :to="profileLink(dog._id)" id="resultBtn">Add dog</router-link>
             </div>
         </div>
      </div>

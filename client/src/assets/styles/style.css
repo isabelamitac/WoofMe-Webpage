@@ -40,13 +40,67 @@ a:hover {
 input {
   padding: 1rem;
   width: 25em;
-  border: 1px solid #4b6f6f;
+  border: none;
+  background-color: #E8E8E8;
+  color: #000000;
   margin-bottom: 2rem !important;
   margin-right: 2rem !important;
 }
 
+::placeholder {
+  color: #4B6F6F;
+}
+
+.radio {
+  padding: 1rem 1rem 0.4rem 1rem;
+  margin-bottom: 2em;
+  width: 25em;
+  border: none;
+  background-color: #E8E8E8;
+  color: #4B6F6F;
+}
+
+input[type="radio"] {
+  width: 20px;
+  color: #4B6F6F;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  margin-left: 1em;
+}
+
 .container {
   margin: 10em auto;
+  width: 100vw;
+}
+
+.container-full {
+  margin: 0;
+  width: 100vw;
+}
+
+.login-container {
+  display: flex;
+  width: 65vw;
+  margin: 10em auto 10em auto;
+}
+
+.login-fields {
+  width: 40%;
+}
+
+.login-photo {
+  width: 50%;
+  text-align: right;
+}
+
+.roundSiteImage {
+  max-width: 400px;
+}
+
+.photoFullWidth {
+  width: 100vw;
+  max-height: 100%;
+  left: 0 !important;
 }
 
 .section1 {
@@ -177,7 +231,7 @@ input {
 
 #resultBtn {
   margin-left: 5em;
-  padding: 0.5rem 3rem;
+  padding: 0.8rem 3rem;
   background-color: #4b6f6f;
   color: #ffffff;
   border: 0px;
