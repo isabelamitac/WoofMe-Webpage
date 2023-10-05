@@ -7,7 +7,8 @@ const createDogsitter = async (req, res) => {
         password: req.body.password,
         location: req.body.location,
         dateAvailable: req.body.dateAvailable,
-        timeAvailable: req.body.timeAvailable
+        timeAvailable: req.body.timeAvailable,
+        rating: req.body.rating
     })
 
     try {
@@ -19,11 +20,11 @@ const createDogsitter = async (req, res) => {
     }
 }
 
-// Return all dogsitters -> GET /dogsitters (collection)
+// Return all dogsitters, sorted by rating -> GET /dogsitters (collection)
 const getDogsitters = async (req, res) => {
     try{
-        const dogsitters = await Dogsitters.find();
-        res.json(dogsitters)
+        const sorted = await Dogsitters.find().sort({rating:-1});
+        res.json(sorted);
     }
     catch(error){
         res.status(500).json({"message": "Could not find any dogsitters"})
@@ -57,21 +58,9 @@ const deleteDogsitters = async (req, res) => {
     }
 }
 
-// Sort dogsitters DESC by rating
-const sortByRating = async (req, res) => {
-    try{
-       const sorted = await Dogsitters.find().sort({rating:-1});
-        res.json(sorted);
-    }
-    catch(error){
-        res.status(500).json({message: "Cound not sort dogsitters"})
-    }
-}
-
 module.exports = {
     createDogsitter,
     getDogsitters,
     getDogsitterById,
-    deleteDogsitters,
-    sortByRating
+    deleteDogsitters
 };

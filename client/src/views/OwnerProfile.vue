@@ -4,19 +4,19 @@
       <div class="editFields">
     <p class="th">Enter profile details below:</p>
     <input type="name" placeholder="name" v-model="name" required/> <br />
-    <input type="location" placeholder="location" v-model="email" required/> <br />
-    <input type="email" placeholder="email" v-model="location" required/> <br />
+    <input type="location" placeholder="location" v-model="location" required/> <br />
+    <input type="email" placeholder="email" v-model="email" required/> <br />
     </div>
-    <button class="second-btn" @click="createOwner()" >Create new profile</button>
+    <button class="second-btn" @click="createOwner()" >Create new profile</button><br />
     <br/>
      <!-- Display the owner's profile -->
      <div v-if="newOwner" class="owner-profile">
         <!-- Profile Picture -->
         <img src="../assets/profile-photo.png" alt="Profile Picture" class="profile-picture" />
      <!-- Display the fetched owner's profile -->
-      <p><strong>Name:</strong> {{ newOwner.name }}</p>
-      <p><strong>Location:</strong> {{ newOwner.location }}</p>
-      <p><strong>Email:</strong> {{ newOwner.email }}</p>
+      <p><strong>Name:</strong> {{ newOwner.name }}</p><br />
+      <p><strong>Location:</strong> {{ newOwner.location }}</p><br />
+      <p><strong>Email:</strong> {{ newOwner.email }}</p><br />
   </div>
   <br />
     <button class="second-btn" @click="deleteOwner()">Delete profile</button> <br />
@@ -96,8 +96,8 @@ export default {
         })
     },
 
-    fetchOwnerProfile(id) {
-      Api.get(`/owners/${id}`)
+    fetchOwnerProfile(_id) {
+      Api.get(`/owners/${this._id}`)
         .then((response) => {
           this.newOwner = response.data
         })
@@ -132,14 +132,14 @@ export default {
 
     createDog(ownerId) {
       const newDogData = {
-        ownerId: ownerId,
+        ownerId: this.ownerId,
         age: this.newDog.age,
         name: this.newDog.name,
         breed: this.newDog.breed,
         diet: this.newDog.diet
       }
 
-      Api.post(`/owners/${ownerId}/dogs`, newDogData)
+      Api.post(`/owners/${this.ownerId}/dogs`, newDogData)
         .then((response) => {
           this.dogs.push(response.data) // Add the new dog profile to the array
           console.log('Dog added:', response.data)
@@ -159,7 +159,7 @@ export default {
 
     fetchOwnerDogs(ownerId) {
       // Send a GET request to retrieve all dogs for the owner
-      Api.get(`/owners/${ownerId}/dogs`)
+      Api.get(`/owners/${this.ownerId}/dogs`)
         .then((response) => {
           // Assign the retrieved dog profiles to the dogs array
           this.dogs = response.data
