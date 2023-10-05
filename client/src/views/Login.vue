@@ -13,10 +13,10 @@
       <button class="cta-btn">Log in</button>
       </div>
       <div class="formPic">
-      <img id="loginPic" src="../assets/login-1.png" />
+      <img id="loginPic" src="../assets/login1.png" />
       </div>
     </div>
-    <img id="loginFewDogs" src="../assets/login-2.png" />
+    <img id="loginFewDogs" src="../assets/login2.jpg" />
       <h2 id="SUTitle">Sign up here!</h2>
       <div class="signup-container">
         <div class="signupForm">
@@ -55,7 +55,7 @@
           <button class="cta-btn">Sign up</button>
         </div>
         <div class="formPic">
-        <img id="loginPic" src="../assets/signup-1.png"/>
+        <img id="loginPic" src="../assets/login3.png"/>
         </div>
         <div>
       </div>
