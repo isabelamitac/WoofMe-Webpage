@@ -23,8 +23,8 @@
           <p class="urPost">Enter profile details below:</p>
           <input
             type="name"
-            placeholder="First name"
-            v-model="adminName"
+            placeholder="Name"
+            v-model="name"
             required
           />
           <br />
@@ -32,27 +32,7 @@
           <br />
           <input type="text" placeholder="City" v-model="location" required />
           <br />
-          <input
-            type="text"
-            placeholder="Country"
-            v-model="location"
-            required
-          />
-          <br />
-          <input
-            type="password"
-            placeholder="Choose your password"
-            v-model="password"
-            required
-          />
-          <br />
-          <input
-            type="password"
-            placeholder="Re-write the password"
-            v-model="passwordRep"
-            required
-          />
-          <button class="cta-btn">Sign up</button>
+          <button class="cta-btn" @click="createOwner()">Sign up</button>
         </div>
         <div class="formPic">
         <img id="loginPic" src="../assets/login3.png"/>
@@ -63,6 +43,43 @@
   </div>
 </template>
 
+<script>
+import { Api } from '@/Api'
+
+export default {
+  name: 'owner-profile',
+  data() {
+    return {
+      name: '',
+      location: '',
+      email: '',
+      newOwner: null,
+      owner: {},
+      dogs: []
+    }
+  },
+  methods: {
+    createOwner() {
+      const newOwner = {
+        name: this.name,
+        location: this.location,
+        email: this.email
+      }
+      Api.post('/owners', newOwner)
+        .then(response => {
+          this.newOwner = response.data
+          this.stores = []
+          this.stores.push(newOwner)
+          console.log(response.data)
+          this.$bvModal.msgBoxOk('Owner has been created!')
+        })
+        .catch(error => {
+          this.message = error
+        })
+    }
+  }
+}
+</script>
 <style>
 @import url('../assets/styles/style.css');
 </style>

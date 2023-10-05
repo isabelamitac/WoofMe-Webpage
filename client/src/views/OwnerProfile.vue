@@ -85,11 +85,11 @@ export default {
           this.stores.push(newOwner)
           console.log(response.data)
           this.$bvModal.msgBoxOk('Owner has been created!')
-          const createdOwnerId = response.data.id
+          const createdOwnerId = response.data._id
           // Fetch the owner's profile using the  ID
           this.fetchOwnerProfile(createdOwnerId)
           // use the new owner id to create a dog
-          this.createDog(this.newOwner.id)
+          // this.createDog(this.newOwner.id)
         })
         .catch(error => {
           this.message = error
@@ -97,9 +97,10 @@ export default {
     },
 
     fetchOwnerProfile(_id) {
-      Api.get(`/owners/${this._id}`)
+      Api.get(`/owners/${_id}`)
         .then((response) => {
           this.newOwner = response.data
+          console.log(_id)
         })
         .catch((error) => {
           this.message = error
