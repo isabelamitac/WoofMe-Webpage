@@ -9,35 +9,40 @@
         <button class="label" @click="setSearchCategory('dogsitters')">Dogsitter</button>
         <button class="label" @click="setSearchCategory('dogs')">Dog</button>
         <button class="label" @click="setSearchCategory('playdates')">Playdate</button>
-        <hr />
+        <template v-if="currentSearchCategory === 'dogsitters'">
+          <button class="label" @click="sortSittersByRating()">Sort by rating</button>
+        </template>
       </div>
 
       <div class="results">
         <ul v-for="result in results" :key="result._id" v-show="message !== 'No results.'">
           <li class="oneResult">
             <img :src="profilePhotoURL" class="profile-photo" id="resultProfilePhoto" />
-            {{ result.name }}<br />
-
+            <div class="resultInfo">
             <template v-if="currentSearchCategory === 'dogs'">
+              {{ result.name }}<br />
               {{ result.age }} years<br />
-              {{ result.breed }}<br />
-              <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
+              {{ result.breed }}<br /><br />
+                <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
             <template v-else-if="currentSearchCategory === 'owners'">
-              {{ result.location }}<br />
+              {{ result.name }}<br />
+              {{ result.location }}<br /><br />
               <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
             <template v-else-if="currentSearchCategory === 'playdates'">
               {{ result.date }} {{ result.time }}<br />
-              {{ result.location }}<br />
-              Playdate created by {{ result.creatorId }}<br />
-              <button id="resultBtn">Join</button>
+              {{ result.location }}<br /><br />
+              Playdate created by {{ ownerName }}<br />
+              <button id="joinBtn">Join</button>
             </template>
             <template v-else>
+              {{ result.name }}<br />
               {{ result.location }}<br />
-              Rating: {{ result.rating }}<br />
+              Rating: {{ result.rating }}<br /><br />
               <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
+          </div>
           </li>
         </ul>
       </div>
@@ -58,6 +63,7 @@ export default {
       results: [],
       profilePhotoURL: placeholder,
       pressedBtn: false,
+      ownerName: '',
       currentSearchCategory: '' // Track the current search category
     }
   },
@@ -92,12 +98,38 @@ export default {
       Api.get(endpoint)
         .then(res => {
           this.message = res.data
-          this.results = res.data
           this.pressedBtn = true
-          console.log(res.data)
+          if (endpoint === '/playdates') {
+            this.results = res.data
+            const creator = this.results.creatorId
+            if (creator) {
+              Api.get(`/owners/${creator}`)
+                .then(ownerRes => {
+                  this.ownerName = ownerRes.data.name
+                })
+                .catch(err => {
+                  console.log('Error fetching ownerName:', err)
+                })
+            } else {
+              console.log('No creatorId found in the response data.')
+            }
+          } else {
+            this.results = res.data
+            console.log(res.data)
+          }
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+
+    sortSittersByRating() {
+      Api.get('/dogsitters/sort')
+        .then((res) => {
+          this.dogsitter = res.data
+        })
+        .catch((err) => {
+          console.error(err)
         })
     },
 

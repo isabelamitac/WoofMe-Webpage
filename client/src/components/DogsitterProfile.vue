@@ -22,6 +22,22 @@
             </tr>
           </table>
         </div>
+        <div class="dogs" v-for="dog in dogs" :key="dog.id">
+            <div class="oneDog">
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <router-link :to="profileLink(dog._id)" id="resultBtn">{{ dog.name }}</router-link>
+            </div>
+
+            <div class="oneDog">
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <router-link :to="profileLink(dog._id)" id="resultBtn">Add dog</router-link>
+            </div>
+
+            <div class="oneDog">
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <router-link :to="profileLink(dog._id)" id="resultBtn">Add dog</router-link>
+            </div>
+        </div>
      </div>
     </div>
   </template>

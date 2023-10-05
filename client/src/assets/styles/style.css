@@ -42,7 +42,7 @@ input {
   width: 90%;
   background-color: #E8E8E8;
   color: #000000;
-  border: 1px solid #4b6f6f;
+  border: none;
   margin-bottom: 5% !important;
   margin-right: 5% !important;
 }
@@ -76,6 +76,11 @@ input[type="radio"] {
 .container-full {
   margin: 0;
   width: 100vw;
+}
+
+#extraSidePadding {
+  padding-right: 10%;
+  padding-left: 10%;
 }
 
 .login-fields {
@@ -140,7 +145,6 @@ input[type="radio"] {
   color: #ffffff;
   border: 0px;
   padding: 1rem 3rem;
-  margin-left: 1.7rem;
   transition: 0.3s ease;
 }
 
@@ -151,6 +155,11 @@ input[type="radio"] {
 }
 
 .second-btn:active {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+#scndBtn-blueBG:hover {
   background-color: #000000;
   color: #ffffff;
 }
@@ -216,21 +225,19 @@ input[type="radio"] {
 .oneResult {
   display: flex;
   margin: 3em auto;
-  background-color: #ffffff;
 }
 
 #resultProfilePhoto {
-  margin-right: 5em;
-  margin-bottom: 5em;
+  margin-right: 5rem;
+  margin-bottom: 0;
 }
 
 #resultBtn {
-  margin-left: 5em;
   padding: 0.8rem 3rem;
   background-color: #4b6f6f;
   color: #ffffff;
   border: 0px;
-  height: 3rem;
+  min-height: 3rem;
 }
 
 #resultBtn:hover {
@@ -252,7 +259,7 @@ input[type="radio"] {
   width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: flex-start; 
 }
 
 .signupForm {
@@ -286,4 +293,35 @@ input[type="radio"] {
   padding-right: 5%;
   display: flex;
   flex-direction: row;
+}
+
+#joinBtn {
+  padding: 0.5rem 3rem;
+  background-color: #4b6f6f;
+  color: #ffffff;
+  border: 0px;
+}
+
+#joinBtn:hover {
+  background-color: #bccccc;
+  color: #000000;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+#joinBtn:active {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+#joinBtn:focus {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+@media only screen and (max-width: 900px) {
+  #extraSidePadding {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
 }
