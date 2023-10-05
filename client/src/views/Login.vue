@@ -72,6 +72,8 @@ export default {
           this.stores.push(newOwner)
           console.log(response.data)
           this.$bvModal.msgBoxOk('Owner has been created!')
+          const newOwnerId = this.newOwner._id
+          localStorage.setItem('newOwnerId', newOwnerId)
         })
         .catch(error => {
           this.message = error

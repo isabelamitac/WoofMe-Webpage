@@ -1,57 +1,68 @@
 <template>
     <div>
-      <b-jumbotron header="Dog Owner Profile" lead="Welcome to your profile section">
-      <div class="editFields">
-    <p class="th">Enter profile details below:</p>
+      <div class="container">
+      <h1>Welcome to your profile, {{ owner.name }}</h1>
+      <div class="profile">
+        <div class="dog-info">
+          <img :src = "profilePhotoURL" class="profile-photo">
+            <table>
+                <tr>
+                <th>Name: </th>
+                <td v-if="owner != null">{{ owner.name }}</td>
+                </tr>
+                <tr>
+                <th>Email: </th>
+                <td v-if="owner !=null">{{ owner.email }}</td>
+                </tr>
+                <tr>
+                <th>Location: </th>
+                <td v-if="owner !=null">{{ owner.location }}</td>
+                </tr>
+                <tr>
+                <td v-show="loggedIn">Edit profile</td>
+                </tr>
+            </table>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="radio">
+    <p class="th">Update profile details below:</p>
     <input type="name" placeholder="name" v-model="name" required/> <br />
     <input type="location" placeholder="location" v-model="location" required/> <br />
     <input type="email" placeholder="email" v-model="email" required/> <br />
     </div>
-    <button class="second-btn" @click="createOwner()" >Create new profile</button><br />
-    <br/>
-     <!-- Display the owner's profile -->
-     <div v-if="newOwner" class="owner-profile">
-        <!-- Profile Picture -->
-        <img src="../assets/profile-photo.png" alt="Profile Picture" class="profile-picture" />
-     <!-- Display the fetched owner's profile -->
-      <p><strong>Name:</strong> {{ newOwner.name }}</p><br />
-      <p><strong>Location:</strong> {{ newOwner.location }}</p><br />
-      <p><strong>Email:</strong> {{ newOwner.email }}</p><br />
-  </div>
-  <br />
+    <br>
+    <button class="second-btn" @click="updateOwner()" >Update profile</button> <br/>
+    <br />
     <button class="second-btn" @click="deleteOwner()">Delete profile</button> <br />
     <br />
-    <button class="second-btn" @click="updateOwner()" >Update profile</button>
-    <br>
-    <div class="dogs-section">
-      <h2>Dogs</h2>
-      <div class="dog-profiles">
-        <!-- Placeholder Dog Profiles -->
-        <div class="dog-profile">
-          <img src="../assets/default-dog-profile.png" alt="Dog 1" class="dog-picture" />
-          <p>Dog 1</p>
-          <button class="second-btn" @click="createDog()">Add Dog</button>
-        </div>
-        <div class="dog-profile">
-          <img src="../assets/default-dog-profile.png" alt="Dog 2" class="dog-picture" />
-          <p>Dog 2</p>
-          <button class="second-btn" @click="createDog()">Add Dog</button>
-        </div>
-        <div class="dog-profile">
-          <img src="../assets/default-dog-profile.png" alt="Dog 3" class="dog-picture" />
-          <p>Dog 3</p>
-          <button class="second-btn" @click="createDog()">Add Dog</button>
-        </div>
-      </div>
+</div>
+        <div class="dogs" v-for="dog in dogs" :key="dog.id">
+            <div class="oneDog">
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <router-link :to="profileLink(dog._id)" id="resultBtn">{{ dog.name }}</router-link>
+            </div>
 
-    </div>
-      </b-jumbotron>
+            <div class="oneDog">
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
+            </div>
+
+            <div class="oneDog">
+                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
+            </div>
+        </div>
 </div>
   </template>
 
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
+const ownerPlaceholder = require('../assets/default-profile.png')
+const dogPlaceholder = require('../assets/default-dog-profile.png')
+// import OwnerProfile from '../components/OwnerProfile.vue'
 
 export default {
   name: 'owner-profile',
@@ -60,113 +71,61 @@ export default {
       name: '',
       location: '',
       email: '',
-      newOwner: null,
       owner: {},
-      dogs: [],
-      newDog: {
-        age: '',
-        name: '',
-        breed: '',
-        diet: ''
-      }
+      profilePhotoURL: ownerPlaceholder,
+      dogPhotoURL: dogPlaceholder
     }
   },
+  created() {
+    this.getOwnerInfo()
+  },
   methods: {
-    createOwner() {
-      const newOwner = {
-        name: this.name,
-        location: this.location,
-        email: this.email
+    getOwnerInfo() {
+      const ownerId = localStorage.getItem('newOwnerId')
+      if (ownerId) {
+        console.log('Owner ID:', ownerId)
+      } else {
+        console.error('Owner ID not found in localStorage. The owner may be logged out or the account is deleted.')
       }
-      Api.post('/owners', newOwner)
-        .then(response => {
-          this.newOwner = response.data
-          this.stores = []
-          this.stores.push(newOwner)
-          console.log(response.data)
-          this.$bvModal.msgBoxOk('Owner has been created!')
-          const createdOwnerId = response.data._id
-          // Fetch the owner's profile using the  ID
-          this.fetchOwnerProfile(createdOwnerId)
-          // use the new owner id to create a dog
-          // this.createDog(this.newOwner.id)
+      Api.get(`/owners/${ownerId}`)
+        .then((res) => {
+          this.owner = res.data
         })
-        .catch(error => {
-          this.message = error
-        })
-    },
-
-    fetchOwnerProfile(_id) {
-      Api.get(`/owners/${_id}`)
-        .then((response) => {
-          this.newOwner = response.data
-          console.log(_id)
-        })
-        .catch((error) => {
-          this.message = error
+        .catch((err) => {
+          console.error(err)
         })
     },
     updateOwner() {
+      const ownerId = localStorage.getItem('newOwnerId')
       const newOwner = {
         ownerName: this.name || this.owner.name,
         location: this.location || this.owner.location,
         email: this.email || this.owner.email
       }
-      Api.put(`/owners/${this.owner._id}`, newOwner).then((res) => {
+      Api.put(`/owners/${ownerId}`, newOwner).then((res) => {
         console.log(res)
+        // this.$router.push('/adminhome', this.$router.go(0))
       })
     },
     deleteOwner() {
-      if (!this.newOwner || !this.newOwner.id) {
-        return
-      }
-      const ownerId = this.newOwner.id
-      Api.delete(`/owners/${ownerId}`)
-        .then(() => {
-          this.newOwner = null
-          console.log('Profile deleted')
+      Api.delete(`/owners/${this.owner._id}`)
+        .then((res) => {
+          localStorage.clear()
+          console.log(res)
+          localStorage.removeItem('ownerId')
+        //  this.$router.push('/login', this.$router.go(0))
         })
         .catch((error) => {
-          console.error('Error deleting profile', error)
+          console.log(error)
         })
     },
-
-    createDog(ownerId) {
-      const newDogData = {
-        ownerId: this.ownerId,
-        age: this.newDog.age,
-        name: this.newDog.name,
-        breed: this.newDog.breed,
-        diet: this.newDog.diet
-      }
-
-      Api.post(`/owners/${this.ownerId}/dogs`, newDogData)
-        .then((response) => {
-          this.dogs.push(response.data) // Add the new dog profile to the array
-          console.log('Dog added:', response.data)
-
-          // Clear the input fields for the next dog
-          this.newDog.age = ''
-          this.newDog.name = ''
-          this.newDog.breed = ''
-          this.newDog.diet = ''
-
-          this.$bvModal.msgBoxOk('Dog has been added!')
-        })
-        .catch((error) => {
-          console.error('Error adding dog:', error)
-        })
-    },
-
-    fetchOwnerDogs(ownerId) {
-      // Send a GET request to retrieve all dogs for the owner
+    getOwnersDogs() {
       Api.get(`/owners/${this.ownerId}/dogs`)
-        .then((response) => {
-          // Assign the retrieved dog profiles to the dogs array
-          this.dogs = response.data
+        .then((res) => {
+          this.dogs = res.data
         })
-        .catch((error) => {
-          console.error('Error fetching owner dogs:', error)
+        .catch((err) => {
+          console.log(err)
         })
     }
   }
@@ -176,41 +135,7 @@ export default {
 
   <style>
    @import url('../assets/styles/style.css');
-   .owner-profile {
-  display: flex;
-  align-items: center;
-}
-
-.profile-picture {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.profile-data {
-  flex-grow: 1;
-}
-
-.dogs-section {
-  margin-top: 20px;
-}
-
-.dog-profiles {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.dog-profile {
-  text-align: center;
-  flex: 1;
-  max-width: 30%;
-}
-
-.dog-picture {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+   .owner-info {
+  background: #E8E8E8;
 }
   </style>
