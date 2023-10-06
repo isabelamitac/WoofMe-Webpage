@@ -24,17 +24,17 @@
         </div>
         <div class="dogs" v-for="dog in dogs" :key="dog.id">
             <div class="oneDog">
-                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <img :src = "dogPhotoURL" style="width: 15rem;"><br />
                 <router-link :to="profileLink(dog._id)" id="resultBtn">{{ dog.name }}</router-link>
             </div>
 
             <div class="oneDog">
-                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <img :src = "dogPhotoURL" style="width: 15rem;"><br />
                 <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
             </div>
 
             <div class="oneDog">
-                <img :src = "dogPhotoURL" class="profile-photo"><br />
+                <img :src = "dogPhotoURL" style="width: 15rem;"><br />
                 <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
             </div>
         </div>

@@ -3,7 +3,7 @@
       <h1>Profile of {{ dog.name }}</h1>
       <div class="profile">
         <div class="dog-info">
-          <img :src = "profilePhotoURL" class="profile-photo">
+          <img :src = "this.profilePhotoURL" class="profile-photo">
         <table>
             <tr>
               <th>Name: </th>
@@ -15,7 +15,9 @@
             </tr>
             <tr>
               <th>Age: </th>
-              <td v-if="dog!=null">{{ dog.age }}</td>
+              <td v-if="dog!=null">{{ dog.age }} <img :src="edit" class="icons">
+                <input type="age" placeholder="Write new age" v-model="age" required/>
+                <button class="second-btn" id="updateBtn" @click="updateAge()" >Save</button></td>
             </tr>
             <tr>
               <th>Diet: </th>
@@ -23,7 +25,7 @@
             </tr>
             <tr>
               <th>Owner: </th>
-              <td v-if="dog!=null">{{ dog.ownerId }}</td>
+              <td v-if="dog!=null">{{ ownerName }}</td>
             </tr>
             <tr>
               <td v-show="loggedIn">Edit profile</td>
@@ -43,6 +45,7 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 const placeholder = require('../assets/default-dog-profile.png')
+const icon = require('../assets/edit.png')
 
 export default {
   name: 'dogprofile',
@@ -52,14 +55,15 @@ export default {
   data() {
     return {
       profilePhotoURL: placeholder,
+      edit: icon,
       loggedIn: false, // Access the dogId from route parameters
       dog: '',
-      owner: ''
+      owner: '',
+      ownerName: ''
     }
   },
   created() {
     this.getDogInfo()
-    this.getOwnersName()
   },
   methods: {
     getDogInfo() {
@@ -67,19 +71,26 @@ export default {
       Api.get(`/dogs/${this.dogId}`)
         .then((res) => {
           this.dog = res.data
-        })
-        .catch((err) => {
-          console.error(err)
+          this.owner = res.data.ownerId
+          console.log(this.owner)
+          Api.get(`/owners/${this.owner}`)
+            .then((ownerRes) => {
+              console.log(this.ownerRes)
+              this.ownerName = ownerRes.data.name
+              console.log(this.ownerName)
+            })
+            .catch((err) => {
+              console.error(err)
+            })
         })
     },
-    getOwnersName() {
-      Api.get(`/owners/${this.ownerId}`)
-        .then((res) => {
-          this.owner = res.data
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    updateAge() {
+      const newAge = {
+        age: this.age || this.dog.age
+      }
+      Api.patch(`/dogs/${this.dogId}/age`, newAge).then((res) => {
+        console.log(res)
+      })
     }
   }
 }

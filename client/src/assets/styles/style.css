@@ -24,8 +24,13 @@ h3 {
 }
 
 th {
-  font-weight: 800;
+  font-weight: black;
   padding-right: 5rem;
+  width: 8rem;
+}
+
+table {
+  width: 100%;
 }
 
 a {
@@ -45,6 +50,10 @@ input {
   border: none;
   margin-bottom: 5% !important;
   margin-right: 5% !important;
+}
+
+img {
+  max-width: 100%;
 }
 
 ::placeholder {
@@ -68,6 +77,16 @@ input[type="radio"] {
   margin-left: 1em;
 }
 
+input[type="age"] {
+  width: 7.5rem;
+  color: #4B6F6F;
+  margin: 0 0 0 1rem !important;
+  padding: 0 0 0 .3rem;
+  font-size: .8rem;
+  background-color: transparent;
+  border-bottom: solid 1px #4B6F6F;
+}
+
 .container {
   margin: 10rem auto;
   width: 100vw;
@@ -81,6 +100,17 @@ input[type="radio"] {
 #extraSidePadding {
   padding-right: 10%;
   padding-left: 10%;
+}
+
+.icons {
+  width: 1.2rem;
+  margin-left: .5rem;
+}
+
+#updateBtn {
+  padding: .1rem 1.2rem;
+  margin: 0 0 0 .5rem;
+  font-size: .8rem;
 }
 
 .login-fields {
@@ -200,7 +230,6 @@ input[type="radio"] {
 
 .dog-info {
   display: flex;
-  width: 40%;
   margin-bottom: 10%;
 }
 
@@ -209,11 +238,14 @@ input[type="radio"] {
 }
 
 .oneDog {
-  display: block;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 7rem;
 }
 
 .profile-photo {
-  max-width: 250px;
+  width: 15rem;
   margin-right: 5em;
   margin-bottom: 2em;
 }

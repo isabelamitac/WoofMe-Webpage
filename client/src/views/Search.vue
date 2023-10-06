@@ -17,7 +17,8 @@
       <div class="results">
         <ul v-for="result in results" :key="result._id" v-show="message !== 'No results.'">
           <li class="oneResult">
-            <img :src="profilePhotoURL" class="profile-photo" id="resultProfilePhoto" />
+            <img :src="dogPhotoURL" v-if="currentSearchCategory === 'dogs'" class="profile-photo" id="resultProfilePhoto" />
+            <img :src="userPhotoURL" v-else class="profile-photo" id="resultProfilePhoto" />
             <div class="resultInfo">
             <template v-if="currentSearchCategory === 'dogs'">
               {{ result.name }}<br />
@@ -33,12 +34,12 @@
             <template v-else-if="currentSearchCategory === 'playdates'">
               {{ result.date }} {{ result.time }}<br />
               {{ result.location }}<br /><br />
-              Playdate created by {{ ownerName }}<br />
               <button id="joinBtn">Join</button>
             </template>
             <template v-else>
               {{ result.name }}<br />
               {{ result.location }}<br />
+              Available on {{ result.dateAvailable }} at {{ result.timeAvailable }}<br />
               Rating: {{ result.rating }}<br /><br />
               <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
@@ -53,7 +54,8 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
-const placeholder = require('../assets/default-dog-profile.png')
+const placeholderDog = require('../assets/default-dog-profile.png')
+const placeholderUser = require('../assets/default-profile.png')
 
 export default {
   name: 'search',
@@ -61,7 +63,8 @@ export default {
     return {
       message: 'No results.',
       results: [],
-      profilePhotoURL: placeholder,
+      dogPhotoURL: placeholderDog,
+      userPhotoURL: placeholderUser,
       pressedBtn: false,
       ownerName: '',
       currentSearchCategory: '' // Track the current search category
@@ -99,24 +102,7 @@ export default {
         .then(res => {
           this.message = res.data
           this.pressedBtn = true
-          if (endpoint === '/playdates') {
-            this.results = res.data
-            const creator = this.results.creatorId
-            if (creator) {
-              Api.get(`/owners/${creator}`)
-                .then(ownerRes => {
-                  this.ownerName = ownerRes.data.name
-                })
-                .catch(err => {
-                  console.log('Error fetching ownerName:', err)
-                })
-            } else {
-              console.log('No creatorId found in the response data.')
-            }
-          } else {
-            this.results = res.data
-            console.log(res.data)
-          }
+          this.results = res.data
         })
         .catch(err => {
           console.log(err)

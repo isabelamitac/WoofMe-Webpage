@@ -14,6 +14,10 @@
               <td v-if="dogsitter !=null">{{ dogsitter.location }}</td>
             </tr>
             <tr>
+              <th>Available: </th>
+              <td v-if="dogsitter !=null">{{ dogsitter.dateAvailable }} at {{ dogsitter.timeAvailable }}</td>
+            </tr>
+            <tr>
               <th>Rating: </th>
               <td v-if="dogsitter !=null">{{ dogsitter.rating }}</td>
             </tr>
@@ -25,17 +29,17 @@
         <div class="dogs" v-for="dog in dogs" :key="dog.id">
             <div class="oneDog">
                 <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <router-link :to="profileLink(dog._id)" id="resultBtn">{{ dog.name }}</router-link>
+                <router-link :to="'/create-dog'" id="resultBtn">{{ dog.name }}</router-link>
             </div>
 
             <div class="oneDog">
                 <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <router-link :to="profileLink(dog._id)" id="resultBtn">Add dog</router-link>
+                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
             </div>
 
             <div class="oneDog">
                 <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <router-link :to="profileLink(dog._id)" id="resultBtn">Add dog</router-link>
+                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
             </div>
         </div>
      </div>
