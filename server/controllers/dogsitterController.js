@@ -47,6 +47,28 @@ const getDogsitterById = async (req, res) => {
     }
   };
 
+// Update Dogsitter time available
+const updateTimeAvailable = async (req, res) => {
+    const { id } = req.params;
+    const { timeAvailable } = req.body;
+  
+    try {
+      const timeToUpdate = await Dogsitters.findById(id);
+  
+      if (!timeToUpdate) {
+        return res.status(404).json({ message: "Dogsitter not found" });
+      }
+  
+      timeToUpdate.timeAvailable = timeAvailable;
+  
+      const updatedTime = await timeToUpdate.save();
+  
+      res.json(updatedTime);
+    } catch (error) {
+      res.status(400).json({ message: "Could not update the time" });
+    }
+  };
+
 // Delete all dogsitters (by admin) -> DELETE /dogsitters (collection)
 const deleteDogsitters = async (req, res) => {
     try {
@@ -62,5 +84,6 @@ module.exports = {
     createDogsitter,
     getDogsitters,
     getDogsitterById,
+    updateTimeAvailable,
     deleteDogsitters
 };
