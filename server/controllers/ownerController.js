@@ -1,6 +1,12 @@
 const Owners = require("../models/ownerModel");
 const Dogs = require("../models/dogModel");
 const Playdates = require("../models/playdateModel");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const { decode } = require("punycode");
+const { createDecipher } = require("crypto");
+const secretKey = 'MIHcAgEBBEIBOAYfnZcYKixaw9FqDWC1gNhW4GHlpZSjMyL+Bf4eo5TgsJ78xPSXbwpSNohCjeh2R2pjsdhv5DcXwww==';
 
 //OWNERS
 
@@ -187,6 +193,45 @@ const deletePlaydateById = async (req, res) => {
   }
 };
 
+// OWNER AUTHENTICATION
+// Owner registration
+
+async function registerOwner(req, res) {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+        const owner = new Owners({
+            email: req.body.email,
+            password: hashedPassword,
+        });
+        const savedOwner = await owner.save();
+        res.json(savedOwner);
+    } catch(err) {
+        return res.status(500).json({ error: 'Unsuccessful registration, please try again!'});
+    }
+};
+
+// Owner login
+async function loginOwner(req, res) {
+    const owner = await Owners.findOne({ email: req.body.email });
+    if (!owner) {
+      return res.status(400).json({ error: 'Owner doesn\'t exist.' });
+    }
+    try{
+        const matchPassword = await bcrypt.compare(req.body.password, owner.password);
+        const accessToken = jwt.sign(JSON.stringify(owner), secretKey);
+        if(matchPassword){
+            // res.json({ accessToken: accessToken });
+            res.status(200).json({ message: 'Login successful!'})
+        } else {
+            return res.status(400).json({ error: 'Invalid Input' });
+        }
+        } catch(err) {
+          console.log({err});
+          return res.status(500).json({ err });
+      }
+};
+
 module.exports = {
   createOwner,
   getOwners,
@@ -198,4 +243,6 @@ module.exports = {
   createPlaydateOwner,
   getPlaydateById,
   deletePlaydateById,
+  registerOwner,
+  loginOwner,
 };
