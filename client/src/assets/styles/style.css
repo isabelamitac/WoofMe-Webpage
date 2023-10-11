@@ -44,7 +44,8 @@ a:hover {
 
 input {
   padding: 1rem;
-  width: 90%;
+  max-width: 100%;
+  width: 100%;
   background-color: #E8E8E8;
   color: #000000;
   border: none;
@@ -105,6 +106,7 @@ input[type="age"] {
 .icons {
   width: 1.2rem;
   margin-left: .5rem;
+  max-width: 100%;
 }
 
 #updateBtn {
@@ -120,30 +122,34 @@ input[type="age"] {
 .login-photo {
   width: 50%;
   text-align: right;
+  max-width: 100%
 }
 
 .roundSiteImage {
   max-width: 400px;
+  max-width: 100%
 }
 
 .photoFullWidth {
   width: 100vw;
   max-height: 100%;
   left: 0 !important;
+  max-width: 100%
 }
 
 .section1 {
-  width: 100vw;
-  margin-left: -200px;
+  width: 100%;
   display: flex;
+  margin-right: 5rem;
 }
 
 .home {
-  margin-top: 20em;
+  width: 50%;
+  margin-left: 5rem;
+  margin-top: 20%;
 }
 
 .siteImage {
-  margin-right: 5em;
   max-width: 100%;
 }
 
@@ -248,6 +254,7 @@ input[type="age"] {
   width: 15rem;
   margin-right: 5em;
   margin-bottom: 2em;
+  max-width: 100%
 }
 
 .results {
@@ -262,6 +269,7 @@ input[type="age"] {
 #resultProfilePhoto {
   margin-right: 5rem;
   margin-bottom: 0;
+  max-width: 100%
 }
 
 #resultBtn {
@@ -282,7 +290,7 @@ input[type="age"] {
 .login-container {
   width: 100%;
   background-color: #BCCCCC;
-  padding: 5%;
+  padding: 5% 20%;
   display: flex;
   flex-direction: row;
 }
@@ -292,6 +300,7 @@ input[type="age"] {
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
+  margin-right: 5rem;
 }
 
 .signupForm {
@@ -299,20 +308,23 @@ input[type="age"] {
   display: flex;
   flex-direction: column;
   align-items: left; 
+  margin-right: 5rem;
+  margin-bottom: 5rem;
 }
 
 .formPic {
   width: 50%;
+  max-width: 100%
 }
 
 #loginPic {
   max-width: 100%;
   height: auto;
+  max-width: 100%
 }
 
 #loginFewDogs {
   width: 100%;
-  margin-bottom: 10%;
 }
 
 #SUTitle {
@@ -320,9 +332,7 @@ input[type="age"] {
 }
 
 .signup-container {
-  padding-left: 5%;
-  padding-bottom: 5%;
-  padding-right: 5%;
+  padding: 5% 20%;
   display: flex;
   flex-direction: row;
 }
@@ -351,9 +361,72 @@ input[type="age"] {
   color: #ffffff;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 768px) {
   #extraSidePadding {
     padding-right: 5%;
     padding-left: 5%;
+  }
+
+  .oneResult {
+    flex-direction: column;
+    margin-bottom: 5rem;
+  }
+
+  .label {
+    line-height: 0.8rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .dog-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dogs {
+    flex-direction: column;
+  }
+
+  .oneDog {
+    margin-bottom: 5rem;
+  }
+
+  table {
+    width: 80%;
+  }
+
+  #updateBtn {
+    margin-top: 0.5rem;
+    margin-left: 0;
+  }
+
+  .section1 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home {
+    margin: 4rem 0;
+    width: 80%;
+    padding-bottom: 10rem;
+  }
+
+  .login-container {
+    flex-direction: column;
+    padding: 5rem 0;
+    align-items: center;
+  }
+
+  .loginForm {
+    margin: 0 0 5rem 0;
+  }
+
+  .signup-container {
+    flex-direction: column;
+    padding: 5rem 0;
+    align-items: center;
+  }
+
+  .signupForm {
+    margin: 0 0 5rem 0;
   }
 }

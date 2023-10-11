@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
-    <h1>Log in</h1>
+  <div class="container-full">
     <div class="login-container">
       <div class="loginForm">
+        <h1>Log in</h1>
       <input type="email" placeholder="Email" v-model="emailLog" required />
       <input type="password" placeholder="Password" v-model="passwordLog" required/>
       <button class="cta-btn" @click='loginOwner()'>Log in</button>
@@ -11,13 +11,17 @@
       <img id='loginPic' src='../assets/login1.png' />
       </div>
     </div>
-    <img id='loginFewDogs' src='../assets/login2.jpg' />
-      <h2 id='SUTitle'>Sign up here!</h2>
-      <div class='signup-container'>
-        <div class='signupForm'>
-          <p class='urPost'>Enter profile details below:</p>
-          <br />
-          <input type='email' placeholder='Email' v-model='email' required />
+    <img id="loginFewDogs" src="../assets/login2.jpg" />
+      <h2 id="SUTitle">Sign up here!</h2>
+      <div class="signup-container">
+        <div class="signupForm">
+          <p class="urPost">Enter profile details below:</p>
+          <input
+            type="name"
+            placeholder="Name"
+            v-model="name"
+            required
+          />
           <br />
           <input type='password' placeholder='Password' v-model='password' required />
           <br />

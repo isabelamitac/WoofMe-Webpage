@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-full">
     <div class="section1">
       <div>
         <img :src = "image" class="siteImage">

@@ -9,9 +9,6 @@
         <button class="label" @click="setSearchCategory('dogsitters')">Dogsitter</button>
         <button class="label" @click="setSearchCategory('dogs')">Dog</button>
         <button class="label" @click="setSearchCategory('playdates')">Playdate</button>
-        <template v-if="currentSearchCategory === 'dogsitters'">
-          <button class="label" @click="sortSittersByRating()">Sort by rating</button>
-        </template>
       </div>
 
       <div class="results">

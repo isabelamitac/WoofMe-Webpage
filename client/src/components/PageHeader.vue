@@ -25,7 +25,8 @@ export default {
   }
 
   .top-logo {
-    max-width: 200px;
+    max-width: 100%;
+    width: 200px;
     margin: 2em auto;
   }
 
@@ -46,5 +47,12 @@ export default {
     text-decoration: none;
     color: #4b6f6f;
     transition: .3s ease;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .navbar {
+      width: 90%;
+      margin: 1rem auto;
+    }
   }
 </style>
