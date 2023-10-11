@@ -1,11 +1,11 @@
 <template>
     <div class="container-full">
         <div class="login-container">
-            <div class="loginForm" id="extraSidePadding">
+            <div class="loginForm">
                 <h1>Create a new dog</h1>
                 <input type="name" placeholder="Name" v-model="name" required/>
                 <input type="breed" placeholder="Breed" v-model="breed" required/>
-                <input type="age" placeholder="Age" v-model="age" required/>
+                <input type="ageNotEdit" placeholder="Age" v-model="age" required/>
                 <input type="diet" placeholder="Diet" v-model="diet" required/>
                 <input type="ownerId" placeholder="Owner's ID" v-model="ownerId" required/>
                 <button class="second-btn" id="scndBtn-blueBG" @click="createDog()" >Create a new dog</button>
