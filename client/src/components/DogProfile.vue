@@ -90,6 +90,7 @@ export default {
       }
       Api.patch(`/dogs/${this.dogId}/age`, newAge).then((res) => {
         console.log(res)
+        location.reload()
       })
     }
   }

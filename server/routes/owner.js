@@ -36,6 +36,6 @@ router.post('/:id/playdates', createPlaydateOwner);
 router.get('/:id/playdates/:pid', getPlaydateById);
 router.delete('/:id/playdates/:pid', deletePlaydateById);
 router.post('/register', registerOwner);
-router.post('/register/:id/login', loginOwner);
+router.post('/login', loginOwner);
 
 module.exports = router;

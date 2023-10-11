@@ -98,12 +98,13 @@ export default {
     updateOwner() {
       const ownerId = localStorage.getItem('newOwnerId')
       const newOwner = {
-        ownerName: this.name || this.owner.name,
+        name: this.name || this.owner.name,
         location: this.location || this.owner.location,
         email: this.email || this.owner.email
       }
       Api.put(`/owners/${ownerId}`, newOwner).then((res) => {
         console.log(res)
+        location.reload()
         // this.$router.push('/adminhome', this.$router.go(0))
       })
     },

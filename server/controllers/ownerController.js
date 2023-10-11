@@ -221,14 +221,13 @@ async function loginOwner(req, res) {
         const matchPassword = await bcrypt.compare(req.body.password, owner.password);
         const accessToken = jwt.sign(JSON.stringify(owner), secretKey);
         if(matchPassword){
-            // res.json({ accessToken: accessToken });
-            res.status(200).json({ message: 'Login successful!'})
-        } else {
+            res.status(200).json({ accessToken: accessToken })
+          } else {
             return res.status(400).json({ error: 'Invalid Input' });
         }
         } catch(err) {
           console.log({err});
-          return res.status(500).json({ err });
+          return res.status(500).json(err);
       }
 };
 
