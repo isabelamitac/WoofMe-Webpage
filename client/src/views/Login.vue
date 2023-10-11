@@ -12,9 +12,9 @@
       </div>
     </div>
     <img id="loginFewDogs" src="../assets/login2.jpg" />
-      <h2 id="SUTitle">Sign up here!</h2>
       <div class="signup-container">
         <div class="signupForm">
+          <h2 id="SUTitle">Sign up here!</h2>
           <p class="urPost">Enter profile details below:</p>
           <input
             type="name"
