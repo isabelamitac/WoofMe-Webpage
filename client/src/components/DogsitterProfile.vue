@@ -14,8 +14,16 @@
               <td v-if="dogsitter !=null">{{ dogsitter.location }}</td>
             </tr>
             <tr>
-              <th>Available: </th>
-              <td v-if="dogsitter !=null">{{ dogsitter.dateAvailable }} at {{ dogsitter.timeAvailable }}</td>
+              <th>Date: </th>
+              <td v-if="dogsitter !=null">{{ dogsitter.dateAvailable }}
+                <input type="age" placeholder="Write new date" v-model="date" required/>
+                <button class="second-btn" id="updateBtn" @click="updateDate()" >Save date</button></td>
+            </tr>
+            <tr>
+              <th>Time: </th>
+              <td v-if="dogsitter !=null">{{ dogsitter.timeAvailable }}
+                <input type="age" placeholder="Write new time" v-model="time" required/>
+                <button class="second-btn" id="updateBtn" @click="updateTime()" >Save time</button></td>
             </tr>
             <tr>
               <th>Rating: </th>
@@ -78,6 +86,15 @@ export default {
         .catch((err) => {
           console.error(err)
         })
+    },
+    updateTime() {
+      const newTime = {
+        timeAvailable: this.timeAvailable || this.dogsitter.timeAvailable
+      }
+      Api.patch(`/dogsitters/${this.dogsitterId}/time`, newTime).then((res) => {
+        console.log(res)
+        location.reload()
+      })
     }
   }
 }
