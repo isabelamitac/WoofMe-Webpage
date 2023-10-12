@@ -200,6 +200,10 @@ async function registerOwner(req, res) {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
+        const exists = await Owners.findOne({ email: req.body.email });
+        if (exists) {
+          return res.status(400).json({ error: 'Owner already exists.' });
+        }
         const owner = new Owners({
             email: req.body.email,
             password: hashedPassword,
@@ -221,7 +225,7 @@ async function loginOwner(req, res) {
         const matchPassword = await bcrypt.compare(req.body.password, owner.password);
         const accessToken = jwt.sign(JSON.stringify(owner), secretKey);
         if(matchPassword){
-            res.status(200).json({ accessToken: accessToken })
+            res.status(200).json({ accessToken: accessToken, id: owner._id})
           } else {
             return res.status(400).json({ error: 'Invalid Input' });
         }

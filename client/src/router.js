@@ -24,7 +24,7 @@ export default new Router({
     },
 
     {
-      path: '/owners',
+      path: '/owners/:id',
       name: 'owner-profile',
       component: OwnerProfile
     },

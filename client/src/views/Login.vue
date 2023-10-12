@@ -1,8 +1,8 @@
 <template>
-  <div class="container-full">
+  <div class="container">
+    <h1>Log in</h1>
     <div class="login-container">
       <div class="loginForm">
-        <h1>Log in</h1>
       <input type="email" placeholder="Email" v-model="emailLog" required />
       <input type="password" placeholder="Password" v-model="passwordLog" required/>
       <button class="cta-btn" @click='loginOwner()'>Log in</button>
@@ -11,17 +11,13 @@
       <img id='loginPic' src='../assets/login1.png' />
       </div>
     </div>
-    <img id="loginFewDogs" src="../assets/login2.jpg" />
-      <div class="signup-container">
-        <div class="signupForm">
-          <h2 id="SUTitle">Sign up here!</h2>
-          <p class="urPost">Enter profile details below:</p>
-          <input
-            type="name"
-            placeholder="Name"
-            v-model="name"
-            required
-          />
+    <img id='loginFewDogs' src='../assets/login2.jpg' />
+      <h2 id='SUTitle'>Sign up here!</h2>
+      <div class='signup-container'>
+        <div class='signupForm'>
+          <p class='urPost'>Enter profile details below:</p>
+          <br />
+          <input type='email' placeholder='Email' v-model='email' required />
           <br />
           <input type='password' placeholder='Password' v-model='password' required />
           <br />
@@ -50,19 +46,15 @@ export default {
       email: '',
       newOwner: null,
       owner: {},
-      dogs: []
+      dogs: [],
+      emailLog: '',
+      passwordLog: '',
+      password: '',
+      repassword: ''
     }
   },
   methods: {
     createOwner() {
-      let owners = []
-      owners = Api.get('/owners')
-      owners.forEach(owner => {
-        if (owner.email === this.email) {
-          console.los('Owner already exists. Please log in!')
-          location.reload()
-        }
-      })
       if (this.password === this.repassword) {
         const newOwner = {
           email: this.email,
@@ -83,6 +75,12 @@ export default {
           })
           .catch(error => {
             this.message = error
+            if (error.request.status === 400) { // backend sends 400 on email already existing
+              this.$bvModal.msgBoxOk('Owner with this email already exists. Please log in!')
+              this.email = ''
+              this.password = ''
+              this.repassword = ''
+            }
           })
       } else {
         this.password = ''
@@ -99,23 +97,19 @@ export default {
       Api.post('/owners/login', owner)
         .then(res => {
           if (res.status === 200) {
-            localStorage.setItem('token', res.token)
+            console.log(res.data.id)
+            localStorage.setItem('token', res.data.accessToken)
+            localStorage.setItem('loggedInUserID', res.data.id)
             this.emailLog = ''
             this.passwordLog = ''
-            // eslint-disable-next-line no-trailing-spaces
-            // console.log(ownerInfo)
-            // const ownerId = ownerInfo.config._id
-            this.$router.push('/owners')
-          }
-          if (res.status !== 200) {
-            this.$bvModal.msgBoxOk('Owner doesn\'t exist. Create an account first!')
+            this.$router.push('/owners/' + res.data.id)
           }
           console.log(res)
         }, err => {
           this.$bvModal.msgBoxOk('Owner doesn\'t exist. Create an account first!')
-          console.log(err)
           this.emailLog = ''
           this.passwordLog = ''
+          console.log(err)
         })
     }
   }
