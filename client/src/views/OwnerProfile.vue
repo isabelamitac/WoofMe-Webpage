@@ -37,32 +37,51 @@
     <br />
     <button class="second-btn" @click="deleteOwner()">Delete profile</button> <br />
     <br />
-</div>
-        <div class="dogs" v-for="dog in dogs" :key="dog.id">
-            <div class="oneDog">
-                <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <router-link :to="profileLink(dog._id)" id="resultBtn">{{ dog.name }}</router-link>
-            </div>
-
-            <div class="oneDog">
-                <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
-            </div>
-
-            <div class="oneDog">
-                <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
-            </div>
+    <button class="second-btn">
+      <router-link to="/create-dog">Add dog</router-link>
+    </button>
+    <div class="container">
+      <h1>Your dogs</h1>
+    <div class="profile">
+        <div class="dog-info">
+          <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="dog in dogs" :key="dog.id">
+          <td>
+            <img :src = "dogPhotoURL" class="profile-photo">
+          </td>
+          <td>{{ dog.name }}</td>
+          <td>
+            <button class="second-btn">
+      <router-link to="/dog-for-owner">Edit profile</router-link>
+    </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
         </div>
+      </div>
+      </div>
+      <div class="container">
+      <h1>Your playdates</h1>
+    </div>
+  </div>
 </div>
   </template>
 
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
+// import OwnerProfile from '../components/OwnerProfile.vue'
 const ownerPlaceholder = require('../assets/default-profile.png')
 const dogPlaceholder = require('../assets/default-dog-profile.png')
-// import OwnerProfile from '../components/OwnerProfile.vue'
 
 export default {
   name: 'owner-profile',
@@ -73,11 +92,13 @@ export default {
       email: '',
       owner: {},
       profilePhotoURL: ownerPlaceholder,
-      dogPhotoURL: dogPlaceholder
+      dogPhotoURL: dogPlaceholder,
+      dogs: []
     }
   },
   created() {
     this.getOwnerInfo()
+    this.getOwnersDogs()
   },
   methods: {
     getOwnerInfo() {
@@ -105,7 +126,7 @@ export default {
       Api.put(`/owners/${ownerId}`, newOwner).then((res) => {
         console.log(res)
         location.reload()
-        // this.$router.push('/adminhome', this.$router.go(0))
+        // this.$router.push('/owners', this.$router.go(0))
       })
     },
     deleteOwner() {
@@ -121,9 +142,11 @@ export default {
         })
     },
     getOwnersDogs() {
-      Api.get(`/owners/${this.ownerId}/dogs`)
+      const ownerId = localStorage.getItem('newOwnerId')
+      Api.get(`/owners/${ownerId}/dogs`)
         .then((res) => {
           this.dogs = res.data
+          console.log(res)
         })
         .catch((err) => {
           console.log(err)

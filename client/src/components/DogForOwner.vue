@@ -33,11 +33,6 @@
           </table>
         </div>
      </div>
-
-     <div class="cta">
-        <h2>Wanna be my dogsitter?</h2>
-        <button class="cta-btn">Contact the owner</button>
-     </div>
     </div>
   </template>
 
@@ -68,18 +63,12 @@ export default {
   },
   methods: {
     getDogInfo() {
-      // Fetch dog information based on this.dogId
-      Api.get(`/dogs/${this.dogId}`)
+      const ownerId = localStorage.getItem('newOwnerId')
+      Api.get(`/owners/${ownerId}/dogs/${this.dogId}`)
         .then((res) => {
           this.dog = res.data
           this.owner = res.data.ownerId
           console.log(this.owner)
-          Api.get(`/owners/${this.owner}`)
-            .then((ownerRes) => {
-              console.log(this.ownerRes)
-              this.ownerName = ownerRes.data.name
-              console.log(this.ownerName)
-            })
             .catch((err) => {
               console.error(err)
             })

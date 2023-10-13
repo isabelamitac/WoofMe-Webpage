@@ -8,6 +8,7 @@ import DogProfile from './components/DogProfile.vue'
 import DogsitterProfile from './components/DogsitterProfile.vue'
 import DogOwnerProfile from './components/OwnerProfile.vue'
 import CreateDog from './components/CreateDog.vue'
+import DogForOwner from './components/DogForOwner'
 import Dogsitter from './views/DogsitterProfile.vue'
 import Login from './views/Login.vue'
 
@@ -60,6 +61,12 @@ export default new Router({
       path: '/create-dog',
       name: 'dogCreation',
       component: CreateDog
+    },
+
+    {
+      path: '/dog-for-owner',
+      name: 'dogforowner',
+      component: DogForOwner
     },
 
     {

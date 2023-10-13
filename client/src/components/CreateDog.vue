@@ -7,7 +7,6 @@
                 <input type="breed" placeholder="Breed" v-model="breed" required/>
                 <input type="ageNotEdit" placeholder="Age" v-model="age" required/>
                 <input type="diet" placeholder="Diet" v-model="diet" required/>
-                <input type="ownerId" placeholder="Owner's ID" v-model="ownerId" required/>
                 <button class="second-btn" id="scndBtn-blueBG" @click="createDog()" >Create a new dog</button>
             </div>
 
@@ -29,20 +28,20 @@ export default {
       name: '',
       breed: '',
       age: '',
-      diet: '',
-      ownerId: ''
+      diet: ''
     }
   },
   methods: {
     createDog() {
+      const ownerId = localStorage.getItem('newOwnerId')
       const newDog = {
-        ownerId: this.ownerId,
+        ownerId,
         age: this.age,
         name: this.name,
         breed: this.breed,
         diet: this.diet
       }
-      Api.post(`/owners/${this.ownerId}/dogs`, newDog)
+      Api.post(`/owners/${ownerId}/dogs`, newDog)
         .then(res => {
           this.newDog = res.data
           this.stores = []
@@ -51,6 +50,7 @@ export default {
           this.$bvModal.msgBoxOk('Dog has been created!')
           const createdDogId = res.data._id
           this.fetchDogProfile(createdDogId)
+          this.$router.push('/owners', this.$router.go(0))
         })
         .catch(err => {
           this.message = err
@@ -58,36 +58,13 @@ export default {
     },
 
     fetchDogProfile(_id) {
-      Api.get(`/owners/${this.ownerId}/dogs/${this._id}`)
+      const ownerId = localStorage.getItem('newOwnerId')
+      Api.get(`/owners/${ownerId}/dogs/${_id}`)
         .then((res) => {
           this.newDog = res.data
         })
         .catch((err) => {
           this.message = err
-        })
-    },
-    updateOwner() {
-      const newOwner = {
-        ownerName: this.name || this.owner.name,
-        location: this.location || this.owner.location,
-        email: this.email || this.owner.email
-      }
-      Api.put(`/owners/${this.owner._id}`, newOwner).then((res) => {
-        console.log(res)
-      })
-    },
-    deleteOwner() {
-      if (!this.newOwner || !this.newOwner.id) {
-        return
-      }
-      const ownerId = this.newOwner.id
-      Api.delete(`/owners/${ownerId}`)
-        .then(() => {
-          this.newOwner = null
-          console.log('Profile deleted')
-        })
-        .catch((error) => {
-          console.error('Error deleting profile', error)
         })
     }
   }
