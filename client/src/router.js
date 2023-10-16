@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import OwnerProfile from './views/OwnerProfile.vue'
-import Profile from './views/Profile.vue'
 import Search from './views/Search.vue'
 import DogProfile from './components/DogProfile.vue'
 import DogsitterProfile from './components/DogsitterProfile.vue'
@@ -29,12 +28,6 @@ export default new Router({
       path: '/owners/:id',
       name: 'owner-profile',
       component: OwnerProfile
-    },
-
-    {
-      path: '/profile',
-      name: 'profile',
-      component: Profile
     },
 
     {
@@ -67,7 +60,8 @@ export default new Router({
     {
       path: '/dog-for-owner',
       name: 'dogforowner',
-      component: DogForOwner
+      component: DogForOwner,
+      props: true
     },
 
     {

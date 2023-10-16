@@ -43,7 +43,7 @@ const placeholder = require('../assets/default-dog-profile.png')
 const icon = require('../assets/edit.png')
 
 export default {
-  name: 'dogprofile',
+  name: 'dogforownerprofile',
   props: {
     dogId: String,
     dogs: Array
@@ -69,11 +69,13 @@ export default {
           this.dog = res.data
           this.owner = res.data.ownerId
           console.log(this.owner)
-            .catch((err) => {
-              console.error(err)
-            })
+          console.log(this.dog)
+        })
+        .catch((err) => {
+          console.error(err)
         })
     },
+
     updateAge() {
       const newAge = {
         age: this.age || this.dog.age

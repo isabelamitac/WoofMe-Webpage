@@ -23,63 +23,32 @@
                 </tr>
             </table>
         </div>
+
+        <h3>Update profile</h3>
+        <input type="update" placeholder="Name" v-model="name" required/> <br />
+        <input type="update" placeholder="Location" v-model="location" required/> <br />
+        <input type="update" placeholder="Email" v-model="email" required/> <br />
+        <button class="second-btn" id="saveBtn" @click="updateOwner()">Save changes</button>
+        <button class="second-btn" id="saveBtn"><router-link to="/create-dog" id="link">Add dogs</router-link></button>
+        <button class="second-btn" id="deleteBtn" @click="deleteOwner()">Delete profile</button>
       </div>
-    </div>
-    <div class="container">
-      <div class="radio">
-    <p class="th">Update profile details below:</p>
-    <input type="name" placeholder="name" v-model="name" required/> <br />
-    <input type="location" placeholder="location" v-model="location" required/> <br />
-    <input type="email" placeholder="email" v-model="email" required/> <br />
-    </div>
-    <br>
-    <button class="second-btn" @click="updateOwner()" >Update profile</button> <br/>
-    <br />
-    <button class="second-btn" @click="deleteOwner()">Delete profile</button> <br />
-    <br />
-    <button class="second-btn">
-      <router-link to="/create-dog">Add dog</router-link>
-    </button>
-    <div class="container">
-      <h1>Your dogs</h1>
-    <div class="profile">
-        <div class="dog-info">
-          <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="dog in dogs" :key="dog.id">
-          <td>
-            <img :src = "dogPhotoURL" class="profile-photo">
-          </td>
-          <td>{{ dog.name }}</td>
-          <td>
-            <button class="second-btn">
-      <router-link to="/dog-for-owner">Edit profile</router-link>
-    </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <h2>Your dogs</h2>
+      <div class="dogs">
+        <div v-for="dog in dogs" :key="dog.id">
+          <div class="oneDog">
+            <img :src = "dogPhotoURL" style="width: 15rem;"><br />
+            <h3>{{ dog.name }}</h3>
+            <router-link :to="profileLink(dog._id)" id="resultBtn">Edit profile</router-link>
+          </div>
         </div>
       </div>
-      </div>
-      <div class="container">
-      <h1>Your playdates</h1>
     </div>
   </div>
-</div>
   </template>
 
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
-// import OwnerProfile from '../components/OwnerProfile.vue'
 const ownerPlaceholder = require('../assets/default-profile.png')
 const dogPlaceholder = require('../assets/default-dog-profile.png')
 
@@ -151,6 +120,9 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    profileLink(id) {
+      return { name: 'dogprofile', params: { dogId: id } }
     }
   }
 }

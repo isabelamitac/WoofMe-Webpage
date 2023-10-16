@@ -21,7 +21,7 @@ h2 {
 }
 
 h3 {
-  font-size: 2.5rem;
+  font-size: 2.5rem !important;
 }
 
 th {
@@ -89,6 +89,15 @@ input[type="age"] {
   border-bottom: solid 1px #4B6F6F;
 }
 
+input[type="update"] {
+  width: 15rem;
+  color: #4B6F6F;
+  margin: 1rem 0 1rem 0 !important;
+  padding: 0 0 0 .3rem;
+  background-color: transparent;
+  border-bottom: solid 1px #4B6F6F;
+}
+
 .container {
   margin: 10rem auto;
   width: 100vw;
@@ -97,11 +106,6 @@ input[type="age"] {
 .container-full {
   margin: 0;
   width: 100vw;
-}
-
-#extraSidePadding {
-  padding-right: 10%;
-  padding-left: 10%;
 }
 
 .icons {
@@ -114,6 +118,36 @@ input[type="age"] {
   padding: .1rem 1.2rem;
   margin: 0 0 0 .5rem;
   font-size: .8rem;
+  transition: .3s ease;
+}
+
+#saveBtn {
+  padding: .1rem 1.2rem;
+  margin: 1rem 1rem 0 0;
+  font-size: .8rem;
+  transition: .3s ease;
+}
+
+#link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#link:hover {
+  color: #4B6F6F;
+}
+
+#deleteBtn {
+  padding: .1rem 1.2rem;
+  margin: 1rem 0 0 0;
+  font-size: .8rem;
+  background-color: #F27F7F;
+  transition: .3s ease;
+}
+
+#deleteBtn:hover {
+  color: #ffffff;
+  background-color: #000000;
 }
 
 .login-fields {
@@ -242,6 +276,7 @@ input[type="age"] {
 
 .dogs {
   display: flex;
+  margin-bottom: 2rem;
 }
 
 .oneDog {
@@ -279,11 +314,12 @@ input[type="age"] {
   color: #ffffff;
   border: 0px;
   min-height: 3rem;
+  transition: .3s ease;
 }
 
 #resultBtn:hover {
   background-color: #bccccc;
-  color: #000000;
+  color: #4b6f6f;
   transition: 0.3s ease;
   text-decoration: none;
 }
@@ -361,6 +397,7 @@ input[type="age"] {
   background-color: #000000;
   color: #ffffff;
 }
+
 
 @media only screen and (max-width: 768px) {
   #extraSidePadding {
