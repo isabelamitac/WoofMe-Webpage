@@ -46,11 +46,11 @@ export default {
           this.newDog = res.data
           this.stores = []
           this.stores.push(newDog)
-          console.log(res.data)
+          console.log(res.newDog)
           this.$bvModal.msgBoxOk('Dog has been created!')
           const createdDogId = res.data._id
           this.fetchDogProfile(createdDogId)
-          this.$router.push('/owners', this.$router.go(0))
+          this.$router.push(`/owners/${ownerId}`, this.$router.go(0))
         })
         .catch(err => {
           this.message = err

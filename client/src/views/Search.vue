@@ -15,6 +15,7 @@
         <ul v-for="result in results" :key="result._id" v-show="message !== 'No results.'">
           <li class="oneResult">
             <img :src="dogPhotoURL" v-if="currentSearchCategory === 'dogs'" class="profile-photo" id="resultProfilePhoto" />
+            <img :src="playdateURL" v-else-if="currentSearchCategory === 'playdates'" class="profile-photo" id="resultProfilePhoto" />
             <img :src="userPhotoURL" v-else class="profile-photo" id="resultProfilePhoto" />
             <div class="resultInfo">
             <template v-if="currentSearchCategory === 'dogs'">
@@ -53,6 +54,7 @@
 import { Api } from '@/Api'
 const placeholderDog = require('../assets/default-dog-profile.png')
 const placeholderUser = require('../assets/default-profile.png')
+const placeholderPlaydate = require('../assets/default-playdate.png')
 
 export default {
   name: 'search',
@@ -62,6 +64,7 @@ export default {
       results: [],
       dogPhotoURL: placeholderDog,
       userPhotoURL: placeholderUser,
+      playdateURL: placeholderPlaydate,
       pressedBtn: false,
       ownerName: '',
       currentSearchCategory: '' // Track the current search category
