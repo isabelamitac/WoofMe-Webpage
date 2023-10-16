@@ -2,10 +2,10 @@
     <div>
       <div class="container">
       <h1>Welcome to your admin page</h1>
-    </div>
     <br>
     <button class="second-btn" @click="deleteDogsitters()" >Delete all dogsitters</button> <br/>
     <br />
+</div>
 </div>
   </template>
 

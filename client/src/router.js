@@ -11,6 +11,7 @@ import CreateDog from './components/CreateDog.vue'
 import DogForOwner from './components/DogForOwner'
 import Dogsitter from './views/DogsitterProfile.vue'
 import Login from './views/Login.vue'
+import Admin from './views/Admin.vue'
 
 Vue.use(Router)
 
@@ -85,6 +86,12 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin
     }
   ]
 })
