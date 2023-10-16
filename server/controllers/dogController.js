@@ -1,10 +1,10 @@
 let Dogs = require("../models/dogModel");
 
-// Get all dogs -> GET /dogs (collection)
+// Get all dogs -> GET /dogs (collection) and sort ASC by name
 const getAllDogs = async (req, res) => {
   try {
-    const dogs = await Dogs.find();
-    res.json(dogs);
+    const sorted = await Dogs.find().sort({name:1});
+    res.json(sorted);
   } catch (error) {
     res.status(500).json({ message: "Could not find any dogs" });
   }
