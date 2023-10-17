@@ -4,7 +4,7 @@
         <h1>Log in</h1>
         <input type="email" placeholder="Email" v-model="emailLog" required />
         <input type="password" placeholder="Password" v-model="passwordLog" required/>
-        <button class="cta-btn" @click='loginUser()'>Log in</button>
+        <button class="cta-btn" id="scndBtn-blueBG" @click='loginUser()'>Log in</button>
     </div>
         <div class='formPic'>
       <img id='loginPic' src='../assets/login1.png' />
