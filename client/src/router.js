@@ -92,7 +92,7 @@ export default new Router({
     },
 
     {
-      path: 'admins/login',
+      path: '/admins/login',
       name: 'admin-login',
       component: AdminLogin
     },

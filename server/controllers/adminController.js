@@ -1,11 +1,16 @@
 const Admins = require('../models/adminModel');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const secretKey = 'MIHcAgEBBEIBOAYfnZcYKixaw9FqDWC1gNhW4GHlpZSjMyL+Bf4eo5TgsJ78xPSXbwpSNohCjeh2R2pjsdhv5DcXwww==';
 
 const createAdmin = async (req, res) => {
-  //console.log(req);
+  
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
   const admins = new Admins({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: hashedPassword
   });
   try {
     const adminToSave = await admins.save();
@@ -37,10 +42,10 @@ async function loginAdmin(req, res) {
       return res.status(400).json({ error: 'Admin doesn\'t exist.' });
     }
     try{
-        const matchPassword = await bcrypt.compare(req.body.password, owner.password);
-        const accessToken = jwt.sign(JSON.stringify(owner), secretKey);
+        const matchPassword = await bcrypt.compare(req.body.password, admin.password);
+        const accessToken = jwt.sign(JSON.stringify(admin), secretKey);
         if(matchPassword){
-            res.status(200).json({ accessToken: accessToken, id: owner._id})
+            res.status(200).json({ accessToken: accessToken, id: admin._id})
           } else {
             return res.status(401).json({ error: 'Incorrect password' });
         }

@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <h1>Admin settings</h1>
-      <div v-show="loggedIn">
         <button class="second-btn" id="deleteBtn" @click="deleteDogsitters()">Delete all dogsitters</button>
-      </div>
     </div>
 </template>
 

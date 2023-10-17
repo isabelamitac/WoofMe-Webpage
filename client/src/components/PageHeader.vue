@@ -1,7 +1,7 @@
 <template>
     <div class="header">
       <div class="top-bar">
-        <router-link to="/admin-login"><img src="../assets/admin.png" class="icons"></router-link>
+        <router-link to="/admins/login"><img src="../assets/admin.png" class="icons"></router-link>
       </div>
       <img class="top-logo" src="../assets/woof-me-logo.png">
         <div class="navbar">

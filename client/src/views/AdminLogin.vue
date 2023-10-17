@@ -37,19 +37,20 @@ export default {
       Api.post('/admins/login', admin)
         .then(res => {
           if (res.status === 200) {
+            console.log('Successful login.')
             console.log(res.data.id)
             localStorage.setItem('token', res.data.accessToken)
             localStorage.setItem('loggedInUserID', res.data.id)
-            this.emailLog = ''
-            this.passwordLog = ''
-            this.$router.push('/owners/' + res.data.id)
+            this.email = ''
+            this.password = ''
+            this.$router.push('/admin')
           }
           console.log(res)
         })
         .catch(error => {
-          if (error === 'Owner doesn\'t exist.') {
+          if (error === 'Admin doesn\'t exist.') {
             console.log(error)
-            this.$bvModal.msgBoxOk('Owner doesn\'t exist. Create an account first!')
+            this.$bvModal.msgBoxOk('Admin doesn\'t exist. Create an account first!')
           }
           if (error === 'Incorrect password') {
             console.log(error)
