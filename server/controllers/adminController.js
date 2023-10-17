@@ -31,7 +31,28 @@ const getAdminById = async (req, res) => {
   }
 };
 
+async function loginAdmin(req, res) {
+    const admin = await Admins.findOne({ email: req.body.email });
+    if (!admin) {
+      return res.status(400).json({ error: 'Admin doesn\'t exist.' });
+    }
+    try{
+        const matchPassword = await bcrypt.compare(req.body.password, owner.password);
+        const accessToken = jwt.sign(JSON.stringify(owner), secretKey);
+        if(matchPassword){
+            res.status(200).json({ accessToken: accessToken, id: owner._id})
+          } else {
+            return res.status(401).json({ error: 'Incorrect password' });
+        }
+        } catch(err) {
+          console.log({err});
+          return res.status(500).json(err);
+      }
+};
+
+
 module.exports = {
     createAdmin,
-    getAdminById
+    getAdminById,
+    loginAdmin
 };

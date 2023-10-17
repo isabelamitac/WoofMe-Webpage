@@ -7,7 +7,8 @@ require('dotenv').config();
 
 const { decode } = require("punycode");
 const { createDecipher } = require("crypto");
-const secretKey = process.env.secretKey;
+const secretKey = 'MIHcAgEBBEIBOAYfnZcYKixaw9FqDWC1gNhW4GHlpZSjMyL+Bf4eo5TgsJ78xPSXbwpSNohCjeh2R2pjsdhv5DcXwww==';
+// const secretKey = process.env.SECRET_KEY;
 // const apiKey = process.env.API_KEY;
 
 //OWNERS
@@ -229,7 +230,7 @@ async function loginOwner(req, res) {
         if(matchPassword){
             res.status(200).json({ accessToken: accessToken, id: owner._id})
           } else {
-            return res.status(400).json({ error: 'Invalid Input' });
+            return res.status(401).json({ error: 'Incorrect password' });
         }
         } catch(err) {
           console.log({err});

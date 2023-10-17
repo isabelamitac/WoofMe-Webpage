@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 const  { 
-   createDogsitter,
-   getDogsitters,
-   getDogsitterById,
-   updateTimeAvailable,
-   deleteDogsitters
+    createDogsitter,
+    getDogsitters,
+    getDogsitterById,
+    updateTimeAvailable,
+    deleteDogsitters
 } = require('../controllers/dogsitterController.js');
 
 router.post('/', createDogsitter);

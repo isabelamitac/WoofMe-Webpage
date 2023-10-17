@@ -3,20 +3,16 @@
 </template>
 
 <script>
-// const icon = require('../assets/logout.png')
-export default ({
-  name: 'logout',
-  data() {
-    return {
 
-    }
-  },
+export default ({
+  name: 'log-out',
   methods: {
     logOut() {
+      console.log('Successful logout')
       this.$bvModal.msgBoxOk('User logged out!')
-      // loggedIn: false
       localStorage.setItem('token', '')
       localStorage.setItem('loggedInUserID', '')
+      this.$router.push('/home')
     }
   }
 })

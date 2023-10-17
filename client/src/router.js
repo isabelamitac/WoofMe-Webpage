@@ -13,6 +13,7 @@ import Login from './views/Login.vue'
 import Admin from './views/Admin.vue'
 import Chat from './views/Chat.vue'
 import AboutUs from './views/AboutUs.vue'
+import AdminLogin from './views/AdminLogin.vue'
 
 Vue.use(Router)
 
@@ -88,6 +89,12 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: Admin
+    },
+
+    {
+      path: 'admins/login',
+      name: 'admin-login',
+      component: AdminLogin
     },
 
     {

@@ -105,11 +105,21 @@ export default {
             this.$router.push('/owners/' + res.data.id)
           }
           console.log(res)
-        }, err => {
-          this.$bvModal.msgBoxOk('Owner doesn\'t exist. Create an account first!')
+        })
+        .catch(error => {
+          if (error === 'Owner doesn\'t exist.') {
+            console.log(error)
+            this.$bvModal.msgBoxOk('Owner doesn\'t exist. Create an account first!')
+          }
+          if (error === 'Incorrect password') {
+            console.log(error)
+            this.$bvModal.msgBoxOk('Password is incorrect. Please try again')
+          } else {
+            this.$bvModal.msgBoxOk('Something went wrong. Please try again')
+            console.log(error)
+          }
           this.emailLog = ''
           this.passwordLog = ''
-          console.log(err)
         })
     }
   }

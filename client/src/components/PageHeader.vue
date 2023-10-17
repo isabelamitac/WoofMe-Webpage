@@ -17,7 +17,6 @@
 
 <script>
 import LogOut from './LogOut.vue'
-// import LogOutVue from './LogOut.vue'
 
 export default {
   name: 'PageHeader',

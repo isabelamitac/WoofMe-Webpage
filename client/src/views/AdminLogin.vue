@@ -1,0 +1,71 @@
+<template>
+  <div class="container">
+    <h1>Log in</h1>
+    <div class="login-container">
+      <div class="loginForm">
+      <input type="email" placeholder="Email" v-model="email" required />
+      <input type="password" placeholder="Password" v-model="password" required/>
+      <button class="cta-btn" @click='loginAdmin()'>Log in</button>
+      </div>
+      <div class='formPic'>
+      <img id='loginPic' src='../assets/login1.png' />
+      </div>
+    </div>
+    <img id='loginFewDogs' src='../assets/login2.jpg' />
+    </div>
+</template>
+
+<script>
+import { Api } from '@/Api'
+
+export default {
+  name: 'admin-login',
+  data() {
+    return {
+      newAdmin: null,
+      admin: {},
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    loginAdmin() {
+      const admin = {
+        email: this.email,
+        password: this.password
+      }
+      Api.post('/admins/login', admin)
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res.data.id)
+            localStorage.setItem('token', res.data.accessToken)
+            localStorage.setItem('loggedInUserID', res.data.id)
+            this.emailLog = ''
+            this.passwordLog = ''
+            this.$router.push('/owners/' + res.data.id)
+          }
+          console.log(res)
+        })
+        .catch(error => {
+          if (error === 'Owner doesn\'t exist.') {
+            console.log(error)
+            this.$bvModal.msgBoxOk('Owner doesn\'t exist. Create an account first!')
+          }
+          if (error === 'Incorrect password') {
+            console.log(error)
+            this.$bvModal.msgBoxOk('Password is incorrect. Please try again')
+          } else {
+            this.$bvModal.msgBoxOk('Something went wrong. Please try again')
+            console.log(error)
+          }
+          this.emailLog = ''
+          this.passwordLog = ''
+        })
+    }
+  }
+}
+</script>
+
+<style>
+@import url('../assets/styles/style.css');
+</style>
