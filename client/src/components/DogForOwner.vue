@@ -52,7 +52,8 @@ export default {
       loggedIn: false, // Access the dogId from route parameters
       dog: '',
       owner: '',
-      ownerName: ''
+      ownerName: '',
+      age: ''
     }
   },
   created() {
@@ -67,7 +68,6 @@ export default {
           console.log(this.owner)
           Api.get(`/owners/${this.owner}`)
             .then((ownerRes) => {
-              console.log(this.ownerRes)
               this.ownerName = ownerRes.data.name
               console.log(this.ownerName)
             })
