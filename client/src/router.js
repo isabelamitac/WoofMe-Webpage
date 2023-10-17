@@ -11,6 +11,8 @@ import DogForOwner from './components/DogForOwner'
 import Dogsitter from './views/DogsitterProfile.vue'
 import Login from './views/Login.vue'
 import Admin from './views/Admin.vue'
+import Chat from './views/Chat.vue'
+import AboutUs from './views/AboutUs.vue'
 
 Vue.use(Router)
 
@@ -86,6 +88,18 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: Admin
+    },
+
+    {
+      path: '/chat',
+      name: 'chat',
+      component: Chat
+    },
+
+    {
+      path: '/about-us',
+      name: 'about-us',
+      component: AboutUs
     }
   ]
 })

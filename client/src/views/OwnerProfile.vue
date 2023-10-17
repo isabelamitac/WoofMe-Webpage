@@ -38,7 +38,7 @@
           <div class="oneDog">
             <img :src = "dogPhotoURL" style="width: 15rem;"><br />
             <h3>{{ dog.name }}</h3>
-            <router-link :to="profileLink(dog._id)" id="resultBtn">Edit profile</router-link>
+            <router-link :to="profileLink(dog._id)" id="editProfileBtn">Edit profile</router-link>
           </div>
         </div>
       </div>

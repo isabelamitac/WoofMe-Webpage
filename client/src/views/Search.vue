@@ -19,23 +19,23 @@
             <img :src="userPhotoURL" v-else class="profile-photo" id="resultProfilePhoto" />
             <div class="resultInfo">
             <template v-if="currentSearchCategory === 'dogs'">
-              {{ result.name }}<br />
+              <h3>{{ result.name }}</h3>
               {{ result.age }} years<br />
               {{ result.breed }}<br /><br />
                 <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
             <template v-else-if="currentSearchCategory === 'owners'">
-              {{ result.name }}<br />
+              <h3>{{ result.name }}</h3>
               {{ result.location }}<br /><br />
               <router-link :to="profileLink(result._id)" id="resultBtn">View profile</router-link>
             </template>
             <template v-else-if="currentSearchCategory === 'playdates'">
-              {{ result.date }} {{ result.time }}<br />
+              <h3>{{ result.date }} {{ result.time }}</h3>
               {{ result.location }}<br /><br />
               <button id="joinBtn">Join</button>
             </template>
             <template v-else>
-              {{ result.name }}<br />
+              <h3>{{ result.name }}</h3>
               {{ result.location }}<br />
               Available on {{ result.dateAvailable }} at {{ result.timeAvailable }}<br />
               Rating: {{ result.rating }}<br /><br />

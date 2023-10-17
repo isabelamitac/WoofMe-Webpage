@@ -33,11 +33,6 @@
           </table>
         </div>
      </div>
-
-     <div class="cta">
-        <h2>Wanna be my dogsitter?</h2>
-        <button class="cta-btn">Contact the owner</button>
-     </div>
     </div>
   </template>
 
