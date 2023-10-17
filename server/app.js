@@ -4,7 +4,6 @@ var morgan = require("morgan");
 var path = require("path");
 var cors = require("cors");
 var history = require("connect-history-api-fallback");
-require('dotenv').config();
 
 const owner_routes = require("./routes/owner.js");
 const dogsitter_routes = require("./routes/dogsitter.js");

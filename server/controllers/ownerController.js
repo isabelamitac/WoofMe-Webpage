@@ -31,7 +31,7 @@ const createOwner = async (req, res) => {
   }
 };
 
-// Return all owners -> GET /owners (collection)
+// Return all owners -> ET /owners (collection)
 const getOwners = async (req, res) => {
   try {
     const owners = await Owners.find();
