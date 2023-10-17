@@ -249,5 +249,5 @@ module.exports = {
   getPlaydateById,
   deletePlaydateById,
   registerOwner,
-  loginOwner,
+  loginOwner
 };

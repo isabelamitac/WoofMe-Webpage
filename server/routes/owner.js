@@ -13,7 +13,7 @@ const {
     getPlaydateById,
     deletePlaydateById,
     registerOwner,
-    loginOwner
+    loginOwner,
 } = require('../controllers/ownerController.js');
 
 const {

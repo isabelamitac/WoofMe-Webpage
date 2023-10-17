@@ -1,13 +1,13 @@
 <template>
     <div class="header">
       <img class="top-logo" src="../assets/woof-me-logo.png">
-      <log-out></log-out>
         <div class="navbar">
             <router-link class="navlink" to="/">Home</router-link>
             <router-link class="navlink" to="/login">Profile</router-link>
             <router-link class="navlink" to="/search">Search</router-link>
             <router-link class="navlink" to="/chat">Chat</router-link>
             <router-link class="navlink" to="/about-us">About us</router-link>
+            <log-out></log-out>
         </div>
     </div>
 </template>
