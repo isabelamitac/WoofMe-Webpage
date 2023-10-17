@@ -1,6 +1,7 @@
 <template>
     <div class="header">
       <img class="top-logo" src="../assets/woof-me-logo.png">
+      <log-out></log-out>
         <div class="navbar">
             <router-link class="navlink" to="/">Home</router-link>
             <router-link class="navlink" to="/login">Profile</router-link>
@@ -12,8 +13,14 @@
 </template>
 
 <script>
+import LogOut from './LogOut.vue'
+// import LogOutVue from './LogOut.vue'
+
 export default {
-  name: 'PageHeader'
+  name: 'PageHeader',
+  components: {
+    LogOut
+  }
 }
 </script>
 
