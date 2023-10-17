@@ -5,8 +5,13 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'MIHcAgEBBEIBOAYfnZcYKixaw9FqDWC1gNhW4GHlpZSjMyL+Bf4eo5TgsJ78xPSXbwpSNohCjeh2R2pjsdhv5DcXwww==';
 
 const createAdmin = async (req, res) => {
-  
+
+  const userExist = await Admins.findOne({ email: req.body.email })
+  if (userExist) {
+    res.status(401).json({ error: 'Admin already exists. Please log in!'})
+  }
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
   const admins = new Admins({
     name: req.body.name,
     email: req.body.email,
@@ -16,7 +21,7 @@ const createAdmin = async (req, res) => {
     const adminToSave = await admins.save();
     res.status(200).json(adminToSave);
   } catch (error) {
-    res.status(400).json({ message: "Invalid request" });
+    res.status(500).json({ message: "Invalid request" });
   }
 };
 
