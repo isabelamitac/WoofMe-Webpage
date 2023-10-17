@@ -1,17 +1,17 @@
 <template>
-  <div class="container">
-    <h1>Log in</h1>
-    <div class="login-container">
+  <div class="container-full">
+    <div class="admin-container">
       <div class="loginForm">
+        <h1 style="color: #ffffff;">Admin login</h1>
       <input type="email" placeholder="Email" v-model="email" required />
       <input type="password" placeholder="Password" v-model="password" required/>
-      <button class="cta-btn" @click='loginAdmin()'>Log in</button>
+      <button class="cta-btn" id="admin-btn" @click='loginAdmin()'>Log in</button>
       </div>
       <div class='formPic'>
-      <img id='loginPic' src='../assets/login1.png' />
+      <img id='loginPic' src='../assets/admin-login.png' />
       </div>
     </div>
-    <img id='loginFewDogs' src='../assets/login2.jpg' />
+    <img id='loginFewDogs' src='../assets/admin-login2.jpg' />
     </div>
 </template>
 

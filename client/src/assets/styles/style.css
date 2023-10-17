@@ -383,6 +383,25 @@ input[type="update"] {
   margin-right: 5rem;
 }
 
+.admin-container {
+  width: 100%;
+  background-color: #4B6F6F;
+  padding: 5% 20%;
+  display: flex;
+  flex-direction: row;
+}
+
+#admin-btn {
+  background-color: #BCCCCC;
+  color: #000000;
+  padding: .5rem 2rem;
+}
+
+#admin-btn:hover {
+  background-color: #000000;
+  color: #bccccc;
+}
+
 .signupForm {
   width: 50%;
   display: flex;
