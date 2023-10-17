@@ -80,7 +80,10 @@ export default {
   },
   methods: {
     getOwnerInfo() {
-      const ownerId = localStorage.getItem('newOwnerId')
+      const currentURL = window.location
+      console.log(currentURL)
+      const ownerId = currentURL.pathname.split('/')[2]
+      // const ownerId = localStorage.getItem('userID')
       if (ownerId) {
         console.log('Owner ID:', ownerId)
       } else {
