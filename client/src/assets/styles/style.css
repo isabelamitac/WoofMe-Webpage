@@ -1,0 +1,569 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+
+#app {
+  font-family: 'Poppins';
+  font-size: 1rem;
+  line-height: 2rem;
+  scroll-behavior: smooth;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Bangers';
+}
+
+h1,
+h2 {
+  font-size: 4rem !important;
+  margin-bottom: 3rem !important;
+}
+
+h3 {
+  font-size: 2.5rem !important;
+}
+
+th {
+  padding-right: 5rem;
+  width: 8rem;
+}
+
+table {
+  width: 100%;
+}
+
+a {
+  color: #4b6f6f;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #000000;
+}
+
+input {
+  padding: 1rem;
+  max-width: 100%;
+  width: 100%;
+  background-color: #E8E8E8;
+  color: #000000;
+  border: none;
+  margin-bottom: 5% !important;
+  margin-right: 5% !important;
+}
+
+img {
+  max-width: 100%;
+}
+
+::placeholder {
+  color: #4B6F6F;
+}
+
+.radio {
+  padding: 1rem 1rem 0.4rem 1rem;
+  margin-bottom: 2em;
+  width: 25em;
+  border: none;
+  background-color: #E8E8E8;
+  color: #4B6F6F;
+}
+
+input[type="radio"] {
+  width: 20px;
+  color: #4B6F6F;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  margin-left: 1em;
+}
+
+input[type="age"] {
+  width: 7.5rem;
+  color: #4B6F6F;
+  margin: 0 0 0 1rem !important;
+  padding: 0 0 0 .3rem;
+  font-size: .8rem;
+  background-color: transparent;
+  border-bottom: solid 1px #4B6F6F;
+}
+
+input[type="search"] {
+  padding: 1rem;
+  max-width: 100%;
+  width: 80%;
+  background-color: #E8E8E8;
+  color: #000000;
+  border: none;
+  margin-bottom: 5% !important;
+  margin-right: 5% !important;
+}
+
+input[type="update"] {
+  width: 15rem;
+  color: #4B6F6F;
+  margin: 1rem 0 1rem 0 !important;
+  padding: 0 0 0 .3rem;
+  background-color: transparent;
+  border-bottom: solid 1px #4B6F6F;
+}
+
+.container {
+  margin: 10rem auto;
+  width: 100vw;
+}
+
+.container-full {
+  margin: 0;
+  width: 100vw;
+}
+
+.icons {
+  width: 1.2rem;
+  margin-left: .5rem;
+  max-width: 100%;
+  cursor: pointer;
+}
+
+#updateBtn {
+  padding: .1rem 1.2rem;
+  margin: 0 0 0 .5rem;
+  font-size: .8rem;
+  transition: .3s ease;
+}
+
+#saveBtn {
+  padding: .1rem 1.2rem;
+  margin: 1rem 1rem 0 0;
+  font-size: .8rem;
+  transition: .3s ease;
+}
+
+#link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#link:hover {
+  color: #4B6F6F;
+}
+
+#deleteBtn {
+  padding: .1rem 1.2rem;
+  margin: 1rem 0 0 0;
+  font-size: .8rem;
+  background-color: #F27F7F;
+  transition: .3s ease;
+}
+
+#deleteBtn:hover {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.login-fields {
+  width: 40%;
+}
+
+.login-photo {
+  width: 50%;
+  text-align: right;
+  max-width: 100%
+}
+
+.roundSiteImage {
+  max-width: 400px;
+  max-width: 100%
+}
+
+.photoFullWidth {
+  width: 100vw;
+  max-height: 100%;
+  left: 0 !important;
+  max-width: 100%
+}
+
+.section1 {
+  width: 100%;
+  display: flex;
+  margin-right: 5rem;
+}
+
+.home {
+  width: 50%;
+  margin-left: 5rem;
+  margin-top: 20%;
+}
+
+.siteImage {
+  max-width: 100%;
+}
+
+.cta {
+  margin: 10em auto;
+  text-align: center;
+}
+
+.cta-btn {
+  background-color: #4b6f6f;
+  color: #ffffff;
+  border: 0px;
+  padding: 1rem 3rem;
+  transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #bccccc;
+  color: #4b6f6f;
+}
+
+.cta-btn:active {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.second-btn {
+  background-color: #4b6f6f;
+  color: #ffffff;
+  border: 0px;
+  padding: 1rem 3rem;
+  transition: 0.3s ease;
+}
+
+.second-btn:hover {
+  background-color: #bccccc;
+  color: #4b6f6f;
+  text-decoration: none;
+}
+
+.second-btn:active {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+#scndBtn-blueBG:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.allLabels {
+  display: flex;
+}
+
+.label {
+  font-size: 0.8rem;
+  padding: 0.2rem 2rem;
+  margin-right: 15px;
+  background-color: #bccccc;
+  color: #000000;
+  border: 1px solid #bccccc;
+  border-radius: 50px;
+  transition: .3s ease;
+}
+
+.label:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.label:focus {
+  background-color: #4b6f6f;
+  color: #ffffff;
+}
+
+.label:active {
+  background-color: #4b6f6f;
+  color: #ffffff;
+}
+
+.profile {
+  margin: 5em auto;
+}
+
+.dog-info {
+  display: flex;
+  margin-bottom: 10%;
+}
+
+.dogs {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.oneDog {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 7rem;
+}
+
+.profile-photo {
+  width: 15rem;
+  margin-right: 5em;
+  margin-bottom: 2em;
+  max-width: 100%
+}
+
+.results {
+  margin-top: 5em;
+}
+
+.oneResult {
+  display: flex;
+  margin: 3em auto;
+}
+
+#resultProfilePhoto {
+  margin-right: 5rem;
+  margin-bottom: 0;
+  max-width: 100%
+}
+
+#resultBtn {
+  padding: 0.8rem 3rem;
+  background-color: #4b6f6f;
+  color: #ffffff;
+  border: 0px;
+  min-height: 3rem;
+  transition: .3s ease;
+}
+
+#resultBtn:hover {
+  background-color: #bccccc;
+  color: #4b6f6f;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+#editProfileBtn {
+  text-align: center;
+  background-color: #4B6F6F;
+  padding: .1rem 1rem;
+  font-size: .8rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: .3s ease;
+}
+
+#editProfileBtn:hover {
+  background-color: #BCCCCC;
+  color: #4B6F6F;
+}
+
+#aboutUs {
+  max-width: 100%;
+  width: 40%;
+}
+
+.aboutUs {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  align-items: center;
+}
+
+.text {
+  margin-left: 4%;
+}
+
+.login-container {
+  width: 100%;
+  background-color: #BCCCCC;
+  padding: 5% 20%;
+  display: flex;
+  flex-direction: row;
+}
+
+.loginForm {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  margin-right: 5rem;
+}
+
+.admin-container {
+  width: 100%;
+  background-color: #4B6F6F;
+  padding: 5% 20%;
+  display: flex;
+  flex-direction: row;
+}
+
+#admin-btn {
+  background-color: #BCCCCC;
+  color: #000000;
+  padding: .5rem 2rem;
+}
+
+#admin-btn:hover {
+  background-color: #000000;
+  color: #bccccc;
+}
+
+.signupForm {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: left; 
+  margin-right: 5rem;
+  margin-bottom: 5rem;
+}
+
+.formPic {
+  width: 50%;
+  max-width: 100%
+}
+
+#loginPic {
+  max-width: 100%;
+  height: auto;
+  max-width: 100%
+}
+
+#loginFewDogs {
+  width: 100%;
+}
+
+#SUTitle {
+  margin-bottom: 2% !important;
+}
+
+.signup-container {
+  padding: 5% 20%;
+  display: flex;
+  flex-direction: row;
+}
+
+#joinBtn {
+  padding: 0.5rem 3rem;
+  background-color: #4b6f6f;
+  color: #ffffff;
+  border: 0px;
+}
+
+#joinBtn:hover {
+  background-color: #bccccc;
+  color: #000000;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+#joinBtn:active {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+#joinBtn:focus {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+
+@media only screen and (max-width: 768px) {
+  h1, h2 {
+    font-size: 3rem !important;
+  }
+
+  .container {
+    margin: 5rem auto;
+  }
+
+  #aboutUs {
+    display: none;
+  }
+
+  #extraSidePadding {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+
+  .oneResult {
+    flex-direction: column;
+    margin-bottom: 5rem;
+  }
+
+  .label {
+    line-height: 0.8rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .dog-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dogs {
+    flex-direction: column;
+  }
+
+  .oneDog {
+    margin-bottom: 5rem;
+  }
+
+  table {
+    width: 80%;
+  }
+
+  #updateBtn {
+    margin-top: 0.5rem;
+    margin-left: 0;
+  }
+
+  .text {
+    margin-left: 2rem;
+  }
+
+  #aboutUs {
+    margin-left: 2rem;
+  }
+
+  .section1 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home {
+    margin: 4rem 0;
+    width: 80%;
+    padding-bottom: 10rem;
+  }
+
+  .login-container {
+    flex-direction: column;
+    padding: 5rem 0;
+    align-items: center;
+  }
+
+  .loginForm {
+    margin: 0 0 5rem 0;
+    width: 80%;
+  }
+
+  .signup-container {
+    flex-direction: column;
+    padding: 5rem 0;
+    align-items: center;
+  }
+
+  .signupForm {
+    margin: 0 0 5rem 0;
+    width: 80%;
+  }
+
+  th {
+    padding-right: 2rem;
+    width: 5rem;
+  }
+
+  table {
+    margin-bottom: 5rem;
+    width: 90%;
+  }
+
+  .profile-photo {
+    margin-right: 0;
+    margin-bottom: 2em;
+  }
+}

@@ -4,6 +4,7 @@ const Dogsitters = require("../models/dogsitterModel");
 const createDogsitter = async (req, res) => {
     const dogsitters = new Dogsitters({
         name: req.body.name,
+        password: req.body.password,
         location: req.body.location,
         dateAvailable: req.body.dateAvailable,
         timeAvailable: req.body.timeAvailable,
@@ -19,16 +20,54 @@ const createDogsitter = async (req, res) => {
     }
 }
 
-// Return all dogsitters -> GET /dogsitters (collection)
+// Return all dogsitters, sorted by rating -> GET /dogsitters (collection)
 const getDogsitters = async (req, res) => {
     try{
-        const dogsitters = await Dogsitters.find();
-        res.json(dogsitters)
+        const sorted = await Dogsitters.find().sort({rating:-1});
+        res.json(sorted);
     }
     catch(error){
         res.status(500).json({"message": "Could not find any dogsitters"})
     }
 }
+
+// Return the owner with the given ID -> GET /owners/:id (individual item)
+const getDogsitterById = async (req, res) => {
+    try {
+      const dogsitterId = req.params.id;
+      const dogsitterToFind = await Dogsitters.findById(dogsitterId);
+      if (!dogsitterToFind) {
+        return res.status(404).json({ message: "Dogsitter not found" });
+      }
+      res.status(200).json(dogsitterToFind);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Could not find any dogsitters with the given ID" });
+    }
+  };
+
+// Update Dogsitter time available
+const updateTimeAvailable = async (req, res) => {
+    const { id } = req.params;
+    const { timeAvailable } = req.body;
+  
+    try {
+      const timeToUpdate = await Dogsitters.findById(id);
+  
+      if (!timeToUpdate) {
+        return res.status(404).json({ message: "Dogsitter not found" });
+      }
+  
+      timeToUpdate.timeAvailable = timeAvailable;
+  
+      const updatedTime = await timeToUpdate.save();
+  
+      res.json(updatedTime);
+    } catch (error) {
+      res.status(400).json({ message: "Could not update the time" });
+    }
+  };
 
 // Delete all dogsitters (by admin) -> DELETE /dogsitters (collection)
 const deleteDogsitters = async (req, res) => {
@@ -41,20 +80,10 @@ const deleteDogsitters = async (req, res) => {
     }
 }
 
-// Sort dogsitters DESC by rating
-const sortByRating = async (req, res) => {
-    try{
-       const sorted = await Dogsitters.find().sort({rating:-1});
-        res.json(sorted);
-    }
-    catch(error){
-        res.status(500).json({message: "Cound not sort dogsitters"})
-    }
-}
-
 module.exports = {
     createDogsitter,
     getDogsitters,
-    deleteDogsitters,
-    sortByRating
+    getDogsitterById,
+    updateTimeAvailable,
+    deleteDogsitters
 };

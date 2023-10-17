@@ -1,6 +1,14 @@
 const Owners = require("../models/ownerModel");
 const Dogs = require("../models/dogModel");
 const Playdates = require("../models/playdateModel");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const { decode } = require("punycode");
+const { createDecipher } = require("crypto");
+const secretKey = 'MIHcAgEBBEIBOAYfnZcYKixaw9FqDWC1gNhW4GHlpZSjMyL+Bf4eo5TgsJ78xPSXbwpSNohCjeh2R2pjsdhv5DcXwww==';
+// const secretKey = process.env.SECRET_KEY;
+// const apiKey = process.env.API_KEY;
 
 //OWNERS
 
@@ -22,7 +30,7 @@ const createOwner = async (req, res) => {
   }
 };
 
-// Return all owners -> GET /owners (collection)
+// Return all owners -> ET /owners (collection)
 const getOwners = async (req, res) => {
   try {
     const owners = await Owners.find();
@@ -69,9 +77,16 @@ const updateOwner = async (req, res) => {
 // Delete owner by given ID -> DELETE /owners/:id (individual item)
 const deleteOwnerById = async (req, res) => {
   try {
-    await Owners.deleteOne({ id: req.params.id });
-    res.send("Owner has been deleted");
+    const owner = await Owners.findById(req.params.id);
+    if(owner){
+      await owner.deleteOne()
+      res.send("Owner deleted succesfully")
+    }
+    else {
+      res.send("Something went wrong")
+    }
   } catch (error) {
+    console.log(error.message)
     res.status(400).json({ message: "Could not delete owner" });
   }
 };
@@ -180,6 +195,48 @@ const deletePlaydateById = async (req, res) => {
   }
 };
 
+// OWNER AUTHENTICATION
+// Owner registration
+
+async function registerOwner(req, res) {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+        const exists = await Owners.findOne({ email: req.body.email });
+        if (exists) {
+          return res.status(400).json({ error: 'Owner already exists.' });
+        }
+        const owner = new Owners({
+            email: req.body.email,
+            password: hashedPassword,
+        });
+        const savedOwner = await owner.save();
+        res.json(savedOwner);
+    } catch(err) {
+        return res.status(500).json({ error: 'Unsuccessful registration, please try again!'});
+    }
+};
+
+// Owner login
+async function loginOwner(req, res) {
+    const owner = await Owners.findOne({ email: req.body.email });
+    if (!owner) {
+      return res.status(400).json({ error: 'Owner doesn\'t exist.' });
+    }
+    try{
+        const matchPassword = await bcrypt.compare(req.body.password, owner.password);
+        const accessToken = jwt.sign(JSON.stringify(owner), secretKey);
+        if(matchPassword){
+            res.status(200).json({ accessToken: accessToken, id: owner._id})
+          } else {
+            return res.status(401).json({ error: 'Incorrect password' });
+        }
+        } catch(err) {
+          console.log({err});
+          return res.status(500).json(err);
+      }
+};
+
 module.exports = {
   createOwner,
   getOwners,
@@ -191,4 +248,6 @@ module.exports = {
   createPlaydateOwner,
   getPlaydateById,
   deletePlaydateById,
+  registerOwner,
+  loginOwner
 };

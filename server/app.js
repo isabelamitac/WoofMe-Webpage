@@ -9,6 +9,7 @@ const owner_routes = require("./routes/owner.js");
 const dogsitter_routes = require("./routes/dogsitter.js");
 const playdate_routes = require("./routes/playdate.js");
 const dog_routes = require("./routes/dog.js");
+const admin_routes = require("./routes/admin.js")
 
 // Variables
 //var mongoURI = "mongodb://0.0.0.0:27017/woofMeDB";
@@ -45,6 +46,7 @@ app.use("/api/dogsitters", dogsitter_routes);
 app.use("/api/dogsitters/sort", dogsitter_routes);
 app.use("/api/playdates", playdate_routes);
 app.use("/api/dogs", dog_routes);
+app.use("/api/admins", admin_routes);
 
 // Logging for non-existing routes
 app.use((req, res, next) => {

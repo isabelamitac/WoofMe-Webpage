@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
+    <PageHeader />
     <!-- Render the content of the current page view -->
     <router-view/>
-  </div>
+    <PageFooter />
+    </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import PageFooter from './components/PageFooter.vue'
+import PageHeader from './components/PageHeader.vue'
+
+export default {
+  name: 'App',
+  components: {
+    PageFooter,
+    PageHeader
+  }
 }
-</style>
+</script>

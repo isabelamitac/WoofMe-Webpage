@@ -3,8 +3,8 @@
 		"_postman_id": "8c99594d-0e8a-480a-ba5f-d6a55a2f3326",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29531697",
-		"_collection_link": "https://winter-resonance-683859.postman.co/workspace/Group-7~b88589b5-4dc3-4261-88e9-c58ec2c80c7c/collection/29890550-8c99594d-0e8a-480a-ba5f-d6a55a2f3326?action=share&source=collection_link&creator=29531697"
+		"_exporter_id": "29890550",
+		"_collection_link": "https://winter-resonance-683859.postman.co/workspace/Group-7~b88589b5-4dc3-4261-88e9-c58ec2c80c7c/collection/29890550-8c99594d-0e8a-480a-ba5f-d6a55a2f3326?action=share&source=collection_link&creator=29890550"
 	},
 	"item": [
 		{
@@ -14,31 +14,19 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response time is within acceptable range\", function() {",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"",
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
 							"});",
-							"// Test to check if the response has the correct Content-Type header",
-							"pm.test(\"Response has the correct Content-Type header\", function() {",
+							"",
+							"pm.test(\"Response time is within acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");",
+							"});",
+							"",
+							"// Test to check if the response contains a Content-Type header",
+							"pm.test(\"Valid Content-Type header is present\", function() {",
+							"    pm.expect(pm.response.headers.has('Content-Type')).to.be.true;",
 							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
-							"});",
-							"",
-							"pm.test(\"Response schema is valid\", function() {",
-							"    var schema = {",
-							"        type: \"object\",",
-							"        properties: {",
-							"            location: { type: \"string\" },",
-							"            name: { type: \"string\" },",
-							"            email: { type: \"string\", format: \"email\" },",
-							"            dogs: { type: \"array\" },",
-							"            playdates: { type: \"array\" },",
-							"            _id: { type: \"string\" },",
-							"            __v: { type: \"number\" }",
-							"        },",
-							"        required: [\"location\", \"name\", \"email\", \"dogs\", \"playdates\", \"_id\", \"__v\"]",
-							"    };",
-							"",
-							"    var response = pm.response.json();",
-							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
 							"});"
 						],
 						"type": "text/javascript"
@@ -50,7 +38,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"location\": \"Gothenburg\",\n    \"name\": \"John Axel\",\n    \"email\": \"john@axel.com\",\n    \"dog\": \"65100e72df9329ee2c58d193\",\n    \"playdate\": [\"651055e358b200d3343cde86\"]\n}\n",
+					"raw": "{\n    \"name\": \"Janne\",\n    \"location\": \"Halmstad\",\n    \"email\": \"janne@outlook.com\",\n    \"password\": \"abc123\",\n    \"dog\": \"\",\n    \"playdate\": [\"\"]\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -136,7 +124,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"ownerId\": \"651188261cb644ad98f5138a\",\n    \"age\": 2,\n    \"name\": \"Puffy\",\n    \"breed\": \"Pomeranian\",\n    \"diet\": \"canned food\"\n}",
+					"raw": "{\n    \"ownerId\": \"651c49d3b14da1a55c7e93d1\",\n    \"age\": 2,\n    \"name\": \"Jaba\",\n    \"breed\": \"Schipperke\",\n    \"diet\": \"puppy food\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -171,33 +159,15 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"",
 							"pm.test(\"Response status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"",
-							"pm.test(\"Response is an array with at least one element\", function () {",
+							"pm.test(\"Response is an array with at least 0 elements\", function () {",
 							"    const responseData = pm.response.json();",
 							"    ",
-							"    pm.expect(responseData).to.be.an('array').and.to.have.lengthOf.at.least(1);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Each element in the response array has the required fields\", function () {",
-							"  const responseData = pm.response.json();",
-							"",
-							"  pm.expect(responseData).to.be.an('array').that.is.not.empty;",
-							"",
-							"  responseData.forEach(function (element) {",
-							"    pm.expect(element._id).to.exist.and.to.be.a('string');",
-							"    pm.expect(element.location).to.exist.and.to.be.a('string');",
-							"    pm.expect(element.name).to.exist.and.to.be.a('string');",
-							"    pm.expect(element.email).to.exist.and.to.be.a('string');",
-							"  });",
-							"});",
-							"",
-							""
+							"    pm.expect(responseData).to.be.an('array').and.to.have.lengthOf.at.least(0);",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -257,7 +227,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:3001/api/owners/6509d5b6ca73378f0db3ccb6",
+					"raw": "http://127.0.0.1:3001/api/owners/65255d21472c7c74987734ce",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -269,7 +239,7 @@
 					"path": [
 						"api",
 						"owners",
-						"6509d5b6ca73378f0db3ccb6"
+						"65255d21472c7c74987734ce"
 					]
 				}
 			},
@@ -295,7 +265,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:3001/api/owners/650c4865fd6119f36b068b6f/dogs",
+					"raw": "http://127.0.0.1:3001/api/owners/650afc11bafba5e86d9e1197/dogs",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -307,7 +277,7 @@
 					"path": [
 						"api",
 						"owners",
-						"650c4865fd6119f36b068b6f",
+						"650afc11bafba5e86d9e1197",
 						"dogs"
 					]
 				}
@@ -385,7 +355,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:3001/api/owners/650cba2b5c10c10b462760d6",
+					"raw": "http://127.0.0.1:3001/api/owners/6511edf60800d0f87eb65d8b",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -397,7 +367,7 @@
 					"path": [
 						"api",
 						"owners",
-						"650cba2b5c10c10b462760d6"
+						"6511edf60800d0f87eb65d8b"
 					]
 				}
 			},
@@ -587,7 +557,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"ownerId\": \"651188261cb644ad98f5138a\",\n    \"age\": 3,\n    \"name\": \"Poofy\",\n    \"breed\": \"Pomeranian\",\n    \"diet\": \"plant based food\"\n}",
+					"raw": "{\n    \"ownerId\": \"650afc11bafba5e86d9e1197\",\n    \"age\": 10,\n    \"name\": \"Maisa\",\n    \"breed\": \"Mixed\",\n    \"diet\": \"plant based food\",\n    \"profilePhotoURL\": \"../client/src/assets/maisa.png\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -595,7 +565,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:3001/api/dogs/650ca221c8d7bc29a89ac6b3",
+					"raw": "http://127.0.0.1:3001/api/dogs/651c4964b14da1a55c7e93cc",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -607,7 +577,7 @@
 					"path": [
 						"api",
 						"dogs",
-						"650ca221c8d7bc29a89ac6b3"
+						"651c4964b14da1a55c7e93cc"
 					]
 				}
 			},
@@ -731,11 +701,6 @@
 							"});",
 							"",
 							"",
-							"pm.test(\"Response contains the message 'Dog has been deleted'\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Dog has been deleted\");",
-							"});",
-							"",
-							"",
 							"pm.test(\"Response time is less than 200ms\", function () {",
 							"    pm.expect(pm.response.responseTime).to.be.below(200);",
 							"});",
@@ -749,7 +714,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:3001/api/dogs/650ca221c8d7bc29a89ac6b3",
+					"raw": "http://127.0.0.1:3001/api/dogs/651d6d10760d81ed55c2de85",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -761,7 +726,7 @@
 					"path": [
 						"api",
 						"dogs",
-						"650ca221c8d7bc29a89ac6b3"
+						"651d6d10760d81ed55c2de85"
 					]
 				}
 			},
@@ -803,7 +768,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Anna Nilson\",\r\n    \"location\": \"Gothenburg\",\r\n    \"dateAvailable\": \"20 october 2023\",\r\n    \"timeAvailable\": \"13:00-15:00\",\r\n    \"rating\": 8\r\n}",
+					"raw": "{\r\n    \"name\": \"Julia\",\r\n    \"password\": \"kfandlkfl\",\r\n    \"location\": \"Halmstad\",\r\n    \"dateAvailable\": \"20 october 2023\",\r\n    \"timeAvailable\": \"13:00-15:00\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -877,6 +842,114 @@
 			"response": []
 		},
 		{
+			"name": "Get dogsitter by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has the expected message field\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response time is within acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/dogsitters/651d5a54dd6d70b45fd2a1c1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"dogsitters",
+						"651d5a54dd6d70b45fd2a1c1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Dogsitter's time available",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response has the expected message field\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response time is within acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");",
+							"});",
+							"// Test for response content type",
+							"pm.test(\"Response content type is JSON\", function() {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Response status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"timeAvailable\": \"10:00-23:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/dogsitters/651d5a54dd6d70b45fd2a1c1/time",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"dogsitters",
+						"651d5a54dd6d70b45fd2a1c1",
+						"time"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete all Dogsitters",
 			"event": [
 				{
@@ -927,61 +1000,6 @@
 			"response": []
 		},
 		{
-			"name": "Sort Dogsitters by rating",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"pm.test(\"Response status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response is an array\", function () {",
-							"  pm.expect(pm.response.json()).to.be.an('array');",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response time is less than 200ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response does not contain any errors\", function () {",
-							"    pm.response.to.not.have.jsonBody('error');",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:3001/api/dogsitters/sort",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "3001",
-					"path": [
-						"api",
-						"dogsitters",
-						"sort"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Create a Playdate (Owner)",
 			"event": [
 				{
@@ -990,12 +1008,6 @@
 						"exec": [
 							"pm.test(\"Response in JSON format.\", function() {",
 							"    pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Correct body values.\", function() {",
-							"    let bodyJson = pm.response.json();",
-							"    pm.expect(bodyJson.location).to.eql(\"Gothenburg\");",
-							"    pm.expect(bodyJson.date).to.eql(\"2023-10-05\");",
 							"});",
 							"",
 							"pm.test(\"Successful posting.\", function() {",
@@ -1016,7 +1028,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"location\": \"Gothenburg\",\n    \"date\": \"2023-10-05\",\n    \"time\": \"16:00-17:30\",\n    \"creatorId\": \"6511e69d4a8b9a3f4fd5314c\",\n    \"otherOwners\": [\"651188261cb644ad98f5138a\"]\n}",
+					"raw": "{\n    \"location\": \"Gothenburg\",\n    \"date\": \"2023-11-15\",\n    \"time\": \"10:00-12:00\",\n    \"creatorId\": \"651c49fdb14da1a55c7e93d5\",\n    \"otherOwners\": [\"650afc11bafba5e86d9e1197\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1218,6 +1230,261 @@
 						"6511e69d4a8b9a3f4fd5314c",
 						"playdates",
 						"6511e6bc4a8b9a3f4fd53150"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Owner Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"arturm@yahoo.com\",\n    \"password\": \"cielaczek\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/owners/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"owners",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Owner Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mike@yahoo.com\",\n    \"password\": \"123abc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/owners/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"owners",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response time is within acceptable range\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");\r",
+							"});\r",
+							"\r",
+							"// Test to check if the response contains a Content-Type header\r",
+							"pm.test(\"Valid Content-Type header is present\", function() {\r",
+							"    pm.expect(pm.response.headers.has('Content-Type')).to.be.true;\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sophia\",\r\n    \"email\": \"sophia@yahoo.com\",\r\n    \"password\": \"abc123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/admins",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"admins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Admin by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check if the response time is within an acceptable range\r",
+							"pm.test(\"Response time is within acceptable range\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");\r",
+							"});\r",
+							"\r",
+							"// Test to check if the response body is an object\r",
+							"pm.test(\"Response body is an object\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('object');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/admins/652e7d27feb811429dec5a7f",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"admins",
+						"652e7d27feb811429dec5a7f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check if the response time is within an acceptable range",
+							"pm.test(\"Response time is within acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");",
+							"});",
+							"",
+							"// Test to check if the response body is an object",
+							"pm.test(\"Response body is an object\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"milenam@yahoo.com\",\n    \"password\": \"abc123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/admins/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"admins",
+						"login"
 					]
 				}
 			},

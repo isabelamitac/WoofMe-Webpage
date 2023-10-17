@@ -1,22 +1,30 @@
 <template>
-  <div>
-    <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p>Message from the server:<br/>
-      {{ message }}</p>
-    </b-jumbotron>
+  <div class="container-full">
+    <div class="section1">
+      <div>
+        <img :src = "image" class="siteImage">
+      </div>
+      <div class="home">
+        <h1>Find your furry friends</h1>
+        <input v-model="userInput" type="search" placeholder="What are you looking for?" required/>
+        <router-link class="second-btn" to="/search">Search</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
+const photo1 = require('../assets/home-1.jpg')
 
 export default {
   name: 'home',
   data() {
     return {
-      message: 'none'
+      message: 'none',
+      image: photo1,
+      userInput: ''
     }
   },
   methods: {
