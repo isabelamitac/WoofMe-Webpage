@@ -5,7 +5,6 @@
       <div class='signup-container'>
         <div class='signupForm'>
           <h2 id='SUTitle'>Sign up here!</h2>
-          <p class='urPost'>Enter profile details below:</p>
           <br />
           <input type='email' placeholder='Email' v-model='email' required />
           <br />

@@ -11,7 +11,7 @@
             </div>
 
             <div class="formPic">
-                <img id="loginPic" src="../assets/login3.png"/>
+                <img id="loginPic" src="../assets/createdog.png"/>
             </div>
         </div>
     </div>
