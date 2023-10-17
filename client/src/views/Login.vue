@@ -1,10 +1,21 @@
 <template>
-  <div class="container-full">
-    <login></login>
+  <div class="container">
+    <h1>Log in</h1>
+    <div class="login-container">
+      <div class="loginForm">
+      <input type="email" placeholder="Email" v-model="emailLog" required />
+      <input type="password" placeholder="Password" v-model="passwordLog" required/>
+      <button class="cta-btn" @click='loginOwner()'>Log in</button>
+      </div>
+      <div class='formPic'>
+      <img id='loginPic' src='../assets/login1.png' />
+      </div>
+    </div>
     <img id='loginFewDogs' src='../assets/login2.jpg' />
+      <h2 id='SUTitle'>Sign up here!</h2>
       <div class='signup-container'>
         <div class='signupForm'>
-          <h2 id='SUTitle'>Sign up here!</h2>
+          <p class='urPost'>Enter profile details below:</p>
           <br />
           <input type='email' placeholder='Email' v-model='email' required />
           <br />
@@ -17,19 +28,17 @@
         <div class='formPic'>
         <img id='loginPic' src='../assets/login3.png'/>
         </div>
+        <div>
+      </div>
       </div>
   </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
-import Login from '../components/Login.vue'
 
 export default {
   name: 'owner-profile',
-  components: {
-    Login
-  },
   data() {
     return {
       name: '',
@@ -38,6 +47,8 @@ export default {
       newOwner: null,
       owner: {},
       dogs: [],
+      emailLog: '',
+      passwordLog: '',
       password: '',
       repassword: ''
     }
@@ -77,6 +88,29 @@ export default {
         this.$bvModal.msgBoxOk('Passwords are different. Please try again!')
         console.log('Unsuccessful registration. Please try again!')
       }
+    },
+    loginOwner() {
+      const owner = {
+        email: this.emailLog,
+        password: this.passwordLog
+      }
+      Api.post('/owners/login', owner)
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res.data.id)
+            localStorage.setItem('token', res.data.accessToken)
+            localStorage.setItem('loggedInUserID', res.data.id)
+            this.emailLog = ''
+            this.passwordLog = ''
+            this.$router.push('/owners/' + res.data.id)
+          }
+          console.log(res)
+        }, err => {
+          this.$bvModal.msgBoxOk('Owner doesn\'t exist. Create an account first!')
+          this.emailLog = ''
+          this.passwordLog = ''
+          console.log(err)
+        })
     }
   }
 }
