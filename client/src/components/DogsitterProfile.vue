@@ -53,7 +53,8 @@ export default {
       dogPhotoURL: placeholder,
       profilePhotoURL: dogPlaceholder,
       loggedIn: false, // Access the dogId from route parameters
-      dogsitter: ''
+      dogsitter: '',
+      dogs: []
     }
   },
   created() {

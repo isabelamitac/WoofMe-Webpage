@@ -61,10 +61,8 @@ export default {
         .then((res) => {
           this.dog = res.data
           this.owner = res.data.ownerId
-          console.log(this.owner)
           Api.get(`/owners/${this.owner}`)
             .then((ownerRes) => {
-              console.log(this.ownerRes)
               this.ownerName = ownerRes.data.name
               console.log(this.ownerName)
             })
