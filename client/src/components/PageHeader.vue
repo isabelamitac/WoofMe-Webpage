@@ -1,5 +1,8 @@
 <template>
     <div class="header">
+      <div class="top-bar">
+        <router-link to="/admin-login"><img src="../assets/admin.png" class="icons"></router-link>
+      </div>
       <img class="top-logo" src="../assets/woof-me-logo.png">
         <div class="navbar">
             <router-link class="navlink" to="/">Home</router-link>
@@ -25,10 +28,18 @@ export default {
 </script>
 
 <style>
+
 .header {
     width: 100%;
     margin: 5em auto;
     text-align: center;
+  }
+
+  .top-bar {
+    position: absolute;
+    padding: 1rem 2rem;
+    top: 0;
+    right: 0;
   }
 
   .top-logo {
@@ -60,6 +71,15 @@ export default {
     .navbar {
       width: 90%;
       margin: 1rem auto;
+    }
+
+    .navlink {
+    letter-spacing: normal;
+    font-size: .8rem;
+    }
+
+    .header {
+      margin: 1em auto;
     }
   }
 </style>

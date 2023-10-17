@@ -22,6 +22,7 @@
                 </tr>
             </table>
         </div>
+        <h2>{{ owner.name }}'s dogs</h2>
         <div class="dogs">
           <div v-for="dog in dogs" :key="dog.id">
           <div class="oneDog">

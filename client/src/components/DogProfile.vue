@@ -17,7 +17,7 @@
               <th>Age: </th>
               <td v-if="dog!=null">{{ dog.age }} <img :src="edit" class="icons">
                 <input type="age" placeholder="Write new age" v-model="age" required/>
-                <button class="second-btn" id="updateBtn" @click="updateAge()" >Save</button></td>
+                <img src="../assets/save.png" @click="updateAge()" class="icons"></td>
             </tr>
             <tr>
               <th>Diet: </th>
