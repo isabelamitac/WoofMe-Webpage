@@ -15,9 +15,7 @@
             </tr>
             <tr>
               <th>Age: </th>
-              <td v-if="dog!=null">{{ dog.age }} <img :src="edit" class="icons">
-                <input type="age" placeholder="Write new age" v-model="age" required/>
-                <img src="../assets/save.png" @click="updateAge()" class="icons"></td>
+              <td v-if="dog!=null">{{ dog.age }}</td>
             </tr>
             <tr>
               <th>Diet: </th>
@@ -26,9 +24,6 @@
             <tr>
               <th>Owner: </th>
               <td v-if="dog!=null">{{ ownerName }}</td>
-            </tr>
-            <tr>
-              <td v-show="loggedIn">Edit profile</td>
             </tr>
           </table>
         </div>
@@ -40,7 +35,6 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 const placeholder = require('../assets/default-dog-profile.png')
-const icon = require('../assets/edit.png')
 
 export default {
   name: 'dogprofile',
@@ -51,7 +45,6 @@ export default {
   data() {
     return {
       profilePhotoURL: placeholder,
-      edit: icon,
       loggedIn: false, // Access the dogId from route parameters
       dog: '',
       owner: '',
@@ -79,15 +72,6 @@ export default {
               console.error(err)
             })
         })
-    },
-    updateAge() {
-      const newAge = {
-        age: this.age || this.dog.age
-      }
-      Api.patch(`/dogs/${this.dogId}/age`, newAge).then((res) => {
-        console.log(res)
-        location.reload()
-      })
     }
   }
 }

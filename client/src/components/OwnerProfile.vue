@@ -17,9 +17,6 @@
                 <th>Location: </th>
                 <td v-if="owner !=null">{{ owner.location }}</td>
                 </tr>
-                <tr>
-                <td v-show="loggedIn">Edit profile</td>
-                </tr>
             </table>
         </div>
         <h2>{{ owner.name }}'s dogs</h2>

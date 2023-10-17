@@ -131,7 +131,7 @@ export default {
         })
     },
     profileLink(id) {
-      return { name: 'dogprofile', params: { dogId: id } }
+      return { name: 'dogforowner', params: { dogId: id } }
     },
 
     getOwnersPlaydates() {

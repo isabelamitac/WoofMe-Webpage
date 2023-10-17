@@ -6,7 +6,7 @@
                 <input type="date" placeholder="Date" v-model="date" required/>
                 <input type="time" placeholder="Time" v-model="time" required/>
                 <input type="place" placeholder="Place" v-model="place" required/>
-                <button class="second-btn" id="scndBtn-blueBG" @click="createPlaydate()" >Create a new playdate</button>
+                <button class="second-btn" id="scndBtn-blueBG" @click="createPlaydate()" >Create new playdate</button>
             </div>
 
             <div class="formPic">

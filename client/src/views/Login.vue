@@ -107,9 +107,9 @@ export default {
           console.log(res)
         })
         .catch(error => {
-          if (error === 'Owner doesn\'t exist.') {
+          if (error === 'Owner does not exist.') {
             console.log(error)
-            this.$bvModal.msgBoxOk('Owner doesn\'t exist. Create an account first!')
+            this.$bvModal.msgBoxOk('Owner does not exist. Create an account first!')
           }
           if (error === 'Incorrect password') {
             console.log(error)

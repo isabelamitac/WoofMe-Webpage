@@ -27,9 +27,6 @@
               <th>Owner: </th>
               <td v-if="dog!=null">{{ ownerName }}</td>
             </tr>
-            <tr>
-              <td v-show="loggedIn">Edit profile</td>
-            </tr>
           </table>
         </div>
      </div>
@@ -63,16 +60,20 @@ export default {
   },
   methods: {
     getDogInfo() {
-      const ownerId = localStorage.getItem('newOwnerId')
-      Api.get(`/owners/${ownerId}/dogs/${this.dogId}`)
+      Api.get(`/dogs/${this.dogId}`)
         .then((res) => {
           this.dog = res.data
           this.owner = res.data.ownerId
           console.log(this.owner)
-          console.log(this.dog)
-        })
-        .catch((err) => {
-          console.error(err)
+          Api.get(`/owners/${this.owner}`)
+            .then((ownerRes) => {
+              console.log(this.ownerRes)
+              this.ownerName = ownerRes.data.name
+              console.log(this.ownerName)
+            })
+            .catch((err) => {
+              console.error(err)
+            })
         })
     },
 

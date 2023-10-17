@@ -25,9 +25,6 @@
               <th>Rating: </th>
               <td v-if="dogsitter !=null">{{ dogsitter.rating }}</td>
             </tr>
-            <tr>
-              <td v-show="loggedIn">Edit profile</td>
-            </tr>
           </table>
         </div>
         <div class="dogs" v-for="dog in dogs" :key="dog.id">

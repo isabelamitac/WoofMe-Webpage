@@ -62,7 +62,7 @@ export default new Router({
     },
 
     {
-      path: '/profile/:id/dog',
+      path: '/profile/dog/:id',
       name: 'dogforowner',
       component: DogForOwner,
       props: true
