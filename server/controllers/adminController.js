@@ -21,7 +21,7 @@ const createAdmin = async (req, res) => {
     const adminToSave = await admins.save();
     res.status(200).json(adminToSave);
   } catch (error) {
-    res.status(500).json({ message: "Invalid request" });
+    res.status(500).json({ message: "Request is invalid" });
   }
 };
 
