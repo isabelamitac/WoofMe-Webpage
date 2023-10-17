@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h1>Profile of {{ dogsitter.name }}</h1>
+      <h1>Profile of dog sitter {{ dogsitter.name }}</h1>
       <div class="profile">
         <div class="dog-info">
           <img :src = "profilePhotoURL" class="profile-photo">
@@ -15,15 +15,11 @@
             </tr>
             <tr>
               <th>Date: </th>
-              <td v-if="dogsitter !=null">{{ dogsitter.dateAvailable }}
-                <input type="age" placeholder="Write new date" v-model="date" required/>
-                <button class="second-btn" id="updateBtn" @click="updateDate()" >Save date</button></td>
+              <td v-if="dogsitter !=null">{{ dogsitter.dateAvailable }}</td>
             </tr>
             <tr>
               <th>Time: </th>
-              <td v-if="dogsitter !=null">{{ dogsitter.timeAvailable }}
-                <input type="age" placeholder="Write new time" v-model="time" required/>
-                <button class="second-btn" id="updateBtn" @click="updateTime()" >Save time</button></td>
+              <td v-if="dogsitter !=null">{{ dogsitter.timeAvailable }}</td>
             </tr>
             <tr>
               <th>Rating: </th>
@@ -38,16 +34,6 @@
             <div class="oneDog">
                 <img :src = "dogPhotoURL" class="profile-photo"><br />
                 <router-link :to="'/create-dog'" id="resultBtn">{{ dog.name }}</router-link>
-            </div>
-
-            <div class="oneDog">
-                <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
-            </div>
-
-            <div class="oneDog">
-                <img :src = "dogPhotoURL" class="profile-photo"><br />
-                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
             </div>
         </div>
      </div>
@@ -86,15 +72,6 @@ export default {
         .catch((err) => {
           console.error(err)
         })
-    },
-    updateTime() {
-      const newTime = {
-        timeAvailable: this.timeAvailable || this.dogsitter.timeAvailable
-      }
-      Api.patch(`/dogsitters/${this.dogsitterId}/time`, newTime).then((res) => {
-        console.log(res)
-        location.reload()
-      })
     }
   }
 }

@@ -60,7 +60,7 @@ export default new Router({
     },
 
     {
-      path: '/dog-for-owner',
+      path: '/profile/:id/dog',
       name: 'dogforowner',
       component: DogForOwner,
       props: true

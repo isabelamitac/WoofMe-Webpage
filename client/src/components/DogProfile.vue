@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h1>Profile of {{ dog.name }}</h1>
+      <h1>Profile of dog {{ dog.name }}</h1>
       <div class="profile">
         <div class="dog-info">
           <img :src = "this.profilePhotoURL" class="profile-photo">

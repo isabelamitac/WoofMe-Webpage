@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h1>Profile of {{ owner.name }}</h1>
+      <h1>Profile of dog owner {{ owner.name }}</h1>
       <div class="profile">
         <div class="dog-info">
           <img :src = "profilePhotoURL" class="profile-photo">
@@ -22,21 +22,14 @@
                 </tr>
             </table>
         </div>
-        <div class="dogs" v-for="dog in dogs" :key="dog.id">
-            <div class="oneDog">
-                <img :src = "dogPhotoURL" style="width: 15rem;"><br />
-                <router-link :to="profileLink(dog._id)" id="resultBtn">{{ dog.name }}</router-link>
-            </div>
-
-            <div class="oneDog">
-                <img :src = "dogPhotoURL" style="width: 15rem;"><br />
-                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
-            </div>
-
-            <div class="oneDog">
-                <img :src = "dogPhotoURL" style="width: 15rem;"><br />
-                <router-link :to="'/create-dog'" id="resultBtn">Add dog</router-link>
-            </div>
+        <div class="dogs">
+          <div v-for="dog in dogs" :key="dog.id">
+          <div class="oneDog">
+            <img :src = "dogPhotoURL" style="width: 15rem;"><br />
+            <h3>{{ dog.name }}</h3>
+            <router-link :to="profileLink(dog._id)" id="editProfileBtn">View profile</router-link>
+          </div>
+        </div>
         </div>
      </div>
     </div>

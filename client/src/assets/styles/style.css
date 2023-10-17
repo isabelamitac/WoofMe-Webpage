@@ -6,6 +6,7 @@
   font-size: 1rem;
   line-height: 2rem;
   scroll-behavior: smooth;
+  font-weight: 400;
 }
 
 h1,
@@ -25,7 +26,6 @@ h3 {
 }
 
 th {
-  font-weight: black;
   padding-right: 5rem;
   width: 8rem;
 }
