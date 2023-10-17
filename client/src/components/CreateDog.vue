@@ -50,7 +50,7 @@ export default {
           this.$bvModal.msgBoxOk('Dog has been created!')
           const createdDogId = res.data._id
           this.fetchDogProfile(createdDogId)
-          this.$router.push(`/owners/${ownerId}`, this.$router.go(0))
+          this.$router.push('/owner')
         })
         .catch(err => {
           this.message = err

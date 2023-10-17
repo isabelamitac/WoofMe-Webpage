@@ -27,7 +27,6 @@
         <input type="update" placeholder="Email" v-model="email" required/> <br />
         <button class="second-btn" id="saveBtn" @click="updateOwner()">Save changes</button>
         <button class="second-btn" id="saveBtn"><router-link to="/create-dog" id="link">Add dogs</router-link></button>
-        <button class="second-btn" id="saveBtn"><router-link to="/create-playdate" id="link">Create playdate</router-link></button>
         <button class="second-btn" id="deleteBtn" @click="deleteOwner()">Delete profile</button>
       </div>
       <h2>Your dogs</h2>
@@ -37,15 +36,6 @@
             <img :src = "dogPhotoURL" style="width: 15rem;"><br />
             <h3>{{ dog.name }}</h3>
             <router-link :to="profileLink(dog._id)" id="editProfileBtn">Edit profile</router-link>
-          </div>
-        </div>
-      </div>
-      <h2>Your playdates</h2>
-      <div class="dogs">
-        <div v-for="playdate in playdates" :key="playdate.id">
-          <div class="oneDog">
-            <img :src = "dogPhotoURL" style="width: 15rem;"><br />
-            <h3>{{ playdate.date }} {{ playdate.time }}</h3>
           </div>
         </div>
       </div>
@@ -69,14 +59,12 @@ export default {
       owner: {},
       profilePhotoURL: ownerPlaceholder,
       dogPhotoURL: dogPlaceholder,
-      dogs: [],
-      playdates: []
+      dogs: []
     }
   },
   created() {
     this.getOwnerInfo()
     this.getOwnersDogs()
-    this.getOwnersPlaydates()
   },
   methods: {
     getOwnerInfo() {
@@ -132,18 +120,6 @@ export default {
     },
     profileLink(id) {
       return { name: 'dogforowner', params: { dogId: id } }
-    },
-
-    getOwnersPlaydates() {
-      const ownerId = localStorage.getItem('newOwnerId')
-      Api.get(`/owners/${ownerId}/playdates`)
-        .then((res) => {
-          this.playdates = res.data
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     }
   }
 }
