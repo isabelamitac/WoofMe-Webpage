@@ -3,7 +3,11 @@
       <div class="container">
       <h1>Welcome to your admin page</h1>
     <br>
+    <login></login>
+    <br />
+    <div v-show="loggedIn">
     <button class="second-btn" @click="deleteDogsitters()" >Delete all dogsitters</button> <br/>
+    </div>
     <br />
 </div>
 </div>
@@ -11,9 +15,13 @@
 
 <script>
 import { Api } from '@/Api'
+import Login from '../components/Login.vue'
 
 export default {
   name: 'admin',
+  components: {
+    Login
+  },
   data() {
     return {
       name: '',

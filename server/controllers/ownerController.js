@@ -3,10 +3,12 @@ const Dogs = require("../models/dogModel");
 const Playdates = require("../models/playdateModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const { decode } = require("punycode");
 const { createDecipher } = require("crypto");
-const secretKey = 'MIHcAgEBBEIBOAYfnZcYKixaw9FqDWC1gNhW4GHlpZSjMyL+Bf4eo5TgsJ78xPSXbwpSNohCjeh2R2pjsdhv5DcXwww==';
+const secretKey = process.env.secretKey;
+// const apiKey = process.env.API_KEY;
 
 //OWNERS
 
