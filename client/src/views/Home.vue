@@ -23,7 +23,8 @@ export default {
   data() {
     return {
       message: 'none',
-      image: photo1
+      image: photo1,
+      userInput: ''
     }
   },
   methods: {
