@@ -89,6 +89,17 @@ input[type="age"] {
   border-bottom: solid 1px #4B6F6F;
 }
 
+input[type="search"] {
+  padding: 1rem;
+  max-width: 100%;
+  width: 80%;
+  background-color: #E8E8E8;
+  color: #000000;
+  border: none;
+  margin-bottom: 5% !important;
+  margin-right: 5% !important;
+}
+
 input[type="update"] {
   width: 15rem;
   color: #4B6F6F;
@@ -340,16 +351,20 @@ input[type="update"] {
 }
 
 #aboutUs {
-  width: 40%;
   margin-left: 5rem;
+  max-width: 100%;
+  width: 40%;
 }
 
 .aboutUs {
   display: flex;
   flex-direction: row;
-  padding: 1rem;
-  margin: 0 5rem;
+  margin: 0;
   align-items: center;
+}
+
+.text {
+  margin-left: 10%;
 }
 
 .login-container {
@@ -463,6 +478,14 @@ input[type="update"] {
   #updateBtn {
     margin-top: 0.5rem;
     margin-left: 0;
+  }
+
+  .text {
+    margin-left: 2rem;
+  }
+
+  #aboutUs {
+    margin-left: 2rem;
   }
 
   .section1 {

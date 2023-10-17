@@ -6,7 +6,7 @@
       </div>
       <div class="home">
         <h1>Find your furry friends</h1>
-        <input v-model="userInput" type="text" placeholder="What are you looking for?" required/>
+        <input v-model="userInput" type="search" placeholder="What are you looking for?" required/>
         <router-link class="second-btn" to="/search">Search</router-link>
       </div>
     </div>
