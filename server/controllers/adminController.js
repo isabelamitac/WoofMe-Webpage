@@ -1,7 +1,7 @@
 const Admins = require('../models/adminModel');
 
 const createAdmin = async (req, res) => {
-  console.log(req);
+  //console.log(req);
   const admins = new Admins({
     name: req.body.name,
     email: req.body.email,
