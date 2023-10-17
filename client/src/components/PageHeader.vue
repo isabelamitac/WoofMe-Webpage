@@ -6,7 +6,7 @@
       <img class="top-logo" src="../assets/woof-me-logo.png">
         <div class="navbar">
             <router-link class="navlink" to="/">Home</router-link>
-            <router-link class="navlink" to="/login">Profile</router-link>
+            <router-link class="navlink" :to="getPath()">Profile</router-link>
             <router-link class="navlink" to="/search">Search</router-link>
             <router-link class="navlink" to="/chat">Chat</router-link>
             <router-link class="navlink" to="/about-us">About us</router-link>
@@ -22,6 +22,18 @@ export default {
   name: 'PageHeader',
   components: {
     LogOut
+  // },
+  // methods: {
+  //   getPath() {
+  //     let path = ''
+  //     const userID = localStorage.getItem('loggedInUserID')
+  //     if (userID) {
+  //       path = `/owners/${userID}`
+  //     } else {
+  //       path = '/login'
+  //     }
+  //     return path
+  //   }
   }
 }
 </script>
