@@ -1,5 +1,5 @@
 <template>
-    <img @cliclk='logOut()' src ="../assets/logout.png" class="logout">
+    <img @cliclk='logOut()' src ="../assets/logout.png" class="icons">
 </template>
 
 <script>

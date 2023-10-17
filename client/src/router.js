@@ -14,6 +14,7 @@ import Admin from './views/Admin.vue'
 import Chat from './views/Chat.vue'
 import AboutUs from './views/AboutUs.vue'
 import AdminLogin from './views/AdminLogin.vue'
+import CreatePlaydate from './components/CreatePlaydate.vue'
 
 Vue.use(Router)
 
@@ -107,6 +108,12 @@ export default new Router({
       path: '/about-us',
       name: 'about-us',
       component: AboutUs
+    },
+
+    {
+      path: '/create-playdate',
+      name: 'create-playdate',
+      component: CreatePlaydate
     }
   ]
 })
