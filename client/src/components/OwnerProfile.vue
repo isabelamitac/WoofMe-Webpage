@@ -77,8 +77,8 @@ export default {
           console.log(err)
         })
     },
-    profileLink(id) {
-      return { name: 'dogprofile', params: { dogId: id } }
+    profileLink() {
+      return { name: 'dogprofile' }
     }
   }
 }
