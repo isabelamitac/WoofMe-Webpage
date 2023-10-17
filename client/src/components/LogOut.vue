@@ -1,5 +1,5 @@
 <template>
-    <img @cliclk='logOut()' src ="../assets/logout.png" class="icons">
+    <img @click='logOut()' src ="../assets/logout.png" class="icons">
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default ({
       this.$bvModal.msgBoxOk('User logged out!')
       localStorage.setItem('token', '')
       localStorage.setItem('loggedInUserID', '')
-      this.$router.push('/home')
+      this.$router.push('/')
     }
   }
 })
