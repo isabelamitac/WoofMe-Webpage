@@ -22,7 +22,7 @@ Woof me is a website for dog owners and dog lovers. The main purpose of the webs
 (to be updated)
 ![Teaser](./images/teaser.png)
 
-##Contributors
-Anna Mäkinen
-Milena Mackowiak
-Oana Isabela Mitac
+## Contributors
+* Anna Mäkinen
+* Milena Mackowiak
+* Oana Isabela Mitac
